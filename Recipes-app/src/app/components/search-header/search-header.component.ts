@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipesService } from '../../services/recipes/recipes.service';
 // import { FormsModule } from '@angular/forms';
 // import { MatFormFieldModule } from '@angular/material/form-field';
 // import { MatInputModule } from '@angular/material/input';
@@ -18,7 +19,7 @@ export class SearchHeaderComponent implements OnInit {
   // 1. get content for main - https://api.spoonacular.com/recipes/search_API_KEY&instructionsRequired=true&query=pancake&number=2
   // 2. get recepes with steps - https://api.spoonacular.com/recipes/677465/information_API_KEY
 
-  constructor() { }
+  constructor(public recipesService: RecipesService) { }
 
   public ngOnInit(): void { }
 
@@ -28,7 +29,8 @@ export class SearchHeaderComponent implements OnInit {
 		console.log(response);
 		}).catch((error: Error) => {
 		console.log(error);
-		});
+	});
+	this.recipesService.showList();
   }
 
   public getRequest(url: string): Promise<any> {
