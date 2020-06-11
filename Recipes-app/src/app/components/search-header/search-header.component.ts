@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+// import { FormsModule } from '@angular/forms';
+// import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatInputModule } from '@angular/material/input';
 
 @Component({
   selector: 'app-search-header',
@@ -9,6 +12,8 @@ export class SearchHeaderComponent implements OnInit {
 
   private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
 
+  public searchString: string = '';
+
   // prefate requests for:
   // 1. get content for main - https://api.spoonacular.com/recipes/search_API_KEY&instructionsRequired=true&query=pancake&number=2
   // 2. get recepes with steps - https://api.spoonacular.com/recipes/677465/information_API_KEY
@@ -18,7 +23,7 @@ export class SearchHeaderComponent implements OnInit {
   public ngOnInit(): void { }
 
   public searchRecipes(searchString: string): void {
-	this.getRequest(`https://api.spoonacular.com/recipes/search${this._API_KEY}&instructionsRequired=true&query=pancake&number=2`)
+	this.getRequest(`https://api.spoonacular.com/recipes/search${this._API_KEY}&instructionsRequired=true&query=${searchString}&number=2`)
 		.then((response: Response) => {
 		console.log(response);
 		}).catch((error: Error) => {

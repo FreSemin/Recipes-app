@@ -1,3 +1,11 @@
 <p>search-header works!</p>
 
-<button (click)="searchRecipes('value from input')">button find recipes</button>
+
+<div class="search-box">
+  <mat-form-field class="example-full-width">
+    <mat-label>Search</mat-label>
+    <input matInput [(ngModel)]="searchString">
+  </mat-form-field>
+</div>
+
+<button (click)="searchRecipes(searchString)">button find recipes</button>
