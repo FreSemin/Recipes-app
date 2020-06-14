@@ -1,12 +1,21 @@
 <div class="search-box">
   <div class="search-box__container">
 
+    <div class="search-box__header">
+      <div class="search-box__joke">
+        <p>
+          {{ recipesService.jokeStr }}
+        </p>
+      </div>
+    </div>
+
     <div class="search-box__search">
       <mat-form-field>
         <mat-label>Search</mat-label>
         <input matInput [(ngModel)]="recipesService.searchString">
       </mat-form-field>
-      <button (click)="recipesService.onSearchRecipes(recipesService.searchString)">button find recipes</button>
+      <button mat-raised-button (click)="recipesService.onSearchRecipes(recipesService.searchString)">button find
+        recipes</button>
     </div>
 
   </div>

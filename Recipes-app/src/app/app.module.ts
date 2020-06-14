@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { SearchHeaderComponent } from './components/search-header/search-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SideBarComponent } from './components/side-bar/side-bar.component';
@@ -28,6 +29,7 @@ import { RecipesService } from './services/recipes/recipes.service';
 		HttpClientModule,
 		MatFormFieldModule,
 		MatInputModule,
+		MatButtonModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
 	],
