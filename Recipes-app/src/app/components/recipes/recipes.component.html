@@ -1,7 +1,5 @@
-<p>recipes works!</p>
-
 <div class="recipes-box">
   <div class="recipes__cards">
-    <app-recipes-card *ngFor="let rRecipe of recipesService.recipesResultArr; let i = index" [recipe]="rRecipe"></app-recipes-card>
+    <app-recipes-card *ngFor="let recipeEl of recipesService.recipeResults;" [recipe]="recipeEl"></app-recipes-card>
   </div>
 </div>

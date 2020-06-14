@@ -1,0 +1,23 @@
+.recipes {
+}
+.recipes__header {
+  display: flex;
+  justify-content: center;
+
+  h1 {
+    text-transform: uppercase;
+  }
+}
+.recipes__container {
+  width: 100%;
+  display: flex;
+}
+.recipes__side-bar {
+}
+.recipes__content {
+  width: 100%;
+}
+.recipes__content_header {
+}
+.recipes__content_body {
+}

@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-side-bar',
-  templateUrl: './side-bar.component.html',
-  styleUrls: ['./side-bar.component.scss']
+	selector: 'app-side-bar',
+	templateUrl: './side-bar.component.html',
+	styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent implements OnInit {
 
-  constructor() { }
+	// tslint:disable-next-line: no-empty
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	// tslint:disable-next-line: no-empty
+	public ngOnInit(): void {
+	}
 
 }

@@ -1,0 +1,14 @@
+.search-box {
+  width: 100%;
+}
+.search-box__container {
+  // width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid red;
+}
+.search-box__search {
+}
+.example-full-width {
+}

@@ -1,18 +1,22 @@
-<h1>app component works!</h1>
-
 <div class="recipes">
-  <div class="recipes__side-bar">
-    <app-side-bar></app-side-bar>
+
+  <div class="recipes__header">
+    <h1>Recipes app</h1>
   </div>
+  <div class="recipes__container">
 
-  <div class="recipes__content">
-    <div class="recipes__content_header">
-      <app-search-header></app-search-header>
+    <div class="recipes__side-bar">
+      <app-side-bar></app-side-bar>
     </div>
-    <div class="recipes__content_body">
-      <app-recipes></app-recipes>
+
+    <div class="recipes__content">
+      <div class="recipes__content_header">
+        <app-search-header></app-search-header>
+      </div>
+      <div class="recipes__content_body">
+        <app-recipes></app-recipes>
+      </div>
     </div>
+
   </div>
-
-
 </div>

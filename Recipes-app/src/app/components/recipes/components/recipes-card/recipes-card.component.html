@@ -1,5 +1,9 @@
-<p>recipes-card works!</p>
-
 <div class="recipe-card">
-  <h1>Recipe Title: {{ recipe.name }}</h1>
+  <h1>Recipe id: {{ recipe.id }}</h1>
+  <h1>Recipe image: {{ recipe.image }}</h1>
+  <img [src]="recipe.image" alt="">
+  <h1>Recipe readyInMinutes: {{ recipe.readyInMinutes }}</h1>
+  <h1>Recipe servings: {{ recipe.servings }}</h1>
+  <h1>Recipe sourceUrl: {{ recipe.sourceUrl }}</h1>
+  <h1>Recipe title: {{ recipe.title }}</h1>
 </div>
