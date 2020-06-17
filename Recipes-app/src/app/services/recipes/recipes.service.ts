@@ -20,12 +20,18 @@ export class RecipesService implements OnInit {
 	public recipeBook: RecipeBook = null;
 	public recipeResults: Recipe[] = [];
 
+	public isSideBarEnabled: boolean = false;
+
+	public isRecipesListLoading: boolean = false;
+
 	constructor(private _http: HttpClient) { }
 
 	public searchRecipes(searchString: string): void {
-		this._http.get<RecipeBook>(`https://api.spoonacular.com/recipes/search${this._API_KEY}&instructionsRequired=true&query=${searchString}&number=5`)
+		this.isRecipesListLoading = true;
+		this._http.get<RecipeBook>(`https://api.spoonacular.com/recipes/search${this._API_KEY}&instructionsRequired=true&query=${searchString}&number=15`)
 			.subscribe((data: RecipeBook) => {
 				this.recipeBook = new RecipeBook(data);
+				this.isRecipesListLoading = false;
 				this.showList();
 			});
 	}
@@ -48,5 +54,9 @@ export class RecipesService implements OnInit {
 		});
 	}
 
-	public ngOnInit(): void {}
+	public sideBarToggel(): void {
+		this.isSideBarEnabled = !this.isSideBarEnabled;
+	}
+
+	public ngOnInit(): void { }
 }

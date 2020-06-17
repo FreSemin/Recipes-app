@@ -1,5 +1,8 @@
 <div class="recipes-box">
   <div class="recipes__cards">
+    <div class="recipes__loader" *ngIf="recipesService.isRecipesListLoading">
+      loading...
+    </div>
     <app-recipes-card *ngFor="let recipeEl of recipesService.recipeResults;" [recipe]="recipeEl"></app-recipes-card>
   </div>
 </div>

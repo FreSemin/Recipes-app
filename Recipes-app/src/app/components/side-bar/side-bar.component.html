@@ -1,11 +1,24 @@
-<div class="recipes-side-bar">
+
+
+<div class="recipes-side-bar" [ngClass]="{
+  'recipes-side-bar_active': recipesService.isSideBarEnabled
+}">
   <div class="recipes-side-bar__box">
-    <div class="recipes-side-bar__container">
-      <button>
-        button favourite
+
+    <div class="recipes-side-bar__nav" [ngClass]="{
+      'recipes-side-bar_nav-active': recipesService.isSideBarEnabled
+    }">
+      <button class="recipes-side-bar__nav-button" (click)="recipesService.sideBarToggel()">
+        <i class="fas fa-angle-up"></i>
       </button>
-      <button>
-        button latest
+    </div>
+
+    <div class="recipes-side-bar__container">
+      <button mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_red">
+        <i class="fas fa-heart"></i> favourite recipes
+      </button>
+      <button mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_blue">
+        <i class="fas fa-clipboard"></i> latest recipes
       </button>
     </div>
   </div>

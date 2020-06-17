@@ -17,7 +17,7 @@ export class Recipe implements IRecipe {
 
 	constructor(recipe: IRecipe) {
 		this.id = recipe.id;
-		this.image = `https://spoonacular.com/recipeImages/${this.id}-312x150.jpg`;
+		this.image = `https://spoonacular.com/recipeImages/${this.id}-636x393.jpg`;
 		this.readyInMinutes = recipe.readyInMinutes;
 		this.servings = recipe.servings;
 		this.sourceUrl = recipe.sourceUrl;

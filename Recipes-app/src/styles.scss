@@ -1,4 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+@import './variables.scss';
 
-html, body { height: 100%; }
+// null styles
+* {
+  margin: 0;
+  padding: 0;
+}
+a:focus,
+a:active {
+  outline: none;
+}
+button {
+  cursor: pointer;
+  outline: none;
+}
+a,
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+ul li {
+  list-style: none;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  background: $bg-white;
+  // font-family: "Dosis", sans-serif;
+  // font-weight: 400;
+}
+
+// html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

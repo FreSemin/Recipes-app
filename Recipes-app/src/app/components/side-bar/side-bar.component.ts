@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RecipesService } from 'src/app/services/recipes/recipes.service';
 
 @Component({
 	selector: 'app-side-bar',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class SideBarComponent implements OnInit {
 
 	// tslint:disable-next-line: no-empty
-	constructor() { }
+	constructor(public recipesService: RecipesService) { }
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void {

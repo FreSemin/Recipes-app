@@ -1,21 +1,19 @@
 .recipes {
 }
-.recipes__header {
-  display: flex;
-  justify-content: center;
-
-  h1 {
-    text-transform: uppercase;
-  }
-}
 .recipes__container {
-  width: 100%;
+  margin: 0 auto;
+  position: relative;
   display: flex;
+  width: 100%;
+  align-items: stretch;
+  max-width: 1290px;
 }
 .recipes__side-bar {
 }
 .recipes__content {
+  margin: 0 auto;
   width: 100%;
+  max-width: 1290px;
 }
 .recipes__content_header {
 }

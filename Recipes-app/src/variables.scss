@@ -1,0 +1,21 @@
+// bg
+$bg-gradient-orange: linear-gradient(
+  90deg,
+  rgba(255, 122, 46, 1) 0%,
+  rgba(255, 105, 41, 1) 100%
+);
+$bg-grey: #f5f5f5;
+$bg-white: #fff;
+$bg-dark: #2d3436;
+
+// text colors
+$text-white: #fff;
+$text-red: #d63031;
+$text-blue: #0984e3;
+
+// box shadow color
+$blocks-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2),
+  0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+
+// ff7a2e  orange 1
+// ff6929  orange 2

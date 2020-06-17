@@ -2,6 +2,9 @@
   <div class="search-box__container">
 
     <div class="search-box__header">
+      <div class="search-box__title">
+        <h1>Find your today recipe</h1>
+      </div>
       <div class="search-box__joke">
         <p>
           {{ recipesService.jokeStr }}
@@ -14,8 +17,9 @@
         <mat-label>Search</mat-label>
         <input matInput [(ngModel)]="recipesService.searchString">
       </mat-form-field>
-      <button mat-raised-button (click)="recipesService.onSearchRecipes(recipesService.searchString)">button find
-        recipes</button>
+      <button mat-raised-button (click)="recipesService.onSearchRecipes(recipesService.searchString)">
+        find recipes
+      </button>
     </div>
 
   </div>
