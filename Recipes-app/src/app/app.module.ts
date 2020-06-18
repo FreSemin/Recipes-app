@@ -5,15 +5,20 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { SearchHeaderComponent } from './components/search-header/search-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { SideBarComponent } from './components/side-bar/side-bar.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { RecipesCardComponent } from './components/recipes/components/recipes-card/recipes-card.component';
 import { RecipesService } from './services/recipes/recipes.service';
+import { HomeComponent } from './components/home/home.component';
+import { FavouriteComponent } from './components/favourite/favourite.component';
+import { RecipesDataService } from './services/recipes-data/recipes-data.service';
 
 @NgModule({
 	declarations: [
@@ -21,7 +26,9 @@ import { RecipesService } from './services/recipes/recipes.service';
 		SearchHeaderComponent,
 		SideBarComponent,
 		RecipesComponent,
-		RecipesCardComponent
+		RecipesCardComponent,
+		HomeComponent,
+		FavouriteComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -33,7 +40,7 @@ import { RecipesService } from './services/recipes/recipes.service';
 		BrowserAnimationsModule,
 		AppRoutingModule,
 	],
-	providers: [RecipesService],
+	providers: [RecipesService, RecipesDataService],
 	bootstrap: [AppComponent]
 })
 export class AppModule { }

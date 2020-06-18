@@ -3,12 +3,14 @@ import { Recipe } from '../../components/recipes/models/recipe/recipe';
 import { HttpClient } from '@angular/common/http';
 import { RecipeBook } from 'src/app/components/recipes/models/recipes-book/recipes-book';
 import { RecipeJoke } from 'src/app/components/recipes/models/recipe-joke/recipe-joke';
+import { RecipesDataService } from '../recipes-data/recipes-data.service';
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class RecipesService implements OnInit {
 	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
+	private _recipeListKey: string = 'app-recipes-list';
 
 	public searchString: string = '';
 	public jokeStr: string = '';
@@ -26,12 +28,18 @@ export class RecipesService implements OnInit {
 
 	public isRecipesListLoading: boolean = false;
 
-	constructor(private _http: HttpClient) { }
+	// public recipesDataService: RecipesDataService = new RecipesDataService();
+
+	constructor(private _http: HttpClient, public recipesDataService: RecipesDataService) {}
 
 	public searchRecipes(searchString: string): void {
 		this.isRecipesListLoading = true;
-		this._http.get<RecipeBook>(`https://api.spoonacular.com/recipes/search${this._API_KEY}&instructionsRequired=true&query=${searchString}&number=15`)
+		this._http
+			.get<RecipeBook>(
+				`https://api.spoonacular.com/recipes/search${this._API_KEY}&instructionsRequired=true&query=${searchString}&number=15`
+			)
 			.subscribe((data: RecipeBook) => {
+				this.searchString = '';
 				this.recipeBook = new RecipeBook(data);
 				this.isRecipesListLoading = false;
 				this.showList();
@@ -50,20 +58,28 @@ export class RecipesService implements OnInit {
 	}
 
 	public getRandomJoke(): void {
-		this._http.get<RecipeJoke>(`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`).subscribe((joke: RecipeJoke) => {
-			this.jokeStr = joke.text;
-			console.log(joke);
-		});
+		this._http
+			.get<RecipeJoke>(
+				`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
+			)
+			.subscribe((joke: RecipeJoke) => {
+				this.jokeStr = joke.text;
+			});
 	}
 
 	public addToFavourite(recipe: Recipe): void {
-		this.favouriteRecipes.push(recipe);
-		console.log(recipe);
+		this.recipesDataService.favouriteResipesList.push(recipe);
+		// localStorage.setItem();
 	}
 
 	public sideBarToggel(): void {
 		this.isSideBarEnabled = !this.isSideBarEnabled;
 	}
 
-	public ngOnInit(): void { }
+	public saveFavouriteResipesToLS(): void {
+		// this.is
+	}
+
+	// tslint:disable-next-line: no-empty
+	public ngOnInit(): void {}
 }

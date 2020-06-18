@@ -12,12 +12,20 @@
     </div>
 
     <div class="recipes-side-bar__container">
+      <button mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_blue">
+        <a class="app-main__menu-item" routerLink=''>
+          home
+        </a>
+      </button>
       <button mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_red">
-        <i class="fas fa-heart"></i> favourite recipes
+        <a class="app-main__menu-item" routerLink='/favourite'>
+          <i class="fas fa-heart"></i> favourite recipes
+        </a>
       </button>
       <button mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_blue">
         <i class="fas fa-clipboard"></i> latest recipes
       </button>
+      
     </div>
   </div>
 </div>
