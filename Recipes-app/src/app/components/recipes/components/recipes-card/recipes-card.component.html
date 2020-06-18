@@ -1,6 +1,4 @@
 <div class="recipe-card">
-  <!-- <h1>Recipe id: {{ recipe.id }}</h1> -->
-  <!-- <h1>Recipe image: {{ recipe.image }}</h1> -->
 
   <div class="recipe-card__header">
     <div class="recipe-card__header-img">
@@ -9,21 +7,29 @@
   </div>
 
   <div class="recipe-card__body">
-    <div class="recipe-card__title">
-      <h1>{{ recipe.title }}</h1>
-    </div>
+    <div class="recipe-card__body-cont" *ngIf="!recipe.recipeWithDetails">
 
-    <div class="recipe-card__inf">
-      <div class="recipe-card__inf-element">
-        <p>(icon) Recipe readyInMinutes: {{ recipe.readyInMinutes }}</p>
+      <div class="recipe-card__title">
+        <h1>{{ recipe.title }}</h1>
       </div>
-      <div class="recipe-card__inf-element">
-        <p>(icon) Recipe servings: {{ recipe.servings }}</p>
+
+      <div class="recipe-card__inf">
+        <div class="recipe-card__inf-element">
+          <p>Recipe readyInMinutes: {{ recipe.readyInMinutes }}</p>
+        </div>
+        <div class="recipe-card__inf-element">
+          <p>Recipe servings: {{ recipe.servings }}</p>
+        </div>
+      </div>
+
+      <div class="recipe-card__source">
+        <a [href]="recipe.sourceUrl">Recipe source</a>
       </div>
     </div>
-
-    <div class="recipe-card__source">
-      <a [href]="recipe.sourceUrl">Recipe source</a>
+    <div>
+      <button mat-raised-button (click)="addRecipeToFavourite()">
+        add to favorite :3
+      </button>
     </div>
   </div>
 

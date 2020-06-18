@@ -20,6 +20,8 @@ export class RecipesService implements OnInit {
 	public recipeBook: RecipeBook = null;
 	public recipeResults: Recipe[] = [];
 
+	public favouriteRecipes: Recipe[] = [];
+
 	public isSideBarEnabled: boolean = false;
 
 	public isRecipesListLoading: boolean = false;
@@ -52,6 +54,11 @@ export class RecipesService implements OnInit {
 			this.jokeStr = joke.text;
 			console.log(joke);
 		});
+	}
+
+	public addToFavourite(recipe: Recipe): void {
+		this.favouriteRecipes.push(recipe);
+		console.log(recipe);
 	}
 
 	public sideBarToggel(): void {

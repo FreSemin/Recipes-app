@@ -4,7 +4,8 @@ interface IRecipe {
 	readyInMinutes: number;
 	servings: number;
 	sourceUrl: string;
-	title: string;
+  title: string;
+  recipeWithDetails: boolean;
 }
 
 export class Recipe implements IRecipe {
@@ -13,7 +14,8 @@ export class Recipe implements IRecipe {
 	public readyInMinutes: number = null;
 	public servings: number = null;
 	public sourceUrl: string = null;
-	public title: string = null;
+  public title: string = null;
+  public recipeWithDetails: boolean = false;
 
 	constructor(recipe: IRecipe) {
 		this.id = recipe.id;

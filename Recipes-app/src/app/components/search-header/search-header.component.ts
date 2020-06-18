@@ -11,8 +11,8 @@ export class SearchHeaderComponent implements OnInit {
 	constructor(public recipesService: RecipesService) { }
 
 	// tslint:disable-next-line: no-empty
-  public ngOnInit(): void {
-    this.recipesService.getRandomJoke();
-  }
+	public ngOnInit(): void {
+		this.recipesService.getRandomJoke();
+	}
 
 }

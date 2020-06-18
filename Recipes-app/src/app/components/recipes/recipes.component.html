@@ -3,6 +3,8 @@
     <div class="recipes__loader" *ngIf="recipesService.isRecipesListLoading">
       loading...
     </div>
-    <app-recipes-card *ngFor="let recipeEl of recipesService.recipeResults;" [recipe]="recipeEl"></app-recipes-card>
+    <app-recipes-card *ngFor="let recipeEl of recipesService.recipeResults;"
+    [recipe]="recipeEl" (onAddRecipeToFavourite)="recipesService.addToFavourite($event)"
+    ></app-recipes-card>
   </div>
 </div>

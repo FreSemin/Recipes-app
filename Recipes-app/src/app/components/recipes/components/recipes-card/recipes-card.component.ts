@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import Recipe from '../../models/recipe/recipe';
 
 @Component({
@@ -11,8 +11,15 @@ export class RecipesCardComponent implements OnInit {
 	@Input()
 	public recipe: Recipe;
 
+	@Output()
+	public onAddRecipeToFavourite: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+
 	// tslint:disable-next-line: no-empty
 	constructor() { }
+
+	public addRecipeToFavourite(): void {
+		this.onAddRecipeToFavourite.emit(this.recipe);
+	}
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void {
