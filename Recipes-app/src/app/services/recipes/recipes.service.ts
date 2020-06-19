@@ -30,9 +30,10 @@ export class RecipesService implements OnInit {
 
 	// public recipesDataService: RecipesDataService = new RecipesDataService();
 
-	constructor(private _http: HttpClient, public recipesDataService: RecipesDataService) {}
+	constructor(private _http: HttpClient, public recipesDataService: RecipesDataService) { }
 
 	public searchRecipes(searchString: string): void {
+		this.recipeResults = [];
 		this.isRecipesListLoading = true;
 		this._http
 			.get<RecipeBook>(
@@ -47,10 +48,15 @@ export class RecipesService implements OnInit {
 	}
 
 	public showList(): void {
+		this.recipesDataService.loadLSRecipes();
+
 		this.recipeResults = [];
 		this.recipeBook.results.forEach((element: Recipe) => {
 			this.recipeResults.push(new Recipe(element));
 		});
+
+		this.recipesDataService.loadLSRecipes();
+
 	}
 
 	public onSearchRecipes(searchStr: string): void {
@@ -68,18 +74,13 @@ export class RecipesService implements OnInit {
 	}
 
 	public addToFavourite(recipe: Recipe): void {
-		this.recipesDataService.favouriteResipesList.push(recipe);
-		// localStorage.setItem();
+		this.recipesDataService.addToFavorite(recipe);
 	}
 
 	public sideBarToggel(): void {
 		this.isSideBarEnabled = !this.isSideBarEnabled;
 	}
 
-	public saveFavouriteResipesToLS(): void {
-		// this.is
-	}
-
 	// tslint:disable-next-line: no-empty
-	public ngOnInit(): void {}
+	public ngOnInit(): void { }
 }

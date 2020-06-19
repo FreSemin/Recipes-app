@@ -14,6 +14,9 @@ export class RecipesCardComponent implements OnInit {
 	@Output()
 	public onAddRecipeToFavourite: EventEmitter<Recipe> = new EventEmitter<Recipe>();
 
+	@Input()
+	public favouriteCardStructure: HTMLElement = null;
+
 	// tslint:disable-next-line: no-empty
 	constructor() { }
 

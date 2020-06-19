@@ -6,4 +6,8 @@
 }
 .recipes__cards {
   padding: 25px 0 30px 0;
+
+  &_favourites {
+    display: flex;
+  }
 }

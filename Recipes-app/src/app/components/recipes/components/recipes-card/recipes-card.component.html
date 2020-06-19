@@ -27,10 +27,20 @@
       </div>
     </div>
     <div>
-      <button mat-raised-button (click)="addRecipeToFavourite()">
-        add to favorite :3
-      </button>
+      <ng-container>
+        <div *ngTemplateOutlet="favouriteCardStructure || defaultSearchCard">
+
+        </div>
+      </ng-container>
+
     </div>
   </div>
 
 </div>
+
+
+<ng-template #defaultSearchCard>
+  <button mat-raised-button (click)="addRecipeToFavourite()">
+    add to favorite :3
+  </button>
+</ng-template>

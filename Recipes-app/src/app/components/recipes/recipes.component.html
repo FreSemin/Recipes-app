@@ -3,8 +3,26 @@
     <div class="recipes__loader" *ngIf="recipesService.isRecipesListLoading">
       loading...
     </div>
-    <app-recipes-card *ngFor="let recipeEl of recipesService.recipeResults;"
-    [recipe]="recipeEl" (onAddRecipeToFavourite)="recipesService.addToFavourite($event)"
-    ></app-recipes-card>
+
+    <div [ngClass]="{
+      'recipes__cards_favourites': (recipesDataService.favouriteRecipesList.length !== 0) ? true : false
+    }">
+      <app-recipes-card *ngFor="let recipeEl of recipesService.recipeResults;" [recipe]="recipeEl"
+      (onAddRecipeToFavourite)="recipesService.addToFavourite($event)"
+      [favouriteCardStructure]="(recipesDataService.favouriteRecipesList.includes(recipeEl)) ? favouriteCard : null"
+      ></app-recipes-card>
+
+      <app-recipes-card *ngFor="let recipeLSEl of recipesDataService.favouriteRecipesList;" [recipe]="recipeLSEl"
+      [favouriteCardStructure]="recipesDataService.favouriteRecipesList.includes(recipeLSEl) ? favouriteCard : null">
+    </app-recipes-card>
+  </div>
+
   </div>
 </div>
+
+
+<ng-template #favouriteCard>
+   <button mat-raised-button>
+    delete
+  </button>
+</ng-template>

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { RecipesService } from '../../services/recipes/recipes.service';
+import { RecipesDataService } from '../../services/recipes-data/recipes-data.service';
 import Recipe from './models/recipe/recipe';
 
 @Component({
@@ -9,7 +10,7 @@ import Recipe from './models/recipe/recipe';
 })
 export class RecipesComponent implements OnInit {
 
-  constructor(public recipesService: RecipesService) { }
+  constructor(public recipesService: RecipesService, public recipesDataService: RecipesDataService) { }
 
   // tslint:disable-next-line: no-empty
   public ngOnInit(): void {
