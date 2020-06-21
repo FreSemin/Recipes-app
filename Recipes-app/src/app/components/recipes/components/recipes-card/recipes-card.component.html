@@ -7,7 +7,7 @@
   </div>
 
   <div class="recipe-card__body">
-    <div class="recipe-card__body-cont" *ngIf="!recipe.recipeWithDetails">
+    <div class="recipe-card__body-cont">
 
       <div class="recipe-card__title">
         <h1>{{ recipe.title }}</h1>
@@ -32,6 +32,17 @@
 
         </div>
       </ng-container>
+
+
+      <button mat-raised-button (click)="checkDetails()">
+          check details
+      </button>
+
+      <!-- <button mat-raised-button>
+        <a (click)="checkDetails()" routerLink='/recipe-details'>
+          check details
+        </a>
+      </button> -->
 
     </div>
   </div>

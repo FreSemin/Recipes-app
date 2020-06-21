@@ -7,10 +7,11 @@ import { RecipesService } from 'src/app/services/recipes/recipes.service';
 	styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-	constructor(private _recipesService: RecipesService) {}
+	constructor(private _recipesService: RecipesService) { }
 
-	// tslint:disable-next-line: no-empty
-	public ngOnInit(): void {}
+	public ngOnInit(): void {
+		this._recipesService.getRandomJoke();
+	}
 
 	public ngOnDestroy(): void {
 		this._recipesService.recipeResults = [];

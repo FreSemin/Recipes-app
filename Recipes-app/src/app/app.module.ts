@@ -19,6 +19,7 @@ import { RecipesService } from './services/recipes/recipes.service';
 import { HomeComponent } from './components/home/home.component';
 import { FavouriteComponent } from './components/favourite/favourite.component';
 import { RecipesDataService } from './services/recipes-data/recipes-data.service';
+import { RecipeWithDetailsCardComponent } from './components/recipes/components/recipe-with-details-card/recipe-with-details-card.component';
 
 @NgModule({
 	declarations: [
@@ -29,6 +30,7 @@ import { RecipesDataService } from './services/recipes-data/recipes-data.service
 		RecipesCardComponent,
 		HomeComponent,
 		FavouriteComponent,
+		RecipeWithDetailsCardComponent,
 	],
 	imports: [
 		BrowserModule,

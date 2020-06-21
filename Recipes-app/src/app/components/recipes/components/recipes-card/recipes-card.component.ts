@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import Recipe from '../../models/recipe/recipe';
 
 @Component({
 	selector: 'app-recipes-card',
 	templateUrl: './recipes-card.component.html',
-	styleUrls: ['./recipes-card.component.scss']
+  styleUrls: ['./recipes-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipesCardComponent implements OnInit {
 
@@ -12,7 +13,10 @@ export class RecipesCardComponent implements OnInit {
 	public recipe: Recipe;
 
 	@Output()
-	public onAddRecipeToFavourite: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+  public onAddRecipeToFavourite: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+
+  @Output()
+  public onCheckDetails: EventEmitter<Recipe> = new EventEmitter<Recipe>();
 
 	@Input()
 	public favouriteCardStructure: HTMLElement = null;
@@ -22,7 +26,11 @@ export class RecipesCardComponent implements OnInit {
 
 	public addRecipeToFavourite(): void {
 		this.onAddRecipeToFavourite.emit(this.recipe);
-	}
+  }
+
+  public checkDetails(): void {
+    this.onCheckDetails.emit(this.recipe);
+  }
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void {

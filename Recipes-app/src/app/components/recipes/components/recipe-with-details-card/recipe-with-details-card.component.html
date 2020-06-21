@@ -1,0 +1,338 @@
+
+<div class="recipe-details">
+  <div class="recipe-details__card">
+
+    <div class="recipe-details__" *ngIf="recipesService.isRecipesListLoading">
+      loading...
+    </div>
+
+    <div class="recipe-details__container">
+
+      <div class="recipe-details__image">
+        <img [src]="recipeWithDetails.image" alt="">
+      </div>
+
+      <div class="recipe-details__header">
+        <p>there will be stepper!</p>
+        {{ recipeWithDetails.analyzedInstructions }}
+      </div>
+
+      <div class="recipe-details__body">
+        <div class="recipe-details__body-head">
+          <h1 class="recipe-details__title">
+            {{ recipeWithDetails.title }}
+          </h1>
+          <h2 class="recipe-details__subtitle">
+            Health Score
+            <span>
+              {{ recipeWithDetails.healthScore }}
+            </span>
+          </h2>
+        </div>
+
+        <div class="recipe-details__box recipe-details__box_grid-list">
+
+          <!-- card with icon -->
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-card-icon">
+              <p>icon</p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p>
+                preparationMinutes:
+                <span>
+                  {{recipeWithDetails.preparationMinutes}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- card with icon -->
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-card-icon">
+              <p>icon</p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p>
+                cookingMinutes:
+                <span>
+                  {{recipeWithDetails.cookingMinutes}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- card with icon -->
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-card-icon">
+              <p>icon</p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p>
+                readyInMinutes:
+                <span>
+                  {{recipeWithDetails.readyInMinutes}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- card with icon -->
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-card-icon">
+              <p>icon</p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p>
+                servings:
+                <span>
+                  {{recipeWithDetails.servings}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- card with icon -->
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-card-icon">
+              <p>icon</p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p>
+                spoonacularScore:
+                <span>
+                  {{recipeWithDetails.spoonacularScore}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- card with icon -->
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-card-icon">
+              <p>icon</p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p>
+                How many it will cost?
+                <span>
+                  {{recipeWithDetails.pricePerServing}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+
+
+          <!-- </div> -->
+
+          <!-- <div class="recipe-details__box recipe-details__box_grid-list"> -->
+
+          <!-- <div class="recipe-details__box-card">
+            <div class="recipe-details__box-text">
+              <p>
+                spoonacularScore:
+                <span>
+                  {{recipeWithDetails.spoonacularScore}}
+                </span>
+              </p>
+            </div>
+          </div> -->
+
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-text">
+              <p>
+                weightWatcherSmartPoints:
+                <span>
+                  {{recipeWithDetails.weightWatcherSmartPoints}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-text">
+              <p>
+                aggregateLikes:
+                <span>
+                  {{recipeWithDetails.aggregateLikes}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <!-- <div class="recipe-details__box-card">
+            <div class="recipe-details__box-text">
+              <p>
+                How many it will cost?
+                <span>
+                  {{recipeWithDetails.pricePerServing}}
+                </span>
+              </p>
+            </div>
+          </div> -->
+
+          <div class="recipe-details__box-card">
+            <!-- *ngIf="recipeWithDetails.cuisines" -->
+            <div class="recipe-details__box-text">
+              <p>
+                Kitchens
+                <span>
+                  {{recipeWithDetails.cuisines}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-text">
+              <p>
+                DIsh Types
+                <span>
+                  {{recipeWithDetails.dishTypes}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="recipe-details__box-card">
+            <!-- *ngIf="recipeWithDetails.diets" -->
+            <div class="recipe-details__box-text">
+              <p>
+                any Diets here?
+                <span>
+                  {{recipeWithDetails.diets}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-text">
+              <p>
+                when we can cook it?
+                <span>
+                  {{recipeWithDetails.occasions}}
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-text">
+              <p>
+                is vegetarian
+                <span *ngIf="recipeWithDetails.vegetarian">
+                  yes
+                </span>
+                <span *ngIf="!recipeWithDetails.vegetarian">
+                  no
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-text">
+              <p>
+                is vegan
+                <span *ngIf="recipeWithDetails.vegan">
+                  yes
+                </span>
+                <span *ngIf="!recipeWithDetails.vegan">
+                  no
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-text">
+              <p>
+                is gluten Free
+                <span *ngIf="recipeWithDetails.glutenFree">
+                  yes
+                </span>
+                <span *ngIf="!recipeWithDetails.glutenFree">
+                  no
+                </span>
+              </p>
+            </div>
+          </div>
+
+          <div class="recipe-details__box-card">
+            <div class="recipe-details__box-text">
+              <p>
+                is healthy?
+                <span *ngIf="recipeWithDetails.veryHealthy">
+                  yes
+                </span>
+                <span *ngIf="!recipeWithDetails.veryHealthy">
+                  no
+                </span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="recipe-details__need-things">
+          <div class="recipe-details__ingridients">
+            ingridients need
+          </div>
+          <div class="recipe-details__ingridients">
+            equipment need
+          </div>
+        </div>
+
+        <div class="recipe-details__recipe">
+          <h3 class="recipe-details__recipe-title">
+            All way of cooking
+          </h3>
+          <p class="recipe-details__recipe-text recipe-details-text_with-el">
+            {{ recipeWithDetails.instructions }}
+          </p>
+        </div>
+
+        <div class="recipe-details__adults">
+          <div class="recipe-details__check">
+            are you 18?
+          </div>
+          <div class="recipe-details__adults-content">
+            <div class="recipe-details__adults-instruction">
+              <p>
+                Wine Instruction
+                <span>
+                  {{recipeWithDetails.winePairing.pairingText}}
+                </span>
+              </p>
+            </div>
+            <div class="recipe-details__adults-wines">
+              <p>
+                Winew Pairings winew
+                <span>
+                  {{recipeWithDetails.winePairing.pairedWines}}
+                </span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-details__review">
+          <div class="recipe-details__review-title">
+            Summary
+          </div>
+          <p class="recipe-details__review-text recipe-details__review-text_with-el">
+            {{ recipeWithDetails.summary }}
+          </p>
+        </div>
+
+      </div>
+
+
+    </div>
+  </div>
+</div>
+
+
+<app-side-bar></app-side-bar>

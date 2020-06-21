@@ -4,20 +4,17 @@ import { HttpClient } from '@angular/common/http';
 import { RecipeBook } from 'src/app/components/recipes/models/recipes-book/recipes-book';
 import { RecipeJoke } from 'src/app/components/recipes/models/recipe-joke/recipe-joke';
 import { RecipesDataService } from '../recipes-data/recipes-data.service';
+import { Router } from '@angular/router';
+import { RecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class RecipesService implements OnInit {
 	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
-	private _recipeListKey: string = 'app-recipes-list';
 
 	public searchString: string = '';
 	public jokeStr: string = '';
-
-	// prefate requests for:
-	// 1. get content for main - https://api.spoonacular.com/recipes/search_API_KEY&instructionsRequired=true&query=pancake&number=2
-	// 2. get recepes with steps - https://api.spoonacular.com/recipes/677465/information_API_KEY
 
 	public recipeBook: RecipeBook = null;
 	public recipeResults: Recipe[] = [];
@@ -25,12 +22,17 @@ export class RecipesService implements OnInit {
 	public favouriteRecipes: Recipe[] = [];
 
 	public isSideBarEnabled: boolean = false;
-
 	public isRecipesListLoading: boolean = false;
+	public isNothingFound: boolean = false;
+
+	public recipeWithDetails: RecipeWithDetails = null;
 
 	// public recipesDataService: RecipesDataService = new RecipesDataService();
 
-	constructor(private _http: HttpClient, public recipesDataService: RecipesDataService) { }
+	constructor(private _http: HttpClient,
+		public recipesDataService: RecipesDataService,
+		private _router: Router
+	) { }
 
 	public searchRecipes(searchString: string): void {
 		this.recipeResults = [];
@@ -40,10 +42,16 @@ export class RecipesService implements OnInit {
 				`https://api.spoonacular.com/recipes/search${this._API_KEY}&instructionsRequired=true&query=${searchString}&number=15`
 			)
 			.subscribe((data: RecipeBook) => {
-				this.searchString = '';
-				this.recipeBook = new RecipeBook(data);
-				this.isRecipesListLoading = false;
-				this.showList();
+				if (!(data.totalResults === 0)) {
+					this.searchString = '';
+					this.recipeBook = new RecipeBook(data);
+          this.isRecipesListLoading = false;
+          this.isNothingFound = false;
+					this.showList();
+				} else {
+					this.isRecipesListLoading = false;
+					this.isNothingFound = true;
+				}
 			});
 	}
 
@@ -75,6 +83,25 @@ export class RecipesService implements OnInit {
 
 	public addToFavourite(recipe: Recipe): void {
 		this.recipesDataService.addToFavorite(recipe);
+	}
+
+	public checkRecipeDetails(recipeId: number): void {
+		this.isRecipesListLoading = true;
+		this._router.navigate(['/recipe-details', recipeId])
+			.then(() => {
+				this._http
+					.get<any>(
+						`https://api.spoonacular.com/recipes/${recipeId}/information${this._API_KEY}`
+					)
+					.subscribe((recipeWithDetails: any) => {
+						this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
+						console.log(recipeWithDetails);
+					});
+			})
+			.finally(() => {
+				this.isRecipesListLoading = false;
+			});
+		// console.log(id);
 	}
 
 	public sideBarToggel(): void {

@@ -11,6 +11,7 @@ export class RecipesDataService implements OnInit, OnDestroy {
 
 	public favouriteRecipesListLS: Recipe[] = [];
 
+	// tslint:disable-next-line: no-empty
 	constructor() { }
 
 	// tslint:disable-next-line: no-empty
