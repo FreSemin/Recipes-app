@@ -12,48 +12,70 @@
       </div>
 
       <div class="recipe-details__header">
-        <!-- <p>there will be stepper!</p>
-        {{ recipeWithDetails.analyzedInstructions | json }} -->
-        <!-- <mat-horizontal-stepper labelPosition="bottom">
-          <mat-step label="Step 1" *ngFor="step of recipeWithDetails.diets">
-            Content 1
-          </mat-step>
-          <mat-step label="Step 2">
-            Content 2
-          </mat-step>
-        </mat-horizontal-stepper> -->
-        <!-- formControlName="form" -->
-        <!-- <form [formGroup]="formGroup" >
-          <mat-horizontal-stepper  formArrayName="form">
-            <mat-step [formGroupName]="i" *ngFor="let customerGroup of formGroup.controls.form.get('form'); let i = index">
-              <ng-template matStepLabel>Step {{i + 1}}</ng-template>
+        <p>there will be stepper!</p>
+        <!-- {{ recipeWithDetails.analyzedInstructions | json }} -->
+
+
+
+
+        <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
+          {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
+        </button> -->
+        <!-- <mat-horizontal-stepper [linear]="isLinear" #stepper>
+          <mat-step  *ngFor="let recipeStep of recipeWithDetails.analyzedInstructions">
+            <form [formGroup]="firstFormGroup">
+              <ng-template matStepLabel>Fill out your name</ng-template>
               <mat-form-field>
-                <input matInput placeholder="Address" formControlName="cont" required>
+                <mat-label>{{recipeStep.steps}}</mat-label>
               </mat-form-field>
+              <div>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step> -->
+        <!-- <mat-step [stepControl]="secondFormGroup">
+            <form [formGroup]="secondFormGroup">
+              <ng-template matStepLabel>Fill out your address</ng-template>
+              <mat-form-field>
+                <mat-label>Address</mat-label>
+              </mat-form-field>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step> -->
+        <!-- <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
             <div>
               <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button (click)="stepper.reset()">Reset</button>
             </div>
-            </mat-step>
-          </mat-horizontal-stepper>
-        </form> -->
-        <button mat-raised-button (click)="addItem()">
-          add item
-        </button>
-         <form [formGroup]="formGroup">
-          <mat-horizontal-stepper  formArrayName="form">
-            <mat-step [formGroupName]="i" *ngFor="let customerGroup of formGroup.get('form')['controls']; let i = index">
-              <ng-template matStepLabel>Step {{i + 1}}</ng-template>
-              <mat-form-field>
-                <input matInput placeholder="Address" formControlName="cont" required>
-              </mat-form-field>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
-            </div>
-            </mat-step>
-          </mat-horizontal-stepper>
-        </form>
+          </mat-step> -->
+        <!-- </mat-horizontal-stepper> -->
+
+
+        <mat-vertical-stepper [linear]="true" #stepper *ngIf="recipeWithDetails.analyzedInstructions.length >= 5">
+          <mat-step *ngFor="let step of recipeWithDetails.analyzedInstructions; let i = index">
+            <ng-template matStepLabel>
+              {{ i }}
+            </ng-template>
+            {{i}}
+          </mat-step>
+          <mat-step *ngFor="let step of recipeWithDetails.analyzedInstructions; let i = index">
+            <ng-template matStepLabel>{{ i }}
+            </ng-template>
+          </mat-step>
+        </mat-vertical-stepper>
+
+        <mat-horizontal-stepper [linear]="true" #stepper *ngIf="recipeWithDetails.analyzedInstructions.length < 4">
+          <mat-step *ngFor="let step of recipeWithDetails.analyzedInstructions; let i = index">
+            <ng-template matStepLabel>{{ i }}
+            </ng-template>
+          </mat-step>
+        </mat-horizontal-stepper>
+
       </div>
 
       <div class="recipe-details__body">
@@ -371,9 +393,8 @@
           <div class="recipe-details__review-title">
             Summary
           </div>
-          <p class="recipe-details__review-text recipe-details__review-text_with-el">
-            Summary text
-            {{ recipeWithDetails.summary }}
+          <p class="recipe-details__review-text recipe-details__review-text_with-el"
+            [innerHTML]="recipeWithDetails.summary">
           </p>
         </div>
 

@@ -29,10 +29,11 @@ export class RecipesService implements OnInit {
 
 	// public recipesDataService: RecipesDataService = new RecipesDataService();
 
-	constructor(private _http: HttpClient,
+	constructor(
+		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
 		private _router: Router
-	) { }
+	) {}
 
 	public searchRecipes(searchString: string): void {
 		this.recipeResults = [];
@@ -45,8 +46,8 @@ export class RecipesService implements OnInit {
 				if (!(data.totalResults === 0)) {
 					this.searchString = '';
 					this.recipeBook = new RecipeBook(data);
-          this.isRecipesListLoading = false;
-          this.isNothingFound = false;
+					this.isRecipesListLoading = false;
+					this.isNothingFound = false;
 					this.showList();
 				} else {
 					this.isRecipesListLoading = false;
@@ -63,8 +64,7 @@ export class RecipesService implements OnInit {
 			this.recipeResults.push(new Recipe(element));
 		});
 
-		this.recipesDataService.loadLSRecipes();
-
+		// this.recipesDataService.loadLSRecipes();
 	}
 
 	public onSearchRecipes(searchStr: string): void {
@@ -87,7 +87,8 @@ export class RecipesService implements OnInit {
 
 	public checkRecipeDetails(recipeId: number): void {
 		this.isRecipesListLoading = true;
-		this._router.navigate(['/recipe-details', recipeId])
+		this._router
+			.navigate(['/recipe-details', recipeId])
 			.then(() => {
 				this._http
 					.get<any>(
@@ -101,13 +102,25 @@ export class RecipesService implements OnInit {
 			.finally(() => {
 				this.isRecipesListLoading = false;
 			});
-		// console.log(id);
 	}
 
 	public sideBarToggel(): void {
 		this.isSideBarEnabled = !this.isSideBarEnabled;
 	}
 
+	public checkForFavourite(recipe: Recipe): boolean {
+		this.recipesDataService.loadLSRecipes();
+		return this.recipesDataService.favouriteRecipesListLS.some(
+			(element: Recipe) => {
+				if (recipe.id === element.id) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		);
+	}
+
 	// tslint:disable-next-line: no-empty
-	public ngOnInit(): void { }
+	public ngOnInit(): void {}
 }
