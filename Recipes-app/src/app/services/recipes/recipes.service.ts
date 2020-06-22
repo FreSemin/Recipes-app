@@ -72,13 +72,13 @@ export class RecipesService implements OnInit {
 	}
 
 	public getRandomJoke(): void {
-		this._http
-			.get<RecipeJoke>(
-				`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
-			)
-			.subscribe((joke: RecipeJoke) => {
-				this.jokeStr = joke.text;
-			});
+		// this._http
+		// 	.get<RecipeJoke>(
+		// 		`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
+		// 	)
+		// 	.subscribe((joke: RecipeJoke) => {
+		// 		this.jokeStr = joke.text;
+		// 	});
 	}
 
 	public addToFavourite(recipe: Recipe): void {

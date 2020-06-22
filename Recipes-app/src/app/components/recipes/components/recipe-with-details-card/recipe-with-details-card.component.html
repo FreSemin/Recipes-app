@@ -1,20 +1,59 @@
-
 <div class="recipe-details">
-  <div class="recipe-details__card">
+  <div class="recipe-details__container">
 
-    <div class="recipe-details__" *ngIf="recipesService.isRecipesListLoading">
+    <div class="recipe-details__loader" *ngIf="recipesService.isRecipesListLoading">
       loading...
     </div>
 
-    <div class="recipe-details__container">
+    <div class="recipe-details__card">
 
       <div class="recipe-details__image">
         <img [src]="recipeWithDetails.image" alt="">
       </div>
 
       <div class="recipe-details__header">
-        <p>there will be stepper!</p>
-        {{ recipeWithDetails.analyzedInstructions }}
+        <!-- <p>there will be stepper!</p>
+        {{ recipeWithDetails.analyzedInstructions | json }} -->
+        <!-- <mat-horizontal-stepper labelPosition="bottom">
+          <mat-step label="Step 1" *ngFor="step of recipeWithDetails.diets">
+            Content 1
+          </mat-step>
+          <mat-step label="Step 2">
+            Content 2
+          </mat-step>
+        </mat-horizontal-stepper> -->
+        <!-- formControlName="form" -->
+        <!-- <form [formGroup]="formGroup" >
+          <mat-horizontal-stepper  formArrayName="form">
+            <mat-step [formGroupName]="i" *ngFor="let customerGroup of formGroup.controls.form.get('form'); let i = index">
+              <ng-template matStepLabel>Step {{i + 1}}</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="Address" formControlName="cont" required>
+              </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+        </form> -->
+        <button mat-raised-button (click)="addItem()">
+          add item
+        </button>
+         <form [formGroup]="formGroup">
+          <mat-horizontal-stepper  formArrayName="form">
+            <mat-step [formGroupName]="i" *ngFor="let customerGroup of formGroup.get('form')['controls']; let i = index">
+              <ng-template matStepLabel>Step {{i + 1}}</ng-template>
+              <mat-form-field>
+                <input matInput placeholder="Address" formControlName="cont" required>
+              </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+            </mat-step>
+          </mat-horizontal-stepper>
+        </form>
       </div>
 
       <div class="recipe-details__body">
@@ -24,7 +63,10 @@
           </h1>
           <h2 class="recipe-details__subtitle">
             Health Score
-            <span>
+            <span [ngClass]="{
+              'recipe-details__subtitle_red': recipeWithDetails.healthScore < 50,
+              'recipe-details__subtitle_green': recipeWithDetails.healthScore >= 50
+            }">
               {{ recipeWithDetails.healthScore }}
             </span>
           </h2>
@@ -38,13 +80,18 @@
               <p>icon</p>
             </div>
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 preparationMinutes:
                 <span>
                   {{recipeWithDetails.preparationMinutes}}
                 </span>
               </p>
             </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.preparationMinutes}}
+              </p>
+            </div>
           </div>
 
           <!-- card with icon -->
@@ -53,11 +100,13 @@
               <p>icon</p>
             </div>
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 cookingMinutes:
-                <span>
-                  {{recipeWithDetails.cookingMinutes}}
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.cookingMinutes}}
               </p>
             </div>
           </div>
@@ -68,11 +117,13 @@
               <p>icon</p>
             </div>
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 readyInMinutes:
-                <span>
-                  {{recipeWithDetails.readyInMinutes}}
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.readyInMinutes}}
               </p>
             </div>
           </div>
@@ -83,11 +134,13 @@
               <p>icon</p>
             </div>
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 servings:
-                <span>
-                  {{recipeWithDetails.servings}}
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.servings}}
               </p>
             </div>
           </div>
@@ -98,11 +151,13 @@
               <p>icon</p>
             </div>
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 spoonacularScore:
-                <span>
-                  {{recipeWithDetails.spoonacularScore}}
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.spoonacularScore}}
               </p>
             </div>
           </div>
@@ -113,84 +168,66 @@
               <p>icon</p>
             </div>
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 How many it will cost?
-                <span>
-                  {{recipeWithDetails.pricePerServing}}
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.pricePerServing}}
               </p>
             </div>
           </div>
 
-
-
-          <!-- </div> -->
-
-          <!-- <div class="recipe-details__box recipe-details__box_grid-list"> -->
-
-          <!-- <div class="recipe-details__box-card">
-            <div class="recipe-details__box-text">
-              <p>
-                spoonacularScore:
-                <span>
-                  {{recipeWithDetails.spoonacularScore}}
-                </span>
-              </p>
-            </div>
-          </div> -->
-
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 weightWatcherSmartPoints:
-                <span>
-                  {{recipeWithDetails.weightWatcherSmartPoints}}
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.weightWatcherSmartPoints}}
               </p>
             </div>
           </div>
 
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 aggregateLikes:
-                <span>
-                  {{recipeWithDetails.aggregateLikes}}
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.aggregateLikes}}
               </p>
             </div>
           </div>
-
-          <!-- <div class="recipe-details__box-card">
-            <div class="recipe-details__box-text">
-              <p>
-                How many it will cost?
-                <span>
-                  {{recipeWithDetails.pricePerServing}}
-                </span>
-              </p>
-            </div>
-          </div> -->
 
           <div class="recipe-details__box-card">
             <!-- *ngIf="recipeWithDetails.cuisines" -->
             <div class="recipe-details__box-text">
-              <p>
-                Kitchens
-                <span>
-                  {{recipeWithDetails.cuisines}}
-                </span>
+              <p class="recipe-details__box-text-title">
+                Kitchens:
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.cuisines}}
               </p>
             </div>
           </div>
 
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 DIsh Types
-                <span>
-                  {{recipeWithDetails.dishTypes}}
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.dishTypes}}
               </p>
             </div>
           </div>
@@ -198,78 +235,90 @@
           <div class="recipe-details__box-card">
             <!-- *ngIf="recipeWithDetails.diets" -->
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 any Diets here?
-                <span>
-                  {{recipeWithDetails.diets}}
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.diets}}
               </p>
             </div>
           </div>
 
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 when we can cook it?
-                <span>
-                  {{recipeWithDetails.occasions}}
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle">
+                {{recipeWithDetails.occasions}}
               </p>
             </div>
           </div>
 
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 is vegetarian
-                <span *ngIf="recipeWithDetails.vegetarian">
-                  yes
-                </span>
-                <span *ngIf="!recipeWithDetails.vegetarian">
-                  no
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle" *ngIf="recipeWithDetails.vegetarian">
+                yes
+              </p>
+              <p class="recipe-details__box-text-subtitle" *ngIf="!recipeWithDetails.vegetarian">
+                no
               </p>
             </div>
           </div>
 
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 is vegan
-                <span *ngIf="recipeWithDetails.vegan">
-                  yes
-                </span>
-                <span *ngIf="!recipeWithDetails.vegan">
-                  no
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle" *ngIf="recipeWithDetails.vegan">
+                yes
+              </p>
+              <p class="recipe-details__box-text-subtitle" *ngIf="!recipeWithDetails.vegan">
+                no
               </p>
             </div>
           </div>
 
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 is gluten Free
-                <span *ngIf="recipeWithDetails.glutenFree">
-                  yes
-                </span>
-                <span *ngIf="!recipeWithDetails.glutenFree">
-                  no
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle" *ngIf="recipeWithDetails.glutenFree">
+                yes
+              </p>
+              <p class="recipe-details__box-text-subtitle" *ngIf="!recipeWithDetails.glutenFree">
+                no
               </p>
             </div>
           </div>
 
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
-              <p>
+              <p class="recipe-details__box-text-title">
                 is healthy?
-                <span *ngIf="recipeWithDetails.veryHealthy">
-                  yes
-                </span>
-                <span *ngIf="!recipeWithDetails.veryHealthy">
-                  no
-                </span>
+              </p>
+            </div>
+            <div class="recipe-details__box-text">
+              <p class="recipe-details__box-text-subtitle" *ngIf="recipeWithDetails.veryHealthy">
+                yes
+              </p>
+              <p class="recipe-details__box-text-subtitle" *ngIf="!recipeWithDetails.veryHealthy">
+                no
               </p>
             </div>
           </div>
@@ -323,6 +372,7 @@
             Summary
           </div>
           <p class="recipe-details__review-text recipe-details__review-text_with-el">
+            Summary text
             {{ recipeWithDetails.summary }}
           </p>
         </div>
@@ -332,7 +382,7 @@
 
     </div>
   </div>
+
 </div>
 
-
-<app-side-bar></app-side-bar>
+<!-- <app-side-bar></app-side-bar> -->
