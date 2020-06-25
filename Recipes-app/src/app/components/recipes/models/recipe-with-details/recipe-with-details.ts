@@ -16,34 +16,34 @@ interface AnalyzedInstruction {
 }
 
 interface IRecipeWithDetails extends IRecipe {
-  vegetarian: boolean; // 1
-  vegan: boolean; // 1
-  glutenFree: boolean; // 1
-  veryHealthy: boolean; // 1
-  weightWatcherSmartPoints: number; // 1
-  preparationMinutes: number; // 1
-  cookingMinutes: number;   // 1
-  aggregateLikes: number; // 1
-  spoonacularScore: number; // 1
-  healthScore: number; // 1
-  pricePerServing: number; // 1
-  summary: string; // review
-  cuisines: any[];  // kitchens ??? //1
-  dishTypes: string[]; // 1
-  diets: any[];    // ??? //1
-  occasions: string[]; // when we can cook it //1
-  winePairing: WinePairing; // with Wine?  are you adult?
-  instructions: string;  // all instruction   // 2
-  analyzedInstructions: AnalyzedInstruction[];  // instruction with steps  //1
+  vegetarian: boolean;
+  vegan: boolean;
+  glutenFree: boolean;
+  veryHealthy: boolean;
+  weightWatcherSmartPoints: number;
+  preparationMinutes: number;
+  cookingMinutes: number;
+  aggregateLikes: number;
+  spoonacularScore: number;
+  healthScore: number;
+  pricePerServing: number;
+  summary: string;
+  cuisines: any[];
+  dishTypes: string[];
+  diets: any[];
+  occasions: string[];
+  winePairing: WinePairing;
+  instructions: string;
+  analyzedInstructions: AnalyzedInstruction[];
 }
 
 export class RecipeWithDetails implements IRecipeWithDetails {
   public id: number = null;
-  public image: string = null;  // 1
-  public readyInMinutes: number = null; // 1
-  public servings: number = null; // 1
+  public image: string = null;
+  public readyInMinutes: number = null;
+  public servings: number = null;
   public sourceUrl: string = null;
-  public title: string = null; // 1
+  public title: string = null;
 
   public vegetarian: boolean = null;
   public vegan: boolean = null;
@@ -57,13 +57,13 @@ export class RecipeWithDetails implements IRecipeWithDetails {
   public healthScore: number = null;
   public pricePerServing: number = null;
   public summary: string = null;
-  public cuisines: any[] = null;  // kitchens ???
+  public cuisines: any[] = null;
   public dishTypes: string[] = null;
-  public diets: any[] = null;    // ???
-  public occasions: string[] = null; // when we can cook it
-  public winePairing: WinePairing = null; // with Wine?  are you adult?
-  public instructions: string = null;  // all instruction
-  public analyzedInstructions: AnalyzedInstruction[] = null;  // instruction with steps
+  public diets: any[] = null;
+  public occasions: string[] = null;
+  public winePairing: WinePairing = null;
+  public instructions: string = null;
+  public analyzedInstructions: AnalyzedInstruction[] = null;
 
   constructor(recipeWithDetails: IRecipeWithDetails) {
 	this.id = recipeWithDetails.id;

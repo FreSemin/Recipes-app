@@ -2,7 +2,7 @@
   <div class="recipe-details__container">
 
     <div class="recipe-details__loader" *ngIf="recipesService.isRecipesListLoading">
-      loading...
+      loading... recipe with details
     </div>
 
     <div class="recipe-details__card">
@@ -14,67 +14,6 @@
       <div class="recipe-details__header">
         <p>there will be stepper!</p>
         <!-- {{ recipeWithDetails.analyzedInstructions | json }} -->
-
-
-
-
-        <!-- <button mat-raised-button (click)="isLinear = !isLinear" id="toggle-linear">
-          {{!isLinear ? 'Enable linear mode' : 'Disable linear mode'}}
-        </button> -->
-        <!-- <mat-horizontal-stepper [linear]="isLinear" #stepper>
-          <mat-step  *ngFor="let recipeStep of recipeWithDetails.analyzedInstructions">
-            <form [formGroup]="firstFormGroup">
-              <ng-template matStepLabel>Fill out your name</ng-template>
-              <mat-form-field>
-                <mat-label>{{recipeStep.steps}}</mat-label>
-              </mat-form-field>
-              <div>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step> -->
-        <!-- <mat-step [stepControl]="secondFormGroup">
-            <form [formGroup]="secondFormGroup">
-              <ng-template matStepLabel>Fill out your address</ng-template>
-              <mat-form-field>
-                <mat-label>Address</mat-label>
-              </mat-form-field>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
-              </div>
-            </form>
-          </mat-step> -->
-        <!-- <mat-step>
-            <ng-template matStepLabel>Done</ng-template>
-            <p>You are now done.</p>
-            <div>
-              <button mat-button matStepperPrevious>Back</button>
-              <button mat-button (click)="stepper.reset()">Reset</button>
-            </div>
-          </mat-step> -->
-        <!-- </mat-horizontal-stepper> -->
-
-
-        <mat-vertical-stepper [linear]="true" #stepper *ngIf="recipeWithDetails.analyzedInstructions.length >= 5">
-          <mat-step *ngFor="let step of recipeWithDetails.analyzedInstructions; let i = index">
-            <ng-template matStepLabel>
-              {{ i }}
-            </ng-template>
-            {{i}}
-          </mat-step>
-          <mat-step *ngFor="let step of recipeWithDetails.analyzedInstructions; let i = index">
-            <ng-template matStepLabel>{{ i }}
-            </ng-template>
-          </mat-step>
-        </mat-vertical-stepper>
-
-        <mat-horizontal-stepper [linear]="true" #stepper *ngIf="recipeWithDetails.analyzedInstructions.length < 4">
-          <mat-step *ngFor="let step of recipeWithDetails.analyzedInstructions; let i = index">
-            <ng-template matStepLabel>{{ i }}
-            </ng-template>
-          </mat-step>
-        </mat-horizontal-stepper>
 
       </div>
 

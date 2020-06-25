@@ -27,7 +27,6 @@ export class RecipesService implements OnInit {
 
 	public recipeWithDetails: RecipeWithDetails = null;
 
-	// public recipesDataService: RecipesDataService = new RecipesDataService();
 
 	constructor(
 		private _http: HttpClient,
@@ -63,8 +62,6 @@ export class RecipesService implements OnInit {
 		this.recipeBook.results.forEach((element: Recipe) => {
 			this.recipeResults.push(new Recipe(element));
 		});
-
-		// this.recipesDataService.loadLSRecipes();
 	}
 
 	public onSearchRecipes(searchStr: string): void {
@@ -91,10 +88,10 @@ export class RecipesService implements OnInit {
 			.navigate(['/recipe-details', recipeId])
 			.then(() => {
 				this._http
-					.get<any>(
+					.get<RecipeWithDetails>(
 						`https://api.spoonacular.com/recipes/${recipeId}/information${this._API_KEY}`
 					)
-					.subscribe((recipeWithDetails: any) => {
+					.subscribe((recipeWithDetails: RecipeWithDetails) => {
 						this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
 						console.log(recipeWithDetails);
 					});

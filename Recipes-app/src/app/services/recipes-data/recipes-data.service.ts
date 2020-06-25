@@ -1,6 +1,5 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { Recipe } from '../../components/recipes/models/recipe/recipe';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class RecipesDataService implements OnInit, OnDestroy {
@@ -48,6 +47,5 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	}
 
 	public ngOnDestroy(): void {
-		// this.favouriteRecipesList = [];
 	}
 }
