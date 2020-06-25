@@ -4,7 +4,13 @@
       loading...
     </div>
 
-    <div  *ngIf="recipesService.isNothingFound">
+    <button mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_blue">
+      <a class="app-main__menu-item" routerLink=''>
+        home
+      </a>
+    </button>
+
+    <div *ngIf="recipesService.isNothingFound">
       nothing found
     </div>
 
@@ -13,7 +19,7 @@
     }">
       <app-recipes-card *ngFor="let recipeEl of recipesService.recipeResults;" [recipe]="recipeEl"
         (onAddRecipeToFavourite)="recipesService.addToFavourite($event)"
-        (onCheckDetails)="recipesService.checkRecipeDetails($event.id)"
+        (onCheckDetails)="recipesService.initRecipeDetails($event.id)"
         [favouriteCardStructure]="recipesService.checkForFavourite(recipeEl) ? favouriteCard : null">
       </app-recipes-card>
 

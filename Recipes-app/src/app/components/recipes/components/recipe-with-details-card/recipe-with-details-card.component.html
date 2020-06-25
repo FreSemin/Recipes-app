@@ -288,10 +288,22 @@
 
         <div class="recipe-details__need-things">
           <div class="recipe-details__ingridients">
-            ingridients need
-          </div>
-          <div class="recipe-details__ingridients">
-            equipment need
+            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  What Ingridients you need?
+                </mat-panel-title>
+                <mat-panel-description>
+                  {{ !panelOpenState ? 'Let see, open me' : ''}}
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <div class="recipe-details__ingridients-image"
+                *ngFor="let recipeIngredient of recipeWithDetails.extendedIngredients;">
+                <img [src]="recipeIngredient.image" alt="">
+                <h1>{{recipeIngredient.name}}</h1>
+                <h2>{{recipeIngredient.amount}}</h2>
+              </div>
+            </mat-expansion-panel>
           </div>
         </div>
 

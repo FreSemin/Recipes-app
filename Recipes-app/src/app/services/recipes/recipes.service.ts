@@ -6,6 +6,7 @@ import { RecipeJoke } from 'src/app/components/recipes/models/recipe-joke/recipe
 import { RecipesDataService } from '../recipes-data/recipes-data.service';
 import { Router } from '@angular/router';
 import { RecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
+import { Observable, combineLatest } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root',
@@ -27,19 +28,18 @@ export class RecipesService implements OnInit {
 
 	public recipeWithDetails: RecipeWithDetails = null;
 
-
 	constructor(
 		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
 		private _router: Router
-	) {}
+	) { }
 
 	public searchRecipes(searchString: string): void {
 		this.recipeResults = [];
 		this.isRecipesListLoading = true;
 		this._http
 			.get<RecipeBook>(
-				`https://api.spoonacular.com/recipes/search${this._API_KEY}&instructionsRequired=true&query=${searchString}&number=15`
+				`https://api.spoonacular.com/recipes/search${this._API_KEY}&instructionsRequired=true&query=${searchString}&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
 				if (!(data.totalResults === 0)) {
@@ -82,21 +82,35 @@ export class RecipesService implements OnInit {
 		this.recipesDataService.addToFavorite(recipe);
 	}
 
-	public checkRecipeDetails(recipeId: number): void {
-		this.isRecipesListLoading = true;
+	public checkRecipeDetails(recipeId: number): Observable<RecipeWithDetails> {
+		// this.isRecipesListLoading = true;
+		// return this._router
+		// .navigate(['/recipe-details', recipeId])
+		// .then(() => {
+		return this._http
+			.get<RecipeWithDetails>(
+				`https://api.spoonacular.com/recipes/${recipeId}/information${this._API_KEY}`
+			);
+		// .subscribe((recipeWithDetails: RecipeWithDetails) => {
+		// this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
+		// console.log(recipeWithDetails);
+		// });
+		// })
+		// .finally(() => {
+		// this.isRecipesListLoading = false;
+		// });
+	}
+
+	public initRecipeDetails(recipeId: number): void {
 		this._router
-			.navigate(['/recipe-details', recipeId])
-			.then(() => {
-				this._http
-					.get<RecipeWithDetails>(
-						`https://api.spoonacular.com/recipes/${recipeId}/information${this._API_KEY}`
-					)
-					.subscribe((recipeWithDetails: RecipeWithDetails) => {
-						this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
-						console.log(recipeWithDetails);
-					});
-			})
-			.finally(() => {
+			.navigate(['/recipe-details', recipeId]);
+		this.isRecipesListLoading = true;
+		combineLatest([
+			this.checkRecipeDetails(recipeId),
+		])
+			.subscribe(([recipeWithDetails]: [RecipeWithDetails]) => {
+				this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
+				console.log(recipeWithDetails);
 				this.isRecipesListLoading = false;
 			});
 	}
@@ -119,5 +133,5 @@ export class RecipesService implements OnInit {
 	}
 
 	// tslint:disable-next-line: no-empty
-	public ngOnInit(): void {}
+	public ngOnInit(): void { }
 }
