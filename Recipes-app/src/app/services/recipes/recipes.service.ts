@@ -39,7 +39,7 @@ export class RecipesService implements OnInit {
 		this.isRecipesListLoading = true;
 		this._http
 			.get<RecipeBook>(
-				`https://api.spoonacular.com/recipes/search${this._API_KEY}&instructionsRequired=true&query=${searchString}&number=100`
+				`https://api.spoonacular.com/recipes/complexSearch${this._API_KEY}&query=${searchString}&instructionsRequired=true&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
 				if (!(data.totalResults === 0)) {
@@ -66,6 +66,7 @@ export class RecipesService implements OnInit {
 
 	public onSearchRecipes(searchStr: string): void {
 		this.searchRecipes(searchStr);
+		// console.log(JSON.stringify(this.selectCuisinesValues));
 	}
 
 	public getRandomJoke(): void {
@@ -87,10 +88,12 @@ export class RecipesService implements OnInit {
 		// return this._router
 		// .navigate(['/recipe-details', recipeId])
 		// .then(() => {
+
 		return this._http
 			.get<RecipeWithDetails>(
 				`https://api.spoonacular.com/recipes/${recipeId}/information${this._API_KEY}`
 			);
+
 		// .subscribe((recipeWithDetails: RecipeWithDetails) => {
 		// this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
 		// console.log(recipeWithDetails);

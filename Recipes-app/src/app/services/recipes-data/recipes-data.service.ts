@@ -1,17 +1,22 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
 import { Recipe } from '../../components/recipes/models/recipe/recipe';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import CuisinesSelect from 'src/app/models/cuisines/cuisines';
 
 @Injectable()
 export class RecipesDataService implements OnInit, OnDestroy {
 
 	private static _recipeListKey: string = 'app-recipe-list';
+	private _baseAssetsUrl: string = 'assets';
+
+	public selectCuisinesValues: string[] = [];
 
 	public favouriteRecipesList: Recipe[] = [];
 
 	public favouriteRecipesListLS: Recipe[] = [];
 
-	// tslint:disable-next-line: no-empty
-	constructor() { }
+	constructor(private _http: HttpClient) { }
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void {
@@ -46,6 +51,15 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		this.favouriteRecipesList = [];
 	}
 
+	public initCuisinesSelect(): void {
+		this._http.get<CuisinesSelect>(
+			`${this._baseAssetsUrl}/cuisines-values/cuisines-values.json`
+		).subscribe((data: CuisinesSelect) => {
+			this.selectCuisinesValues = data.cuisinesValues;
+		});
+	}
+
+	// tslint:disable-next-line: no-empty
 	public ngOnDestroy(): void {
 	}
 }

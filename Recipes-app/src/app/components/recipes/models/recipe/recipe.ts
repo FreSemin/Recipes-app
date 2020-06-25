@@ -5,7 +5,6 @@ export interface IRecipe {
 	servings: number;
 	sourceUrl: string;
 	title: string;
-	// recipeWithDetails: boolean;
 }
 
 export class Recipe implements IRecipe {

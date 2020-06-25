@@ -22,5 +22,16 @@
       </button>
     </div>
 
+    <div class="search-box__search">
+      <mat-form-field>
+        <mat-label>Favorite cuisine(kitchen)</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues">
+            {{cuisinesEl}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
   </div>
 </div>
