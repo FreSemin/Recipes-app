@@ -28,21 +28,44 @@ export class RecipesService implements OnInit {
 
 	public recipeWithDetails: RecipeWithDetails = null;
 
+	public resultSearchOptions: string[] = [];
+	public includeCuisine: string = null;
+	public excludeCuisine: string = null;
+
 	constructor(
 		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
 		private _router: Router
 	) { }
 
+	public checkSearchOptions(): void {
+		this.resultSearchOptions = [];
+
+		if (!(this.includeCuisine === '') && !(this.includeCuisine === undefined) && !(this.includeCuisine === null)) {
+			this.includeCuisine = `&cuisine=${this.includeCuisine}`;
+			this.resultSearchOptions.push(this.includeCuisine);
+		}
+		if (!(this.excludeCuisine === '') && !(this.excludeCuisine === undefined) && !(this.excludeCuisine === null)) {
+			this.excludeCuisine = `&excludeCuisine=${this.excludeCuisine}`;
+			this.resultSearchOptions.push(this.excludeCuisine);
+		}
+
+		this.resultSearchOptions.join('');
+	}
+
 	public searchRecipes(searchString: string): void {
 		this.recipeResults = [];
 		this.isRecipesListLoading = true;
+
+		console.log(this.resultSearchOptions);
+
 		this._http
 			.get<RecipeBook>(
-				`https://api.spoonacular.com/recipes/complexSearch${this._API_KEY}&query=${searchString}&instructionsRequired=true&number=100`
+				`https://api.spoonacular.com/recipes/complexSearch${this._API_KEY}&query=${searchString}&instructionsRequired=true${this.resultSearchOptions}&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
 				if (!(data.totalResults === 0)) {
+					console.log(data);
 					this.searchString = '';
 					this.recipeBook = new RecipeBook(data);
 					this.isRecipesListLoading = false;
@@ -65,8 +88,8 @@ export class RecipesService implements OnInit {
 	}
 
 	public onSearchRecipes(searchStr: string): void {
+		this.checkSearchOptions();
 		this.searchRecipes(searchStr);
-		// console.log(JSON.stringify(this.selectCuisinesValues));
 	}
 
 	public getRandomJoke(): void {

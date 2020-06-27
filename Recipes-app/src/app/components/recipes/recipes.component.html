@@ -24,6 +24,7 @@
       </app-recipes-card>
 
       <app-recipes-card *ngFor="let recipeLSEl of recipesDataService.favouriteRecipesList;" [recipe]="recipeLSEl"
+      (onCheckDetails)="recipesService.initRecipeDetails($event.id)"
         [favouriteCardStructure]="recipesDataService.favouriteRecipesList.includes(recipeLSEl) ? favouriteCard : null">
       </app-recipes-card>
 
