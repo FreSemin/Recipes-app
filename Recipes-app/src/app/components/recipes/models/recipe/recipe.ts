@@ -1,27 +1,29 @@
+interface INutritionElement {
+  title: string;
+  amount: number;
+  unit: string;
+}
+
 export interface IRecipe {
 	id: number;
 	image: string;
-	readyInMinutes: number;
-	servings: number;
-	sourceUrl: string;
+  imageType: string;
+  nutrition: INutritionElement[];
 	title: string;
 }
 
 export class Recipe implements IRecipe {
 	public id: number = null;
-	public image: string = null;
-	public readyInMinutes: number = null;
-	public servings: number = null;
-	public sourceUrl: string = null;
+	public imageType: string = 'jpg';
+  public image: string = null;
+  public nutrition: INutritionElement[] = [];
 	public title: string = null;
-	// public recipeWithDetails: boolean = false;
 
 	constructor(recipe: IRecipe) {
 		this.id = recipe.id;
-		this.image = `https://spoonacular.com/recipeImages/${this.id}-636x393.jpg`;
-		this.readyInMinutes = recipe.readyInMinutes;
-		this.servings = recipe.servings;
-		this.sourceUrl = recipe.sourceUrl;
+    this.imageType = recipe.imageType;
+    this.nutrition = recipe.nutrition;
+		this.image = `https://spoonacular.com/recipeImages/${this.id}-636x393.${this.imageType}`;
 		this.title = recipe.title;
 	}
 }

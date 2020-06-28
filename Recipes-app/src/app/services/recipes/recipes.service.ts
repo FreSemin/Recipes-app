@@ -71,18 +71,19 @@ export class RecipesService implements OnInit {
 		this.recipesDataService.setAllInclude(false);
 		this.recipesDataService.setAllExclude(false);
 
-
 		this._http
 			.get<RecipeBook>(
-				`https://api.spoonacular.com/recipes/complexSearch${this._API_KEY}&query=
-				${searchString}
+				`https://api.spoonacular.com/recipes/complexSearch${this._API_KEY}
+				&query=${searchString}
 				&instructionsRequired=true
 				${this.resultCuisinesInclude}
-				${this.resultCuisinesExclude}&number=100`
+				${this.resultCuisinesExclude}
+				&maxCalories=800
+				&maxFat=25&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
+				console.log(data);
 				if (!(data.totalResults === 0)) {
-					console.log(data);
 					this.searchString = '';
 					this.recipeBook = new RecipeBook(data);
 					this.isRecipesListLoading = false;
@@ -139,7 +140,6 @@ export class RecipesService implements OnInit {
 		])
 			.subscribe(([recipeWithDetails]: [RecipeWithDetails]) => {
 				this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
-				console.log(recipeWithDetails);
 				this.isRecipesListLoading = false;
 			});
 	}

@@ -62,23 +62,6 @@
             </div>
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                cookingMinutes:
-              </p>
-            </div>
-            <div class="recipe-details__box-text">
-              <p class="recipe-details__box-text-subtitle">
-                {{recipeWithDetails.cookingMinutes}}
-              </p>
-            </div>
-          </div>
-
-          <!-- card with icon -->
-          <div class="recipe-details__box-card">
-            <div class="recipe-details__box-card-icon">
-              <p>icon</p>
-            </div>
-            <div class="recipe-details__box-text">
-              <p class="recipe-details__box-text-title">
                 readyInMinutes:
               </p>
             </div>
@@ -166,11 +149,11 @@
             </div>
           </div>
 
-          <div class="recipe-details__box-card">
+          <div class="recipe-details__box-card" *ngIf="recipeWithDetails.cuisines.length > 0">
             <!-- *ngIf="recipeWithDetails.cuisines" -->
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                Kitchens:
+                Cuisines(kitchens):
               </p>
             </div>
             <div class="recipe-details__box-text">
@@ -193,8 +176,7 @@
             </div>
           </div>
 
-          <div class="recipe-details__box-card">
-            <!-- *ngIf="recipeWithDetails.diets" -->
+          <div class="recipe-details__box-card" *ngIf="recipeWithDetails.diets.length > 0">
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
                 any Diets here?
@@ -207,7 +189,7 @@
             </div>
           </div>
 
-          <div class="recipe-details__box-card">
+          <div class="recipe-details__box-card" *ngIf="recipeWithDetails.occasions.length > 0">
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
                 when we can cook it?
@@ -347,6 +329,12 @@
           <p class="recipe-details__review-text recipe-details__review-text_with-el"
             [innerHTML]="recipeWithDetails.summary">
           </p>
+        </div>
+
+        <div class="recipe-details__source">
+          <a [href]="recipeWithDetails.sourceUrl" class="recipe-details__link">
+            Source
+          </a>
         </div>
 
       </div>

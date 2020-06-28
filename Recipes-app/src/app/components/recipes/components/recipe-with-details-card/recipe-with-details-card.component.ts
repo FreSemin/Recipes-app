@@ -27,8 +27,6 @@ export class RecipeWithDetailsCardComponent implements OnInit, OnDestroy {
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void {
-		console.log(this.recipeWithDetails.id);
-		console.log('f');
 	}
 
 	public ngOnDestroy(): void {

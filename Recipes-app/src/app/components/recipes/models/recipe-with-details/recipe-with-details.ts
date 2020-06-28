@@ -1,6 +1,3 @@
-import { IRecipe } from '../recipe/recipe';
-
-
 
 interface ExtendedIngredient {
 	id: number;
@@ -24,18 +21,25 @@ interface AnalyzedInstruction {
 	steps: Step[];
 }
 
-interface IRecipeWithDetails extends IRecipe {
+interface IRecipeWithDetails {
+	id: number;
+	image: string;
+	imageType: string;
+	title: string;
+
 	vegetarian: boolean;
 	vegan: boolean;
 	glutenFree: boolean;
 	veryHealthy: boolean;
 	weightWatcherSmartPoints: number;
 	preparationMinutes: number;
-	cookingMinutes: number;
 	aggregateLikes: number;
 	spoonacularScore: number;
 	healthScore: number;
 	pricePerServing: number;
+	readyInMinutes: number;
+	servings: number;
+	sourceUrl: string;
 	summary: string;
 	cuisines: any[];
 	dishTypes: string[];
@@ -50,6 +54,7 @@ interface IRecipeWithDetails extends IRecipe {
 export class RecipeWithDetails implements IRecipeWithDetails {
 	public id: number = null;
 	public image: string = null;
+	public imageType: string = 'jpg';
 	public readyInMinutes: number = null;
 	public servings: number = null;
 	public sourceUrl: string = null;
@@ -61,7 +66,6 @@ export class RecipeWithDetails implements IRecipeWithDetails {
 	public veryHealthy: boolean = null;
 	public weightWatcherSmartPoints: number = null;
 	public preparationMinutes: number = null;
-	public cookingMinutes: number = null;
 	public aggregateLikes: number = null;
 	public spoonacularScore: number = null;
 	public healthScore: number = null;
@@ -78,7 +82,8 @@ export class RecipeWithDetails implements IRecipeWithDetails {
 
 	constructor(recipeWithDetails: IRecipeWithDetails) {
 		this.id = recipeWithDetails.id;
-		this.image = `https://spoonacular.com/recipeImages/${this.id}-636x393.jpg`;
+		this.imageType = recipeWithDetails.imageType;
+		this.image = `https://spoonacular.com/recipeImages/${this.id}-636x393.${this.imageType}`;
 		this.readyInMinutes = recipeWithDetails.readyInMinutes;
 		this.servings = recipeWithDetails.servings;
 		this.sourceUrl = recipeWithDetails.sourceUrl;
@@ -90,7 +95,6 @@ export class RecipeWithDetails implements IRecipeWithDetails {
 		this.veryHealthy = recipeWithDetails.veryHealthy;
 		this.weightWatcherSmartPoints = recipeWithDetails.weightWatcherSmartPoints;
 		this.preparationMinutes = recipeWithDetails.preparationMinutes;
-		this.cookingMinutes = recipeWithDetails.cookingMinutes;
 		this.aggregateLikes = recipeWithDetails.aggregateLikes;
 		this.spoonacularScore = recipeWithDetails.spoonacularScore;
 		this.healthScore = recipeWithDetails.healthScore;
