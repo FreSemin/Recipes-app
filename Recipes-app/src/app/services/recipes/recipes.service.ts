@@ -29,7 +29,8 @@ export class RecipesService implements OnInit {
 
 	public recipeWithDetails: RecipeWithDetails = null;
 
-	public resultSearchOptions: string[] = [];
+	public resultCuisinesInclude: string[] = [];
+	public resultCuisinesExclude: string[] = [];
 	public includeCuisine: string = null;
 	public excludeCuisine: string = null;
 
@@ -40,26 +41,44 @@ export class RecipesService implements OnInit {
 	) { }
 
 	public checkSearchOptions(): void {
-		this.resultSearchOptions = [];
+		this.resultCuisinesInclude = [];
+		this.resultCuisinesExclude = [];
 
-		this.recipesDataService.selectCuisinesValues.cuisinesValues.forEach((cuisine: Cuisine) => {
+		this.recipesDataService.selectCuisinesValues.cuisinesInclude.forEach((cuisine: Cuisine) => {
 			if (cuisine.complete) {
-				this.resultSearchOptions.push(`${cuisine.name},`);
+				this.resultCuisinesInclude.push(`${cuisine.name},`);
 			}
 		});
 
-		if (!(this.resultSearchOptions == null)) {
-			this.resultSearchOptions.unshift('&cuisine=');
+		if (!(this.resultCuisinesInclude == null)) {
+			this.resultCuisinesInclude.unshift('&cuisine=');
+		}
+
+		this.recipesDataService.selectCuisinesValues.cuisinesExclude.forEach((cuisine: Cuisine) => {
+			if (cuisine.complete) {
+				this.resultCuisinesExclude.push(`${cuisine.name},`);
+			}
+		});
+
+		if (!(this.resultCuisinesExclude == null)) {
+			this.resultCuisinesExclude.unshift('&excludeCuisine=');
 		}
 	}
 
 	public searchRecipes(searchString: string): void {
 		this.recipeResults = [];
 		this.isRecipesListLoading = true;
+		this.recipesDataService.setAllInclude(false);
+		this.recipesDataService.setAllExclude(false);
+
 
 		this._http
 			.get<RecipeBook>(
-				`https://api.spoonacular.com/recipes/complexSearch${this._API_KEY}&query=${searchString}&instructionsRequired=true${this.resultSearchOptions}&number=100`
+				`https://api.spoonacular.com/recipes/complexSearch${this._API_KEY}&query=
+				${searchString}
+				&instructionsRequired=true
+				${this.resultCuisinesInclude}
+				${this.resultCuisinesExclude}&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
 				if (!(data.totalResults === 0)) {

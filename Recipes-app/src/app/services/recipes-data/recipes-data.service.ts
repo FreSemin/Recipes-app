@@ -11,17 +11,22 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	private _baseAssetsUrl: string = 'assets';
 
 	public selectCuisinesValues: CuisinesSelect = {
-		cuisinesValues: [new Cuisine('', false)],
+		cuisinesInclude: [new Cuisine('', false)],
+		cuisinesExclude: [new Cuisine('', false)],
 		cuisinesValuesStrings: [''],
 	};
 
-	public cuisinesValues: Cuisine[] = [new Cuisine('', false)];
+	public cuisinesValuesInclude: Cuisine[] = [new Cuisine('', false)];
+	public cuisinesValuesExclude: Cuisine[] = [new Cuisine('', false)];
+
 
 	public favouriteRecipesList: Recipe[] = [];
 
 	public favouriteRecipesListLS: Recipe[] = [];
 
-	public allComplete: boolean = false;
+	public allIncludeComplete: boolean = false;
+	public allExcludeComplete: boolean = false;
+
 
 	public tempCuisine: Cuisine = null;
 
@@ -65,30 +70,52 @@ export class RecipesDataService implements OnInit, OnDestroy {
 			`${this._baseAssetsUrl}/cuisines-values/cuisines-values.json`
 		).subscribe((data: CuisinesSelect) => {
 			data.cuisinesValuesStrings.forEach((element: string) => {
-				this.cuisinesValues.push(new Cuisine(element, false));
+				this.cuisinesValuesInclude.push(new Cuisine(element, false));
+				this.cuisinesValuesExclude.push(new Cuisine(element, false));
 			});
-			this.cuisinesValues.shift();   // delete empty element
-			this.selectCuisinesValues.cuisinesValues = this.cuisinesValues;
+			this.cuisinesValuesInclude.shift();   // delete empty element
+			this.cuisinesValuesExclude.shift();   // delete empty element
+			this.selectCuisinesValues.cuisinesInclude = this.cuisinesValuesInclude;
+			this.selectCuisinesValues.cuisinesExclude = this.cuisinesValuesExclude;
 		});
 	}
 
-	public updateAllComplete() {
-		this.allComplete = this.selectCuisinesValues.cuisinesValues != null && this.selectCuisinesValues.cuisinesValues.every(t => t.complete);
+	public updateAllIncludeComplete(): void {
+		this.allIncludeComplete = this.selectCuisinesValues.cuisinesInclude != null
+			&& this.selectCuisinesValues.cuisinesInclude.every((cuisine: Cuisine) => cuisine.complete);
 	}
 
-	public someComplete(): boolean {
-		if (this.selectCuisinesValues.cuisinesValues == null) {
+	public updateAllExcludeComplete(): void {
+		this.allExcludeComplete = this.selectCuisinesValues.cuisinesExclude != null
+			&& this.selectCuisinesValues.cuisinesExclude.every((cuisine: Cuisine) => cuisine.complete);
+	}
+
+	public someIncludeComplete(): boolean {
+		if (this.selectCuisinesValues.cuisinesInclude == null) {
 			return false;
 		}
-		return this.selectCuisinesValues.cuisinesValues.filter(t => t.complete).length > 0 && !this.allComplete;
+		return this.selectCuisinesValues.cuisinesInclude.filter((cuisine: Cuisine) => cuisine.complete).length > 0 && !this.allIncludeComplete;
 	}
 
-	public setAll(completed: boolean) {
-		this.allComplete = completed;
-		if (this.selectCuisinesValues.cuisinesValues == null) {
-			return;
+	public someExcludeComplete(): boolean {
+		if (this.selectCuisinesValues.cuisinesExclude == null) {
+			return false;
 		}
-		this.selectCuisinesValues.cuisinesValues.forEach(t => t.complete = completed);
+		return this.selectCuisinesValues.cuisinesExclude.filter((cuisine: Cuisine) => cuisine.complete).length > 0 && !this.allExcludeComplete;
+	}
+
+	public setAllInclude(completed: boolean): void {
+		this.allIncludeComplete = completed;
+		if (!(this.selectCuisinesValues.cuisinesInclude == null)) {
+			this.selectCuisinesValues.cuisinesInclude.forEach((cuisine: Cuisine) => cuisine.complete = completed);
+		}
+	}
+
+	public setAllExclude(completed: boolean): void {
+		this.allExcludeComplete = completed;
+		if (!(this.selectCuisinesValues.cuisinesExclude == null)) {
+			this.selectCuisinesValues.cuisinesExclude.forEach((cuisine: Cuisine) => cuisine.complete = completed);
+		}
 	}
 
 	// tslint:disable-next-line: no-empty

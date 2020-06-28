@@ -2,12 +2,14 @@ import Cuisine from '../cuisines/cuisines';
 
 export interface ICuisinesSelect {
   cuisinesValuesStrings: string[];
-	cuisinesValues: Cuisine[];
+  cuisinesInclude: Cuisine[];
+  cuisinesExclude: Cuisine[];
 }
 
 export class CuisinesSelect implements ICuisinesSelect {
-  public cuisinesValues: Cuisine[] = [new Cuisine('', false)];
-  public cuisinesValuesStrings: string [];
+  public cuisinesInclude: Cuisine[] = null;
+  public cuisinesExclude: Cuisine[] = null;
+  public cuisinesValuesStrings: string[];
 
 	constructor(cuisinesValuesStrings: string[]) {
 		this.cuisinesValuesStrings = cuisinesValuesStrings;

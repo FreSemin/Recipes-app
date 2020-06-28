@@ -28,21 +28,45 @@
         <p>
           Include cuisines
         </p>
-        <mat-checkbox [checked]="recipesDataService.allComplete"
-        [indeterminate]="recipesDataService.someComplete()"
-        (change)="recipesDataService.setAll($event.checked)">
+        <mat-checkbox [checked]="recipesDataService.allIncludeComplete"
+          [indeterminate]="recipesDataService.someIncludeComplete()"
+          (change)="recipesDataService.setAllInclude($event.checked)">
           All
         </mat-checkbox>
 
         <ul class="search-box__cuisines-list">
-          <li class="search-box__cuisines-item" *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesValues">
+          <li class="search-box__cuisines-item"
+            *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesInclude">
             <mat-checkbox [(ngModel)]="cuisinesEl.complete"
-            (ngModelChange)="recipesDataService.updateAllComplete()">
+              (ngModelChange)="recipesDataService.updateAllIncludeComplete()">
               {{cuisinesEl.name}}
             </mat-checkbox>
           </li>
         </ul>
       </div>
+
+      <div class="search-box__cuisines">
+        <p>
+          Exclude cuisines
+        </p>
+        <mat-checkbox [checked]="recipesDataService.allExcludeComplete"
+          [indeterminate]="recipesDataService.someExcludeComplete()"
+          (change)="recipesDataService.setAllExclude($event.checked)">
+          All
+        </mat-checkbox>
+
+        <ul class="search-box__cuisines-list">
+          <li class="search-box__cuisines-item"
+            *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesExclude">
+            <mat-checkbox [(ngModel)]="cuisinesEl.complete"
+              (ngModelChange)="recipesDataService.updateAllExcludeComplete()">
+              {{cuisinesEl.name}}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </div>
+
+
     </div>
 
   </div>
