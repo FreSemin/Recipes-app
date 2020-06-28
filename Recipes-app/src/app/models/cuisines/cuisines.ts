@@ -1,13 +1,16 @@
-export interface ICuisinesSelect {
-	cuisinesValues: string[];
+export interface ICuisine {
+	name: string;
+	complete: boolean;
 }
 
-export class CuisinesSelect implements ICuisinesSelect {
-	public cuisinesValues: string[];
+export class Cuisine implements ICuisine {
+	public name: string = '';
+	public complete: boolean = false;
 
-	constructor(cuisinesValues: string[]) {
-		this.cuisinesValues = cuisinesValues;
+	constructor(cuisineName: string, isCompete: boolean) {
+		this.name = cuisineName;
+		this.complete = isCompete;
 	}
 }
 
-export default CuisinesSelect;
+export default Cuisine;

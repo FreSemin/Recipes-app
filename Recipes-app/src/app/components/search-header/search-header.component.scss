@@ -33,4 +33,14 @@
       text-transform: uppercase;
     }
   }
+  &__cuisines {
+    display: flex;
+    flex-direction: column;
+
+    &-list {
+    }
+    &-item {
+      margin: 0 0 0 25px;
+    }
+  }
 }

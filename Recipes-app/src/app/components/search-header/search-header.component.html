@@ -23,29 +23,26 @@
     </div>
 
     <div class="search-box__search">
-      <mat-form-field>
-        <mat-label>Favorite cuisine(kitchen)</mat-label>
-        <mat-select [(ngModel)]="recipesService.includeCuisine">
-          <mat-option>
-            All
-          </mat-option>
-          <mat-option *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues" [value]="cuisinesEl">
-            {{cuisinesEl}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Not Favorite cuisine</mat-label>
-        <mat-select [(ngModel)]="recipesService.excludeCuisine">
-          <mat-option>
-            None
-          </mat-option>
-          <mat-option *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues" [value]="cuisinesEl">
-            {{cuisinesEl}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+      <div class="search-box__cuisines">
+        <p>
+          Include cuisines
+        </p>
+        <mat-checkbox [checked]="recipesDataService.allComplete"
+        [indeterminate]="recipesDataService.someComplete()"
+        (change)="recipesDataService.setAll($event.checked)">
+          All
+        </mat-checkbox>
+
+        <ul class="search-box__cuisines-list">
+          <li class="search-box__cuisines-item" *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesValues">
+            <mat-checkbox [(ngModel)]="cuisinesEl.complete"
+            (ngModelChange)="recipesDataService.updateAllComplete()">
+              {{cuisinesEl.name}}
+            </mat-checkbox>
+          </li>
+        </ul>
+      </div>
     </div>
 
   </div>

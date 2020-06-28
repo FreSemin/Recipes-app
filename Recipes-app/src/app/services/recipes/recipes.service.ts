@@ -7,6 +7,7 @@ import { RecipesDataService } from '../recipes-data/recipes-data.service';
 import { Router } from '@angular/router';
 import { RecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
 import { Observable, combineLatest } from 'rxjs';
+import Cuisine from 'src/app/models/cuisines/cuisines';
 
 @Injectable({
 	providedIn: 'root',
@@ -41,23 +42,20 @@ export class RecipesService implements OnInit {
 	public checkSearchOptions(): void {
 		this.resultSearchOptions = [];
 
-		if (!(this.includeCuisine === '') && !(this.includeCuisine === undefined) && !(this.includeCuisine === null)) {
-			this.includeCuisine = `&cuisine=${this.includeCuisine}`;
-			this.resultSearchOptions.push(this.includeCuisine);
-		}
-		if (!(this.excludeCuisine === '') && !(this.excludeCuisine === undefined) && !(this.excludeCuisine === null)) {
-			this.excludeCuisine = `&excludeCuisine=${this.excludeCuisine}`;
-			this.resultSearchOptions.push(this.excludeCuisine);
-		}
+		this.recipesDataService.selectCuisinesValues.cuisinesValues.forEach((cuisine: Cuisine) => {
+			if (cuisine.complete) {
+				this.resultSearchOptions.push(`${cuisine.name},`);
+			}
+		});
 
-		this.resultSearchOptions.join('');
+		if (!(this.resultSearchOptions == null)) {
+			this.resultSearchOptions.unshift('&cuisine=');
+		}
 	}
 
 	public searchRecipes(searchString: string): void {
 		this.recipeResults = [];
 		this.isRecipesListLoading = true;
-
-		console.log(this.resultSearchOptions);
 
 		this._http
 			.get<RecipeBook>(
@@ -107,24 +105,10 @@ export class RecipesService implements OnInit {
 	}
 
 	public checkRecipeDetails(recipeId: number): Observable<RecipeWithDetails> {
-		// this.isRecipesListLoading = true;
-		// return this._router
-		// .navigate(['/recipe-details', recipeId])
-		// .then(() => {
-
 		return this._http
 			.get<RecipeWithDetails>(
 				`https://api.spoonacular.com/recipes/${recipeId}/information${this._API_KEY}`
 			);
-
-		// .subscribe((recipeWithDetails: RecipeWithDetails) => {
-		// this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
-		// console.log(recipeWithDetails);
-		// });
-		// })
-		// .finally(() => {
-		// this.isRecipesListLoading = false;
-		// });
 	}
 
 	public initRecipeDetails(recipeId: number): void {
