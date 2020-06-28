@@ -22,52 +22,115 @@
       </button>
     </div>
 
-    <div class="search-box__search">
-
-      <div class="search-box__cuisines">
-        <p>
-          Include cuisines
-        </p>
-        <mat-checkbox [checked]="recipesDataService.allIncludeComplete"
-          [indeterminate]="recipesDataService.someIncludeComplete()"
-          (change)="recipesDataService.setAllInclude($event.checked)">
-          All
-        </mat-checkbox>
-
-        <ul class="search-box__cuisines-list">
-          <li class="search-box__cuisines-item"
-            *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesInclude">
-            <mat-checkbox [(ngModel)]="cuisinesEl.complete"
-              (ngModelChange)="recipesDataService.updateAllIncludeComplete()">
-              {{cuisinesEl.name}}
-            </mat-checkbox>
-          </li>
-        </ul>
+    <div class="search-box__filters">
+      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelCuisine = true"
+        (closed)="recipesService.filterPanelCuisine = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ recipesService.filterPanelCuisine ? 'Click to hide filters' : ' Open me if you want some filters'}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-box__cuisines">
+        <div class="search-box__cuisines-box">
+          <p>
+            Include cuisines
+          </p>
+          <mat-checkbox [checked]="recipesDataService.allIncludeComplete"
+            [indeterminate]="recipesDataService.someIncludeComplete()"
+            (change)="recipesDataService.setAllInclude($event.checked)">
+            All
+          </mat-checkbox>
+          <ul class="search-box__cuisines-list">
+            <li class="search-box__cuisines-item"
+              *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesInclude">
+              <mat-checkbox [(ngModel)]="cuisinesEl.complete"
+                (ngModelChange)="recipesDataService.updateAllIncludeComplete()">
+                {{cuisinesEl.name}}
+              </mat-checkbox>
+            </li>
+          </ul>
+        </div>
+        <div class="search-box__cuisines-box">
+          <p>
+            Exclude cuisines
+          </p>
+          <mat-checkbox [checked]="recipesDataService.allExcludeComplete"
+            [indeterminate]="recipesDataService.someExcludeComplete()"
+            (change)="recipesDataService.setAllExclude($event.checked)">
+            All
+          </mat-checkbox>
+          <ul class="search-box__cuisines-list">
+            <li class="search-box__cuisines-item"
+              *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesExclude">
+              <mat-checkbox [(ngModel)]="cuisinesEl.complete"
+                (ngModelChange)="recipesDataService.updateAllExcludeComplete()">
+                {{cuisinesEl.name}}
+              </mat-checkbox>
+            </li>
+          </ul>
+        </div>
       </div>
+      </mat-expansion-panel>
 
-      <div class="search-box__cuisines">
-        <p>
-          Exclude cuisines
-        </p>
-        <mat-checkbox [checked]="recipesDataService.allExcludeComplete"
-          [indeterminate]="recipesDataService.someExcludeComplete()"
-          (change)="recipesDataService.setAllExclude($event.checked)">
-          All
-        </mat-checkbox>
 
-        <ul class="search-box__cuisines-list">
-          <li class="search-box__cuisines-item"
-            *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesExclude">
-            <mat-checkbox [(ngModel)]="cuisinesEl.complete"
-              (ngModelChange)="recipesDataService.updateAllExcludeComplete()">
-              {{cuisinesEl.name}}
-            </mat-checkbox>
-          </li>
-        </ul>
-      </div>
+      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelCalories = true"
+        (closed)="recipesService.filterPanelCalories = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ recipesService.filterPanelCalories ? 'Click to hide your calories) filters' : ' Open me if you want some calories filters'}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-box__sliders">
+          <div class="search-box__sliders-box">
+            <div class="search-box__sliders-title">
+              <p>
+                min calories
+              </p>
+            </div>
+            <div class="search-box__slider-sec">
+              <div class="search-box__slider-nav">
+                <mat-form-field>
+                  <mat-label>min calories value</mat-label>
+                  <input matInput type="number" [(ngModel)]="recipesService.caloriesMinValue">
+                </mat-form-field>
+              </div>
+              <mat-slider class="search-box__slider"
+              min="10" max="50" step="10"
+              [value]="recipesService.caloriesMinValue"
+              [thumbLabel]="recipesService.thumbLabelSliders"
+              [(ngModel)]="recipesService.caloriesMinValue"
+              ></mat-slider>
+            </div>
+          </div>
+          <div class="search-box__sliders-box">
+            <div class="search-box__sliders-title">
+              <p>
+                max calories
+              </p>
+            </div>
+            <div class="search-box__slider-sec">
+              <div class="search-box__slider-nav">
+                <mat-form-field>
+                  <mat-label>max calories value</mat-label>
+                  <input matInput type="number" [(ngModel)]="recipesService.caloriesMaxValue">
+                </mat-form-field>
+              </div>
+              <mat-slider class="search-box__slider"
+              min="50" max="1000" step="10"
+              [value]="recipesService.caloriesMaxValue"
+              [thumbLabel]="recipesService.thumbLabelSliders"
+              [(ngModel)]="recipesService.caloriesMaxValue"
+              ></mat-slider>
+            </div>
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+
 
 
     </div>
+
 
   </div>
 </div>

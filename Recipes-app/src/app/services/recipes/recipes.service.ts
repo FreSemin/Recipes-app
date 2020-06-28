@@ -34,6 +34,16 @@ export class RecipesService implements OnInit {
 	public includeCuisine: string = null;
 	public excludeCuisine: string = null;
 
+	public filterPanelCuisine: boolean = false;
+	public filterPanelCalories: boolean = false;
+
+	public thumbLabelSliders: boolean = true;
+
+	public caloriesMinStartedValue: number = 10;
+	public caloriesMaxStartedValue: number = 50;
+	public caloriesMinValue: number = this.caloriesMinStartedValue;
+	public caloriesMaxValue: number = this.caloriesMaxStartedValue;
+
 	constructor(
 		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
@@ -70,6 +80,9 @@ export class RecipesService implements OnInit {
 		this.isRecipesListLoading = true;
 		this.recipesDataService.setAllInclude(false);
 		this.recipesDataService.setAllExclude(false);
+		this.filterPanelCuisine = false;
+		this.filterPanelCalories = false;
+
 
 		this._http
 			.get<RecipeBook>(
@@ -78,7 +91,8 @@ export class RecipesService implements OnInit {
 				&instructionsRequired=true
 				${this.resultCuisinesInclude}
 				${this.resultCuisinesExclude}
-				&maxCalories=800
+				&minCalories=${this.caloriesMinValue}
+				&maxCalories=${this.caloriesMaxValue}
 				&maxFat=25&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
@@ -94,6 +108,9 @@ export class RecipesService implements OnInit {
 					this.isNothingFound = true;
 				}
 			});
+
+		this.caloriesMinValue = this.caloriesMinStartedValue;
+		this.caloriesMaxValue = this.caloriesMaxStartedValue;
 	}
 
 	public showList(): void {
