@@ -1,0 +1,117 @@
+@import "../../../variables.scss";
+
+@mixin link-arrow-styles($content, $posLeft) {
+	margin: 2px 10px;
+	position: relative;
+	display: flex;
+	align-items: center;
+	color: $text-white;
+	font-size: 16px;
+
+	.page-link {
+		display: inline-block;
+		height: 30px;
+		width: 30px;
+		border-radius: 100%;
+		background: $bg-icon-grey;
+		transition: all 0.6s;
+
+		&:hover {
+			background: $bg-icon-grey-hover;
+			transition: all 0.6s;
+		}
+	}
+
+	&:before {
+		content: $content;
+		font-family: "FontAwesome";
+		position: absolute;
+		pointer-events: none;
+		top: 10px;
+		left: $posLeft;
+	}
+}
+
+@mixin link-nav-styles {
+	display: flex;
+  align-items: center;
+  opacity: 0.8;
+  &.disabled {
+    opacity: 0.5;
+    &:hover {
+      opacity: 0.5;
+    }
+  }
+	.page-link {
+		font-size: 14px;
+		color: $text-title-dark;
+		span {
+			border-bottom: 1px solid $border-orange;
+		}
+  }
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.pagination {
+	margin-top: 20px;
+	padding: 20px 0;
+	display: flex;
+	justify-content: center;
+}
+.first-item {
+	margin-right: 10px;
+	@include link-nav-styles();
+}
+.previous-item {
+	&.disabled {
+		.page-link {
+			&:hover {
+				background: $bg-icon-grey;
+			}
+		}
+	}
+	@include link-arrow-styles("\f104", 10px);
+}
+.number-item {
+	.page-link {
+		margin: 0 5px;
+		height: 40px;
+		width: 40px;
+		display: inline-flex;
+		justify-content: center;
+		align-items: center;
+		border-radius: 100%;
+		transition: all 0.6s;
+		border: 1px solid transparent;
+		color: $text-title-light-dark;
+		font-size: 16px;
+
+		&:hover {
+			transition: all 0.6s;
+			border: 1px solid $border-orange;
+		}
+	}
+}
+.active {
+	.page-link {
+		color: $text-title-dark;
+		border-radius: 100%;
+		border: 1px solid $border-orange;
+	}
+}
+.next-item {
+	&.disabled {
+		.page-link {
+			&:hover {
+				background: $bg-icon-grey;
+			}
+		}
+	}
+	@include link-arrow-styles("\f105", 12px);
+}
+.last-item {
+	margin-left: 10px;
+	@include link-nav-styles();
+}

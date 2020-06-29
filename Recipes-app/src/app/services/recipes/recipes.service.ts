@@ -13,13 +13,15 @@ import Cuisine from 'src/app/models/cuisines/cuisines';
 	providedIn: 'root',
 })
 export class RecipesService implements OnInit {
-	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
+	private _API_KEY: string = '?apiKey=32f7c85c9be64fdab0ab0375f1bc35d0';
 
 	public searchString: string = '';
 	public jokeStr: string = '';
 
 	public recipeBook: RecipeBook = null;
 	public recipeResults: Recipe[] = [];
+
+	public pageOfItems: Recipe[] = [];
 
 	public favouriteRecipes: Recipe[] = [];
 
@@ -40,7 +42,7 @@ export class RecipesService implements OnInit {
 	public thumbLabelSliders: boolean = true;
 
 	public caloriesMinStartedValue: number = 10;
-	public caloriesMaxStartedValue: number = 50;
+	public caloriesMaxStartedValue: number = 1000;
 	public caloriesMinValue: number = this.caloriesMinStartedValue;
 	public caloriesMaxValue: number = this.caloriesMaxStartedValue;
 
@@ -60,7 +62,7 @@ export class RecipesService implements OnInit {
 			}
 		});
 
-		if (!(this.resultCuisinesInclude == null)) {
+		if (this.resultCuisinesInclude.length > 0) {
 			this.resultCuisinesInclude.unshift('&cuisine=');
 		}
 
@@ -70,7 +72,7 @@ export class RecipesService implements OnInit {
 			}
 		});
 
-		if (!(this.resultCuisinesExclude == null)) {
+		if (this.resultCuisinesExclude.length > 0) {
 			this.resultCuisinesExclude.unshift('&excludeCuisine=');
 		}
 	}
@@ -93,7 +95,7 @@ export class RecipesService implements OnInit {
 				${this.resultCuisinesExclude}
 				&minCalories=${this.caloriesMinValue}
 				&maxCalories=${this.caloriesMaxValue}
-				&maxFat=25&number=100`
+				&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
 				console.log(data);
@@ -176,6 +178,11 @@ export class RecipesService implements OnInit {
 				}
 			}
 		);
+	}
+
+	public onChangePage(pageOfItems: Recipe[]): void {
+		// update current page of items
+		this.pageOfItems = pageOfItems;
 	}
 
 	// tslint:disable-next-line: no-empty
