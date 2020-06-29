@@ -12,3 +12,12 @@
     flex-direction: column-reverse;
   }
 }
+.recipes__paginator {
+  ul {
+    background: orange;
+  }
+}
+.pagination {
+  display: flex;
+  background: red;
+}

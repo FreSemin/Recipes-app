@@ -21,6 +21,8 @@ export class RecipesService implements OnInit {
 	public recipeBook: RecipeBook = null;
 	public recipeResults: Recipe[] = [];
 
+	public pageOfItems: Recipe[] = [];
+
 	public favouriteRecipes: Recipe[] = [];
 
 	public isSideBarEnabled: boolean = false;
@@ -40,9 +42,11 @@ export class RecipesService implements OnInit {
 	public thumbLabelSliders: boolean = true;
 
 	public caloriesMinStartedValue: number = 10;
-	public caloriesMaxStartedValue: number = 50;
+	public caloriesMaxStartedValue: number = 1000;
 	public caloriesMinValue: number = this.caloriesMinStartedValue;
 	public caloriesMaxValue: number = this.caloriesMaxStartedValue;
+
+	public pagPageSize: number = 5;
 
 	constructor(
 		private _http: HttpClient,
@@ -93,7 +97,7 @@ export class RecipesService implements OnInit {
 				${this.resultCuisinesExclude}
 				&minCalories=${this.caloriesMinValue}
 				&maxCalories=${this.caloriesMaxValue}
-				&maxFat=25&number=100`
+				&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
 				console.log(data);
@@ -176,6 +180,11 @@ export class RecipesService implements OnInit {
 				}
 			}
 		);
+	}
+
+	public onChangePage(pageOfItems: Recipe[]): void {
+		// update current page of items
+		this.pageOfItems = pageOfItems;
 	}
 
 	// tslint:disable-next-line: no-empty

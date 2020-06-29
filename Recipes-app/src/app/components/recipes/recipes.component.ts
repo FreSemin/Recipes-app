@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { RecipesService } from '../../services/recipes/recipes.service';
 import { RecipesDataService } from '../../services/recipes-data/recipes-data.service';
 import Recipe from './models/recipe/recipe';
@@ -6,7 +6,8 @@ import Recipe from './models/recipe/recipe';
 @Component({
   selector: 'app-recipes',
   templateUrl: './recipes.component.html',
-  styleUrls: ['./recipes.component.scss']
+  styleUrls: ['./recipes.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class RecipesComponent implements OnInit {
 

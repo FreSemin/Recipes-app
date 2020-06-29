@@ -3,8 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+import { JwPaginationModule } from 'jw-angular-pagination';
+
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 
 import { SearchHeaderComponent } from './components/search-header/search-header.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -20,6 +21,8 @@ import { RecipeWithDetailsCardComponent } from './components/recipes/components/
 import { MaterialModule } from './modules/material-modules/meterial.module';
 
 
+import { AppComponent } from './app.component';
+
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -33,6 +36,7 @@ import { MaterialModule } from './modules/material-modules/meterial.module';
 	],
 	imports: [
 		BrowserModule,
+		JwPaginationModule,
 		FormsModule,
 		ReactiveFormsModule,
 		HttpClientModule,
