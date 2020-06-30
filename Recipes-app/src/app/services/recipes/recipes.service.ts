@@ -13,7 +13,7 @@ import Cuisine from 'src/app/models/cuisines/cuisines';
 	providedIn: 'root',
 })
 export class RecipesService implements OnInit {
-	private _API_KEY: string = '?apiKey=32f7c85c9be64fdab0ab0375f1bc35d0';
+	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
 
 	public searchString: string = '';
 	public jokeStr: string = '';

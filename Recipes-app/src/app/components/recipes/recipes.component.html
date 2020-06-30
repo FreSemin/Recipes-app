@@ -41,13 +41,13 @@
     </div>
 
     <div class="recipes__paginator">
-      <app-jw-pagination  *ngIf="recipesService.recipeResults.length > 1"
+      <app-pagination  *ngIf="recipesService.recipeResults.length > 1"
         [items]="recipesService.recipeResults" (changePage)="recipesService.onChangePage($event)">
-      </app-jw-pagination>
+      </app-pagination>
 
-      <app-jw-pagination *ngIf="recipesDataService.favouriteRecipesList.length > 1"
+      <app-pagination *ngIf="recipesDataService.favouriteRecipesList.length > 1"
         [items]="recipesDataService.favouriteRecipesList" (changePage)="recipesService.onChangePage($event)">
-      </app-jw-pagination>
+      </app-pagination>
     </div>
 
   </div>

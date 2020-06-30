@@ -3,17 +3,26 @@ import { Component, Input, Output, EventEmitter, OnInit, OnChanges, SimpleChange
 import paginate from 'jw-paginate';
 
 @Component({
-  selector: 'app-jw-pagination',
+	selector: 'app-pagination',
 	templateUrl: './paginator.component.html',
 	styleUrls: ['./paginator.component.scss'],
 })
 
-export class JwPaginationComponent implements OnInit, OnChanges {
-	@Input() public items: any[];
-	@Output() public changePage: EventEmitter<any> = new EventEmitter<any>(true);
-	@Input() public initialPage: number = 1;
-	@Input() public pageSize: number = 5;
-	@Input() public maxPages: number = 5;
+export class PaginationComponent implements OnInit, OnChanges {
+	@Input()
+	public items: any[];
+
+	@Output()
+	public changePage: EventEmitter<any> = new EventEmitter<any>(true);
+
+	@Input()
+	public initialPage: number = 1;
+
+	@Input()
+	public pageSize: number = 5;
+
+	@Input()
+	public maxPages: number = 5;
 
 	public pager: any = {};
 
