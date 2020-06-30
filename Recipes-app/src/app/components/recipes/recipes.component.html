@@ -15,22 +15,39 @@
     </div>
 
     <div [ngClass]="{
-      'recipes__cards_favourites': (recipesDataService.favouriteRecipesList.length !== 0) ? true : false
-    }">
-      <app-recipes-card *ngFor="let recipeEl of recipesService.recipeResults;" [recipe]="recipeEl"
-        (onAddRecipeToFavourite)="recipesService.addToFavourite($event)"
-        (onCheckDetails)="recipesService.initRecipeDetails($event.id)"
-        [favouriteCardStructure]="recipesService.checkForFavourite(recipeEl) ? favouriteCard : null">
-      </app-recipes-card>
+			'recipes__cards_favourites': (recipesDataService.favouriteRecipesList.length !== 0) ? true : false
+		}">
+      <div *ngIf="recipesService.recipeResults.length > 1">
+        <app-recipes-card *ngFor="let recipeEl of recipesService.pageOfItems;" [recipe]="recipeEl"
+          (onAddRecipeToFavourite)="recipesService.addToFavourite($event)"
+          (onCheckDetails)="recipesService.initRecipeDetails($event.id)"
+          [favouriteCardStructure]="recipesService.checkForFavourite(recipeEl) ? favouriteCard : null">
+        </app-recipes-card>
+      </div>
 
-      <app-recipes-card *ngFor="let recipeLSEl of recipesDataService.favouriteRecipesList;" [recipe]="recipeLSEl"
-      (onCheckDetails)="recipesService.initRecipeDetails($event.id)"
-        [favouriteCardStructure]="recipesDataService.favouriteRecipesList.includes(recipeLSEl) ? favouriteCard : null">
-      </app-recipes-card>
+      <div *ngIf="recipesDataService.favouriteRecipesList.length > 1">
+        <app-recipes-card *ngFor="let recipeLSEl of recipesService.pageOfItems;" [recipe]="recipeLSEl"
+          (onCheckDetails)="recipesService.initRecipeDetails($event.id)"
+          [favouriteCardStructure]="recipesDataService.favouriteRecipesList.includes(recipeLSEl) ? favouriteCard : null">
+        </app-recipes-card>
+      </div>
 
-      <app-recipe-with-details-card *ngIf="recipesService.recipeWithDetails"
-        [recipeWithDetails]="recipesService.recipeWithDetails">
-      </app-recipe-with-details-card>
+      <div *ngIf="recipesService.recipeWithDetails">
+        <app-recipe-with-details-card *ngIf="recipesService.recipeWithDetails"
+          [recipeWithDetails]="recipesService.recipeWithDetails">
+        </app-recipe-with-details-card>
+      </div>
+
+    </div>
+
+    <div class="recipes__paginator">
+      <app-pagination  *ngIf="recipesService.recipeResults.length > 1"
+        [items]="recipesService.recipeResults" (changePage)="recipesService.onChangePage($event)">
+      </app-pagination>
+
+      <app-pagination *ngIf="recipesDataService.favouriteRecipesList.length > 1"
+        [items]="recipesDataService.favouriteRecipesList" (changePage)="recipesService.onChangePage($event)">
+      </app-pagination>
     </div>
 
   </div>

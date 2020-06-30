@@ -18,6 +18,7 @@ import { FavouriteComponent } from './components/favourite/favourite.component';
 import { RecipesDataService } from './services/recipes-data/recipes-data.service';
 import { RecipeWithDetailsCardComponent } from './components/recipes/components/recipe-with-details-card/recipe-with-details-card.component';
 import { MaterialModule } from './modules/material-modules/meterial.module';
+import { PaginationComponent } from './components/paginator/paginator.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { MaterialModule } from './modules/material-modules/meterial.module';
 		RecipesComponent,
 		RecipesCardComponent,
 		HomeComponent,
+		PaginationComponent,
 		FavouriteComponent,
 		RecipeWithDetailsCardComponent,
 	],
