@@ -19,6 +19,7 @@ import { RecipesDataService } from './services/recipes-data/recipes-data.service
 import { RecipeWithDetailsCardComponent } from './components/recipes/components/recipe-with-details-card/recipe-with-details-card.component';
 import { MaterialModule } from './modules/material-modules/meterial.module';
 import { PaginationComponent } from './components/paginator/paginator.component';
+import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { PaginationComponent } from './components/paginator/paginator.component'
 		PaginationComponent,
 		FavouriteComponent,
 		RecipeWithDetailsCardComponent,
+		NotFoundPageComponent,
 	],
 	imports: [
 		BrowserModule,

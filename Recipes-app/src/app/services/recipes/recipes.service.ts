@@ -170,10 +170,8 @@ export class RecipesService implements OnInit {
 		if (this.recipeWithDetails === null && this._router.url.includes('recipe-details') === true && (isNaN(idFromUrl) === false)
 		) {
 			this.initRecipeDetails(idFromUrl);
-		} else {
-			console.log('nothing found try another');
-			// redirect to 404 page method
-			// this.redirectToNotFound();
+		} else if (this._router.url.includes('recipe-details') === true && (this.recipeWithDetails === null || (isNaN(idFromUrl) === true) )){
+			this.redirectToNotFound();
 		}
 
 	}
@@ -200,9 +198,9 @@ export class RecipesService implements OnInit {
 		this.pageOfItems = pageOfItems;
 	}
 
-	// public redirectToNotFound(): void {
-		// this._router.navigate('not-found');
-	// }
+	public redirectToNotFound(): void {
+		this._router.navigate(['/not-found']);
+	}
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void { }
