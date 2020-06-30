@@ -12,7 +12,7 @@ import { RecipesService } from 'src/app/services/recipes/recipes.service';
 	selector: 'app-recipe-with-details-card',
 	templateUrl: './recipe-with-details-card.component.html',
 	styleUrls: ['./recipe-with-details-card.component.scss'],
-	changeDetection: ChangeDetectionStrategy.OnPush,
+	// changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipeWithDetailsCardComponent implements OnInit, OnDestroy {
 	public panelOpenState: boolean = false;
@@ -20,7 +20,6 @@ export class RecipeWithDetailsCardComponent implements OnInit, OnDestroy {
 	@Input()
 	public recipeWithDetails: RecipeWithDetails;
 
-	// tslint:disable-next-line: no-empty
 	constructor(
 		public recipesService: RecipesService,
 	) { }
@@ -30,6 +29,6 @@ export class RecipeWithDetailsCardComponent implements OnInit, OnDestroy {
 	}
 
 	public ngOnDestroy(): void {
-		this.recipeWithDetails = null;
+		this.recipesService.recipeWithDetails = null;
 	}
 }

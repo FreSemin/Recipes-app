@@ -13,7 +13,7 @@ import Cuisine from 'src/app/models/cuisines/cuisines';
 	providedIn: 'root',
 })
 export class RecipesService implements OnInit {
-	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
+	private _API_KEY: string = '?apiKey=32f7c85c9be64fdab0ab0375f1bc35d0';
 
 	public searchString: string = '';
 	public jokeStr: string = '';
@@ -84,7 +84,6 @@ export class RecipesService implements OnInit {
 		this.recipesDataService.setAllExclude(false);
 		this.filterPanelCuisine = false;
 		this.filterPanelCalories = false;
-
 
 		this._http
 			.get<RecipeBook>(
@@ -163,6 +162,22 @@ export class RecipesService implements OnInit {
 			});
 	}
 
+	public checkForRecipeWithDetails(): void {
+		const idFromUrl: number = Number(this._router.url
+			.slice(this._router.url.lastIndexOf('/') + 1)
+		);
+
+		if (this.recipeWithDetails === null && this._router.url.includes('recipe-details') === true && (isNaN(idFromUrl) === false)
+		) {
+			this.initRecipeDetails(idFromUrl);
+		} else {
+			console.log('nothing found try another');
+			// redirect to 404 page method
+			// this.redirectToNotFound();
+		}
+
+	}
+
 	public sideBarToggel(): void {
 		this.isSideBarEnabled = !this.isSideBarEnabled;
 	}
@@ -184,6 +199,10 @@ export class RecipesService implements OnInit {
 		// update current page of items
 		this.pageOfItems = pageOfItems;
 	}
+
+	// public redirectToNotFound(): void {
+		// this._router.navigate('not-found');
+	// }
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void { }
