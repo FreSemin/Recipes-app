@@ -24,31 +24,20 @@
 
     </div>
     <div>
-      <ng-container>
-        <div *ngTemplateOutlet="favouriteCardStructure || defaultSearchCard">
+      <button mat-raised-button (click)="addRecipeToFavourite()" *ngIf="!isFavorite">
+        add to favorite :3
+      </button>
 
-        </div>
-      </ng-container>
+      <button mat-raised-button (click)="deleteRecipeFromFavourite()" *ngIf="isFavorite">
+        delete
+      </button>
 
 
       <button mat-raised-button (click)="checkDetails()">
-          check details
+        check details
       </button>
-
-      <!-- <button mat-raised-button>
-        <a (click)="checkDetails()" routerLink='/recipe-details'>
-          check details
-        </a>
-      </button> -->
 
     </div>
   </div>
 
 </div>
-
-
-<ng-template #defaultSearchCard>
-  <button mat-raised-button (click)="addRecipeToFavourite()">
-    add to favorite :3
-  </button>
-</ng-template>

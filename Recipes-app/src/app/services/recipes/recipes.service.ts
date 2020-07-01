@@ -138,8 +138,12 @@ export class RecipesService implements OnInit {
 		// 	});
 	}
 
-	public addToFavourite(recipe: Recipe): void {
-		this.recipesDataService.addToFavorite(recipe);
+	public addToFavourite(recipeToAdd: Recipe): void {
+		this.recipesDataService.addToFavorite(recipeToAdd);
+	}
+
+	public deleteFromFavourite(recipeToDelete: Recipe): void {
+		this.recipesDataService.deleteFromFavourite(recipeToDelete);
 	}
 
 	public checkRecipeDetails(recipeId: number): Observable<RecipeWithDetails> {
@@ -170,10 +174,16 @@ export class RecipesService implements OnInit {
 		if (this.recipeWithDetails === null && this._router.url.includes('recipe-details') === true && (isNaN(idFromUrl) === false)
 		) {
 			this.initRecipeDetails(idFromUrl);
-		} else if (this._router.url.includes('recipe-details') === true && (this.recipeWithDetails === null || (isNaN(idFromUrl) === true) )){
+		} else if (this._router.url.includes('recipe-details') === true && (this.recipeWithDetails === null || (isNaN(idFromUrl) === true))) {
 			this.redirectToNotFound();
 		}
 
+	}
+
+	public checkForFavouriteRecipes(): void {
+		if (this._router.url.includes('favourite')) {
+			this.recipesDataService.initRecipeList();
+		}
 	}
 
 	public sideBarToggel(): void {

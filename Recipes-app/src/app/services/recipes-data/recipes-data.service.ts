@@ -3,6 +3,7 @@ import { Recipe } from '../../components/recipes/models/recipe/recipe';
 import { HttpClient } from '@angular/common/http';
 import CuisinesSelect from 'src/app/models/cuisines-select/cuisines-select';
 import Cuisine from 'src/app/models/cuisines/cuisines';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class RecipesDataService implements OnInit, OnDestroy {
@@ -19,7 +20,6 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	public cuisinesValuesInclude: Cuisine[] = [new Cuisine('', false)];
 	public cuisinesValuesExclude: Cuisine[] = [new Cuisine('', false)];
 
-
 	public favouriteRecipesList: Recipe[] = [];
 
 	public favouriteRecipesListLS: Recipe[] = [];
@@ -27,19 +27,34 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	public allIncludeComplete: boolean = false;
 	public allExcludeComplete: boolean = false;
 
-
 	public tempCuisine: Cuisine = null;
 
-	constructor(private _http: HttpClient) { }
+	constructor(private _http: HttpClient, private _router: Router) { }
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void {
 	}
 
-	public addToFavorite(recipe: Recipe): void {
+	public addToFavorite(recipeToAdd: Recipe): void {
 		this.loadLSRecipes();
-		this.favouriteRecipesListLS.push(recipe);
+		this.favouriteRecipesListLS.push(recipeToAdd);
 		this.saveLSRecipes();
+	}
+
+	public deleteFromFavourite(recipeToDelete: Recipe): void {
+		this.loadLSRecipes();
+		const indexRecipeToDelete: number = this.favouriteRecipesListLS.findIndex((recipe: Recipe) => recipe.id === recipeToDelete.id);
+		if (indexRecipeToDelete > -1) {
+			console.log(`delete ${recipeToDelete.id}`);
+			this.favouriteRecipesListLS.splice(indexRecipeToDelete, 1);
+			console.log(this.favouriteRecipesListLS);
+		}
+		this.saveLSRecipes();
+
+		// update view recipes
+		if (this._router.url.includes('favourite')) {
+			this.initRecipeList();
+		}
 	}
 
 	public loadLSRecipes(): void {

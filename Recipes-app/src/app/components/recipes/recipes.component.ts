@@ -12,9 +12,9 @@ export class RecipesComponent implements OnInit {
 
 	constructor(public recipesService: RecipesService, public recipesDataService: RecipesDataService) { }
 
-	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void {
 		this.recipesService.checkForRecipeWithDetails();
+		this.recipesService.checkForFavouriteRecipes();
 	}
 
 }

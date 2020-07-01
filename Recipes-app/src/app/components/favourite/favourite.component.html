@@ -1,11 +1,18 @@
 <div class="favourite">
 
-    <div class="favourite__container">
-        <div class="favourite__side-bar">
-            <app-side-bar></app-side-bar>
-        </div>
+
+
+  <div class="favourite__container">
+
+    <div class="favourite__is-empty" *ngIf="recipeDataService.favouriteRecipesList.length === 0">
+      favourite is empty
     </div>
 
-    <app-recipes></app-recipes>
+    <div class="favourite__side-bar">
+      <app-side-bar></app-side-bar>
+    </div>
+  </div>
+
+  <app-recipes></app-recipes>
 
 </div>

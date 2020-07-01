@@ -5,7 +5,6 @@ import Recipe from '../../models/recipe/recipe';
 	selector: 'app-recipes-card',
 	templateUrl: './recipes-card.component.html',
 	styleUrls: ['./recipes-card.component.scss'],
-	// changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class RecipesCardComponent implements OnInit {
 
@@ -16,16 +15,23 @@ export class RecipesCardComponent implements OnInit {
 	public onAddRecipeToFavourite: EventEmitter<Recipe> = new EventEmitter<Recipe>();
 
 	@Output()
+	public onDeleteRecipeFromFavourite: EventEmitter<Recipe> = new EventEmitter<Recipe>();
+
+	@Output()
 	public onCheckDetails: EventEmitter<Recipe> = new EventEmitter<Recipe>();
 
 	@Input()
-	public favouriteCardStructure: HTMLElement = null;
+	public isFavorite: boolean;
 
 	// tslint:disable-next-line: no-empty
 	constructor() { }
 
 	public addRecipeToFavourite(): void {
 		this.onAddRecipeToFavourite.emit(this.recipe);
+	}
+
+	public deleteRecipeFromFavourite(): void {
+		this.onDeleteRecipeFromFavourite.emit(this.recipe);
 	}
 
 	public checkDetails(): void {
