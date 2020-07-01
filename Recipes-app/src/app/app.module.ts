@@ -20,6 +20,7 @@ import { RecipeWithDetailsCardComponent } from './components/recipes/components/
 import { MaterialModule } from './modules/material-modules/meterial.module';
 import { PaginationComponent } from './components/paginator/paginator.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { LatestComponent } from './components/latest/latest.component';
 
 
 @NgModule({
@@ -34,6 +35,7 @@ import { NotFoundPageComponent } from './components/not-found-page/not-found-pag
 		FavouriteComponent,
 		RecipeWithDetailsCardComponent,
 		NotFoundPageComponent,
+		LatestComponent,
 	],
 	imports: [
 		BrowserModule,

@@ -115,7 +115,7 @@ export class RecipesService implements OnInit {
 	}
 
 	public showList(): void {
-		this.recipesDataService.loadLSRecipes();
+		this.recipesDataService.loadLSFavouriteRecipes();
 
 		this.recipeResults = [];
 		this.recipeBook.results.forEach((element: Recipe) => {
@@ -153,7 +153,16 @@ export class RecipesService implements OnInit {
 			);
 	}
 
-	public initRecipeDetails(recipeId: number): void {
+	public initRecipeDetails(recipe: Recipe, recipeIdFromUrl?: number): void {
+		let recipeId: number;
+
+		if (recipe === null) {
+			recipeId = recipeIdFromUrl;
+		} else {
+			recipeId = recipe.id;
+			this.recipesDataService.addToLatest(recipe);
+		}
+
 		this._router
 			.navigate(['/recipe-details', recipeId]);
 		this.isRecipesListLoading = true;
@@ -173,16 +182,15 @@ export class RecipesService implements OnInit {
 
 		if (this.recipeWithDetails === null && this._router.url.includes('recipe-details') === true && (isNaN(idFromUrl) === false)
 		) {
-			this.initRecipeDetails(idFromUrl);
+			this.initRecipeDetails(null, idFromUrl);
 		} else if (this._router.url.includes('recipe-details') === true && (this.recipeWithDetails === null || (isNaN(idFromUrl) === true))) {
 			this.redirectToNotFound();
 		}
-
 	}
 
 	public checkForFavouriteRecipes(): void {
 		if (this._router.url.includes('favourite')) {
-			this.recipesDataService.initRecipeList();
+			this.recipesDataService.initFavouriteRecipeList();
 		}
 	}
 
@@ -191,7 +199,7 @@ export class RecipesService implements OnInit {
 	}
 
 	public checkForFavourite(recipe: Recipe): boolean {
-		this.recipesDataService.loadLSRecipes();
+		this.recipesDataService.loadLSFavouriteRecipes();
 		return this.recipesDataService.favouriteRecipesListLS.some(
 			(element: Recipe) => {
 				if (recipe.id === element.id) {

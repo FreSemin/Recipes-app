@@ -18,7 +18,7 @@
       <app-recipes-card *ngFor="let recipeEl of recipesService.pageOfItems;" [recipe]="recipeEl"
         (onAddRecipeToFavourite)="recipesService.addToFavourite($event)"
         (onDeleteRecipeFromFavourite)="recipesService.deleteFromFavourite($event)"
-        (onCheckDetails)="recipesService.initRecipeDetails($event.id)"
+        (onCheckDetails)="recipesService.initRecipeDetails($event)"
         [isFavorite]="recipesService.checkForFavourite(recipeEl) ? true : false">
       </app-recipes-card>
     </div>
@@ -26,7 +26,15 @@
     <div *ngIf="recipesDataService.favouriteRecipesList.length > 0">
       <app-recipes-card *ngFor="let recipeLSEl of recipesService.pageOfItems;" [recipe]="recipeLSEl"
         (onDeleteRecipeFromFavourite)="recipesService.deleteFromFavourite($event)"
-        (onCheckDetails)="recipesService.initRecipeDetails($event.id)"
+        (onCheckDetails)="recipesService.initRecipeDetails($event)"
+        [isFavorite]="recipesDataService.favouriteRecipesList.includes(recipeLSEl) ? true : false">
+      </app-recipes-card>
+    </div>
+
+    <div *ngIf="recipesDataService.latestRecipesList.length > 0">
+      <app-recipes-card *ngFor="let recipeLSEl of recipesService.pageOfItems;" [recipe]="recipeLSEl"
+        (onDeleteRecipeFromFavourite)="recipesService.deleteFromFavourite($event)"
+        (onCheckDetails)="recipesService.initRecipeDetails($event)"
         [isFavorite]="recipesDataService.favouriteRecipesList.includes(recipeLSEl) ? true : false">
       </app-recipes-card>
     </div>
@@ -47,6 +55,10 @@
 
       <app-pagination *ngIf="recipesDataService.favouriteRecipesList.length > 0"
         [items]="recipesDataService.favouriteRecipesList" (changePage)="recipesService.onChangePage($event)">
+      </app-pagination>
+
+      <app-pagination *ngIf="recipesDataService.latestRecipesList.length > 0"
+        [items]="recipesDataService.latestRecipesList" (changePage)="recipesService.onChangePage($event)">
       </app-pagination>
     </div>
   </div>

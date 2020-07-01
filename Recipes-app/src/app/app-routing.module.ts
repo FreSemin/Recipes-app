@@ -4,6 +4,7 @@ import { HomeComponent } from './components/home/home.component';
 import { FavouriteComponent } from './components/favourite/favourite.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
+import { LatestComponent } from './components/latest/latest.component';
 
 const routes: Routes = [
 	{
@@ -13,6 +14,10 @@ const routes: Routes = [
 	{
 		path: 'favourite',
 		component: FavouriteComponent,
+  },
+  {
+		path: 'latest',
+		component: LatestComponent,
 	},
 	{
 		path: 'recipe-details',

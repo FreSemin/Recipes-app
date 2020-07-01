@@ -8,21 +8,24 @@ import { Router } from '@angular/router';
 @Injectable()
 export class RecipesDataService implements OnInit, OnDestroy {
 
-	private static _recipeListKey: string = 'app-recipe-list';
+	private static _recipeFavouriteListKey: string = 'app-recipe-list';
+	private static _recipeLatestListKey: string = 'app-recipe-latest-list';
 	private _baseAssetsUrl: string = 'assets';
 
 	public selectCuisinesValues: CuisinesSelect = {
 		cuisinesInclude: [new Cuisine('', false)],
 		cuisinesExclude: [new Cuisine('', false)],
 		cuisinesValuesStrings: [''],
-	};
+	}; // "empty arr"
+
+	public favouriteRecipesList: Recipe[] = [];
+	public favouriteRecipesListLS: Recipe[] = [];
+
+	public latestRecipesList: Recipe[] = [];
+	public latestRecipesListLS: Recipe[] = [];
 
 	public cuisinesValuesInclude: Cuisine[] = [new Cuisine('', false)];
 	public cuisinesValuesExclude: Cuisine[] = [new Cuisine('', false)];
-
-	public favouriteRecipesList: Recipe[] = [];
-
-	public favouriteRecipesListLS: Recipe[] = [];
 
 	public allIncludeComplete: boolean = false;
 	public allExcludeComplete: boolean = false;
@@ -35,51 +38,97 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	public ngOnInit(): void {
 	}
 
+	public checkForLatest(recipeId: number): boolean {
+		this.loadLSLatestRecipes();
+		return this.latestRecipesListLS.some(
+			(element: Recipe) => {
+				if (recipeId === element.id) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		);
+	}
+
 	public addToFavorite(recipeToAdd: Recipe): void {
-		this.loadLSRecipes();
+		this.loadLSFavouriteRecipes();
 		this.favouriteRecipesListLS.push(recipeToAdd);
-		this.saveLSRecipes();
+		this.saveLSFavouriteRecipes();
+	}
+
+	public addToLatest(recipeToAdd: Recipe): void {
+		this.loadLSLatestRecipes();
+		if (this.checkForLatest(recipeToAdd.id) === false) {
+			this.latestRecipesListLS.push(recipeToAdd);
+			this.saveLSLatestRecipes();
+		}
 	}
 
 	public deleteFromFavourite(recipeToDelete: Recipe): void {
-		this.loadLSRecipes();
+		this.loadLSFavouriteRecipes();
 		const indexRecipeToDelete: number = this.favouriteRecipesListLS.findIndex((recipe: Recipe) => recipe.id === recipeToDelete.id);
 		if (indexRecipeToDelete > -1) {
 			console.log(`delete ${recipeToDelete.id}`);
 			this.favouriteRecipesListLS.splice(indexRecipeToDelete, 1);
 			console.log(this.favouriteRecipesListLS);
 		}
-		this.saveLSRecipes();
+		this.saveLSFavouriteRecipes();
 
 		// update view recipes
 		if (this._router.url.includes('favourite')) {
-			this.initRecipeList();
+			this.initFavouriteRecipeList();
 		}
 	}
 
-	public loadLSRecipes(): void {
-		const recipesLS: string = localStorage.getItem(RecipesDataService._recipeListKey);
-		if (Boolean(recipesLS)) {
-			this.favouriteRecipesListLS = JSON.parse(localStorage.getItem(RecipesDataService._recipeListKey));
+	public loadLSFavouriteRecipes(): void {
+		const recipesFavouriteLS: string = localStorage.getItem(RecipesDataService._recipeFavouriteListKey);
+		if (Boolean(recipesFavouriteLS)) {
+			this.favouriteRecipesListLS = JSON.parse(localStorage.getItem(RecipesDataService._recipeFavouriteListKey));
 		} else {
-			this.saveLSRecipes();
+			this.saveLSFavouriteRecipes();
 		}
 	}
 
-	public saveLSRecipes(): void {
-		const recipesToSave: string = JSON.stringify(this.favouriteRecipesListLS);
-		localStorage.setItem(RecipesDataService._recipeListKey, recipesToSave);
+	public loadLSLatestRecipes(): void {
+		const recipesLatestLS: string = localStorage.getItem(RecipesDataService._recipeLatestListKey);
+		if (Boolean(recipesLatestLS)) {
+			this.latestRecipesListLS = JSON.parse(localStorage.getItem(RecipesDataService._recipeLatestListKey));
+		} else {
+			this.saveLSLatestRecipes();
+		}
 	}
 
-	public initRecipeList(): void {
-		this.loadLSRecipes();
+	public saveLSFavouriteRecipes(): void {
+		const recipesToSaveFavourite: string = JSON.stringify(this.favouriteRecipesListLS);
+		localStorage.setItem(RecipesDataService._recipeFavouriteListKey, recipesToSaveFavourite);
+	}
+
+	public saveLSLatestRecipes(): void {
+		const recipesToSaveLatest: string = JSON.stringify(this.latestRecipesListLS);
+		localStorage.setItem(RecipesDataService._recipeLatestListKey, recipesToSaveLatest);
+	}
+
+	public initFavouriteRecipeList(): void {
+		this.loadLSFavouriteRecipes();
 		this.favouriteRecipesList = this.favouriteRecipesListLS;
 	}
 
-	public destroyRecipeList(): void {
+	public initLatestRecipeList(): void {
+		this.loadLSLatestRecipes();
+		this.latestRecipesList = this.latestRecipesListLS;
+	}
+
+	public destroyFavouriteRecipeList(): void {
 		this.favouriteRecipesList = [];
 	}
 
+	public destroyLatestRecipeList(): void {
+		this.latestRecipesList = [];
+	}
+
+
+	//#region Cuisines start
 	public initCuisinesSelect(): void {
 		this._http.get<CuisinesSelect>(
 			`${this._baseAssetsUrl}/cuisines-values/cuisines-values.json`
@@ -132,6 +181,8 @@ export class RecipesDataService implements OnInit, OnDestroy {
 			this.selectCuisinesValues.cuisinesExclude.forEach((cuisine: Cuisine) => cuisine.complete = completed);
 		}
 	}
+	//#endregion Cuisines start
+
 
 	// tslint:disable-next-line: no-empty
 	public ngOnDestroy(): void {

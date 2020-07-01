@@ -1,0 +1,16 @@
+<div class="latest">
+
+  <div class="latest__container">
+
+    <div class="latest__is-empty" *ngIf="recipeDataService.latestRecipesList.length === 0">
+      latest is empty
+    </div>
+
+    <div class="latest__side-bar">
+      <app-side-bar></app-side-bar>
+    </div>
+  </div>
+
+  <app-recipes></app-recipes>
+
+</div>

@@ -2,20 +2,20 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipesDataService } from 'src/app/services/recipes-data/recipes-data.service';
 
 @Component({
-	selector: 'app-favourite',
-	templateUrl: './favourite.component.html',
-	styleUrls: ['./favourite.component.scss']
+	selector: 'app-latest',
+	templateUrl: './latest.component.html',
+	styleUrls: ['./latest.component.scss']
 })
-export class FavouriteComponent implements OnInit, OnDestroy {
+export class LatestComponent implements OnInit, OnDestroy {
 
 	constructor(public recipeDataService: RecipesDataService) { }
 
 	public ngOnInit(): void {
-		this.recipeDataService.initFavouriteRecipeList();
+		this.recipeDataService.initLatestRecipeList();
 	}
 
 	public ngOnDestroy(): void {
-		this.recipeDataService.destroyFavouriteRecipeList();
+		this.recipeDataService.destroyLatestRecipeList();
 	}
 
 }
