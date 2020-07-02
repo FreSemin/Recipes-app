@@ -13,7 +13,10 @@ import Cuisine from 'src/app/models/cuisines/cuisines';
 	providedIn: 'root',
 })
 export class RecipesService implements OnInit {
-	private _API_KEY: string = '?apiKey=32f7c85c9be64fdab0ab0375f1bc35d0';
+	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
+
+	// 6b81ee8ae3fb4592aa7f4d40e40b091b -- main api acc key
+	// 32f7c85c9be64fdab0ab0375f1bc35d0 -- second api acc key
 
 	public searchString: string = '';
 	public jokeStr: string = '';
@@ -58,6 +61,12 @@ export class RecipesService implements OnInit {
 	public filterPanelSorting: boolean = false;
 
 	public selectedSortingDirection: string = null;
+
+	public filterPanelCarbs: boolean = false;
+	public carbsMinStartedValue: number = 10;
+	public carbsMaxStartedValue: number = 200;
+	public carbsMinValue: number = this.carbsMinStartedValue;
+	public carbsMaxValue: number = this.carbsMaxStartedValue;
 
 	constructor(
 		private _http: HttpClient,
@@ -125,6 +134,8 @@ export class RecipesService implements OnInit {
 				${this.resultCuisinesExclude}
 				&minCalories=${this.caloriesMinValue}
 				&maxCalories=${this.caloriesMaxValue}
+				&minCarbs=${this.carbsMinValue}
+				&maxCarbs=${this.carbsMaxValue}
 				&maxReadyTime=${this.readyTime}
 				${this.selectedDiet}
 				${this.selectedSorting}
@@ -151,6 +162,8 @@ export class RecipesService implements OnInit {
 		this.selectedDiet = null;
 		this.selectedSorting = null;
 		this.selectedSortingDirection = null;
+		this.carbsMinValue = this.carbsMinStartedValue;
+		this.carbsMaxValue = this.carbsMaxStartedValue;
 	}
 
 	public showList(): void {
