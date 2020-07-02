@@ -98,8 +98,8 @@ export class RecipesService implements OnInit {
 				${this.resultCuisinesInclude}
 				${this.resultCuisinesExclude}
 				&minCalories=${this.caloriesMinValue}
-        &maxCalories=${this.caloriesMaxValue}
-        &maxReadyTime=${this.readyTime}
+				&maxCalories=${this.caloriesMaxValue}
+				&maxReadyTime=${this.readyTime}
 				&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
@@ -117,8 +117,8 @@ export class RecipesService implements OnInit {
 			});
 
 		this.caloriesMinValue = this.caloriesMinStartedValue;
-    this.caloriesMaxValue = this.caloriesMaxStartedValue;
-    this.readyTime = this.readyTimeStartedValue;
+		this.caloriesMaxValue = this.caloriesMaxStartedValue;
+		this.readyTime = this.readyTimeStartedValue;
 	}
 
 	public showList(): void {
@@ -221,6 +221,7 @@ export class RecipesService implements OnInit {
 	public onChangePage(pageOfItems: Recipe[]): void {
 		// update current page of items
 		this.pageOfItems = pageOfItems;
+		window.scroll(0, 0);
 	}
 
 	public redirectToNotFound(): void {

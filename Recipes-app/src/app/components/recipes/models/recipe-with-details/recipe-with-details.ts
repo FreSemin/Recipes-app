@@ -2,7 +2,7 @@
 interface ExtendedIngredient {
 	id: number;
 	image: string;
-	amount: number; // price
+	amount: number;
 	name: string;
 }
 
