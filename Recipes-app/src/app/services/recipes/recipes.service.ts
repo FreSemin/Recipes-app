@@ -52,6 +52,7 @@ export class RecipesService implements OnInit {
 	public readyTime: number = this.readyTimeStartedValue;
 
 	public selectedDiet: string = null;
+	public filterPanelDiets: boolean = false;
 
 	constructor(
 		private _http: HttpClient,
@@ -83,11 +84,11 @@ export class RecipesService implements OnInit {
 			this.resultCuisinesExclude.unshift('&excludeCuisine=');
 		}
 
-		if (!(this.selectedDiet === null)) {
+		if (!(this.selectedDiet === null) && !(this.selectedDiet === undefined)) {
 			this.selectedDiet = `&diet=${this.selectedDiet}`;
 		} else {
-      this.selectedDiet = '';
-    }
+			this.selectedDiet = '';
+		}
 	}
 
 	public searchRecipes(searchString: string): void {

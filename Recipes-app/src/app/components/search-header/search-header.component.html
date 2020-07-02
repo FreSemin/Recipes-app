@@ -160,11 +160,11 @@
 
       </mat-expansion-panel>
 
-      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelReadyTime = true"
-        (closed)="recipesService.filterPanelReadyTime = false">
+      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelDiets = true"
+        (closed)="recipesService.filterPanelDiets = false">
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{ recipesService.filterPanelReadyTime ? 'Click to hide diets' : ' search by diets'}}
+            {{ recipesService.filterPanelDiets ? 'Click to hide diets' : ' search by diets'}}
           </mat-panel-title>
         </mat-expansion-panel-header>
         <div class="search-box__sliders">
