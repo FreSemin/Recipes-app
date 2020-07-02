@@ -27,15 +27,16 @@
       <app-recipes-card *ngFor="let recipeLSEl of recipesService.pageOfItems;" [recipe]="recipeLSEl"
         (onDeleteRecipeFromFavourite)="recipesService.deleteFromFavourite($event)"
         (onCheckDetails)="recipesService.initRecipeDetails($event)"
-        [isFavorite]="recipesDataService.favouriteRecipesList.includes(recipeLSEl) ? true : false">
+        [isFavorite]="recipesService.checkForFavourite(recipeLSEl) ? true : false">
       </app-recipes-card>
     </div>
 
     <div *ngIf="recipesDataService.latestRecipesList.length > 0">
       <app-recipes-card *ngFor="let recipeLSEl of recipesService.pageOfItems;" [recipe]="recipeLSEl"
+        (onAddRecipeToFavourite)="recipesService.addToFavourite($event)"
         (onDeleteRecipeFromFavourite)="recipesService.deleteFromFavourite($event)"
         (onCheckDetails)="recipesService.initRecipeDetails($event)"
-        [isFavorite]="recipesDataService.favouriteRecipesList.includes(recipeLSEl) ? true : false">
+        [isFavorite]="recipesService.checkForFavourite(recipeLSEl) ? true : false">
       </app-recipes-card>
     </div>
 

@@ -46,6 +46,11 @@ export class RecipesService implements OnInit {
 	public caloriesMinValue: number = this.caloriesMinStartedValue;
 	public caloriesMaxValue: number = this.caloriesMaxStartedValue;
 
+	public filterPanelReadyTime: boolean = false;
+
+	public readyTimeStartedValue: number = 200;
+	public readyTime: number = this.readyTimeStartedValue;
+
 	constructor(
 		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
@@ -93,7 +98,8 @@ export class RecipesService implements OnInit {
 				${this.resultCuisinesInclude}
 				${this.resultCuisinesExclude}
 				&minCalories=${this.caloriesMinValue}
-				&maxCalories=${this.caloriesMaxValue}
+        &maxCalories=${this.caloriesMaxValue}
+        &maxReadyTime=${this.readyTime}
 				&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
@@ -111,7 +117,8 @@ export class RecipesService implements OnInit {
 			});
 
 		this.caloriesMinValue = this.caloriesMinStartedValue;
-		this.caloriesMaxValue = this.caloriesMaxStartedValue;
+    this.caloriesMaxValue = this.caloriesMaxStartedValue;
+    this.readyTime = this.readyTimeStartedValue;
 	}
 
 	public showList(): void {

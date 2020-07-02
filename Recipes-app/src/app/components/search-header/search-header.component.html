@@ -127,6 +127,39 @@
 
       </mat-expansion-panel>
 
+      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelReadyTime = true"
+        (closed)="recipesService.filterPanelReadyTime = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ recipesService.filterPanelReadyTime ? 'Click to hide ready time filters' : ' search by ready time'}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-box__sliders">
+          <div class="search-box__sliders-box">
+            <div class="search-box__sliders-title">
+              <p>
+                max ready time
+              </p>
+            </div>
+            <div class="search-box__slider-sec">
+              <div class="search-box__slider-nav">
+                <mat-form-field>
+                  <mat-label>max ready time</mat-label>
+                  <input matInput type="number" [(ngModel)]="recipesService.readyTime">
+                </mat-form-field>
+              </div>
+              <mat-slider class="search-box__slider"
+              min="0" max="200" step="5"
+              [value]="recipesService.readyTime"
+              [thumbLabel]="recipesService.thumbLabelSliders"
+              [(ngModel)]="recipesService.readyTime"
+              ></mat-slider>
+            </div>
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+
 
 
     </div>
