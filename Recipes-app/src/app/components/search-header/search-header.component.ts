@@ -15,6 +15,7 @@ export class SearchHeaderComponent implements OnInit {
 		this.recipesService.getRandomJoke();
     this.recipesDataService.initCuisinesSelect();
     this.recipesDataService.initDietsSelect();
+    this.recipesDataService.initSortingSelect();
 	}
 
 }

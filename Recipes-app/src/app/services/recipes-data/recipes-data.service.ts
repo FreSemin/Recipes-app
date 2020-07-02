@@ -5,6 +5,7 @@ import CuisinesSelect from 'src/app/models/cuisines-select/cuisines-select';
 import Cuisine from 'src/app/models/cuisines/cuisines';
 import { Router } from '@angular/router';
 import DietsSelect from 'src/app/models/diets-select/diets-select';
+import SortingsSelect from 'src/app/models/sortings-select/sortings-select';
 
 @Injectable()
 export class RecipesDataService implements OnInit, OnDestroy {
@@ -14,6 +15,8 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	private _baseAssetsUrl: string = 'assets';
 
 	public selectDietsValues: string[] = [];
+	public selectSortingsValues: string[] = [];
+
 
 	public selectCuisinesValues: CuisinesSelect = {
 		cuisinesInclude: [new Cuisine('', false)],
@@ -192,6 +195,14 @@ export class RecipesDataService implements OnInit, OnDestroy {
 			`${this._baseAssetsUrl}/diets-values/diets-values.json`
 		).subscribe((data: DietsSelect) => {
 			this.selectDietsValues = data.dietsValues;
+		});
+	}
+
+	public initSortingSelect(): void {
+		this._http.get<SortingsSelect>(
+			`${this._baseAssetsUrl}/sortings-values/sortings-values.json`
+		).subscribe((data: SortingsSelect) => {
+			this.selectSortingsValues = data.sortingsValues;
 		});
 	}
 

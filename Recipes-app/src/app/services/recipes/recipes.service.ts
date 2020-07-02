@@ -48,11 +48,16 @@ export class RecipesService implements OnInit {
 
 	public filterPanelReadyTime: boolean = false;
 
-	public readyTimeStartedValue: number = 200;
+	public readyTimeStartedValue: number = 1000;
 	public readyTime: number = this.readyTimeStartedValue;
 
 	public selectedDiet: string = null;
 	public filterPanelDiets: boolean = false;
+
+	public selectedSorting: string = null;
+	public filterPanelSorting: boolean = false;
+
+	public selectedSortingDirection: string = null;
 
 	constructor(
 		private _http: HttpClient,
@@ -89,6 +94,18 @@ export class RecipesService implements OnInit {
 		} else {
 			this.selectedDiet = '';
 		}
+
+		if (!(this.selectedSorting === null) && !(this.selectedSorting === undefined)) {
+			this.selectedSorting = `&sort=${this.selectedSorting}`;
+		} else {
+			this.selectedSorting = '';
+		}
+
+		if (!(this.selectedSortingDirection === null) && !(this.selectedSortingDirection === undefined)) {
+			this.selectedSortingDirection = `&sortDirection=${this.selectedSortingDirection}`;
+		} else {
+			this.selectedSortingDirection = '';
+		}
 	}
 
 	public searchRecipes(searchString: string): void {
@@ -110,6 +127,8 @@ export class RecipesService implements OnInit {
 				&maxCalories=${this.caloriesMaxValue}
 				&maxReadyTime=${this.readyTime}
 				${this.selectedDiet}
+				${this.selectedSorting}
+				${this.selectedSortingDirection}
 				&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
@@ -129,6 +148,9 @@ export class RecipesService implements OnInit {
 		this.caloriesMinValue = this.caloriesMinStartedValue;
 		this.caloriesMaxValue = this.caloriesMaxStartedValue;
 		this.readyTime = this.readyTimeStartedValue;
+		this.selectedDiet = null;
+		this.selectedSorting = null;
+		this.selectedSortingDirection = null;
 	}
 
 	public showList(): void {
