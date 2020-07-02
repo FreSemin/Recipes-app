@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import CuisinesSelect from 'src/app/models/cuisines-select/cuisines-select';
 import Cuisine from 'src/app/models/cuisines/cuisines';
 import { Router } from '@angular/router';
+import DietsSelect from 'src/app/models/diets-select/diets-select';
 
 @Injectable()
 export class RecipesDataService implements OnInit, OnDestroy {
@@ -11,6 +12,8 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	private static _recipeFavouriteListKey: string = 'app-recipe-list';
 	private static _recipeLatestListKey: string = 'app-recipe-latest-list';
 	private _baseAssetsUrl: string = 'assets';
+
+	public selectDietsValues: string[] = [];
 
 	public selectCuisinesValues: CuisinesSelect = {
 		cuisinesInclude: [new Cuisine('', false)],
@@ -183,6 +186,14 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	}
 	//#endregion Cuisines start
 
+
+	public initDietsSelect(): void {
+		this._http.get<DietsSelect>(
+			`${this._baseAssetsUrl}/diets-values/diets-values.json`
+		).subscribe((data: DietsSelect) => {
+			this.selectDietsValues = data.dietsValues;
+		});
+	}
 
 	// tslint:disable-next-line: no-empty
 	public ngOnDestroy(): void {

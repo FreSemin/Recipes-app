@@ -160,6 +160,40 @@
 
       </mat-expansion-panel>
 
+      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelReadyTime = true"
+        (closed)="recipesService.filterPanelReadyTime = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{ recipesService.filterPanelReadyTime ? 'Click to hide diets' : ' search by diets'}}
+          </mat-panel-title>
+        </mat-expansion-panel-header>
+        <div class="search-box__sliders">
+          <div class="search-box__sliders-box">
+            <div class="search-box__sliders-title">
+              <p>
+                choise diet
+              </p>
+            </div>
+            <div class="search-box__slider-sec">
+              <div class="search-box__slider-nav">
+                <mat-form-field>
+                  <mat-label>diets</mat-label>
+                  <mat-select [(ngModel)]="recipesService.selectedDiet">
+                    <mat-option [value]="">
+                      none
+                    </mat-option>
+                    <mat-option *ngFor="let diet of recipesDataService.selectDietsValues" [value]="diet">
+                      {{ diet }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </mat-expansion-panel>
+
 
 
     </div>

@@ -13,7 +13,8 @@ export class SearchHeaderComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.recipesService.getRandomJoke();
-		this.recipesDataService.initCuisinesSelect();
+    this.recipesDataService.initCuisinesSelect();
+    this.recipesDataService.initDietsSelect();
 	}
 
 }

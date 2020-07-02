@@ -51,6 +51,8 @@ export class RecipesService implements OnInit {
 	public readyTimeStartedValue: number = 200;
 	public readyTime: number = this.readyTimeStartedValue;
 
+	public selectedDiet: string = null;
+
 	constructor(
 		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
@@ -80,6 +82,12 @@ export class RecipesService implements OnInit {
 		if (this.resultCuisinesExclude.length > 0) {
 			this.resultCuisinesExclude.unshift('&excludeCuisine=');
 		}
+
+		if (!(this.selectedDiet === null)) {
+			this.selectedDiet = `&diet=${this.selectedDiet}`;
+		} else {
+      this.selectedDiet = '';
+    }
 	}
 
 	public searchRecipes(searchString: string): void {
@@ -100,6 +108,7 @@ export class RecipesService implements OnInit {
 				&minCalories=${this.caloriesMinValue}
 				&maxCalories=${this.caloriesMaxValue}
 				&maxReadyTime=${this.readyTime}
+				${this.selectedDiet}
 				&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
