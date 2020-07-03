@@ -54,8 +54,8 @@
         (changePage)="recipesService.onChangePage($event)">
       </app-pagination>
 
-      <app-pagination *ngIf="recipesDataService.favouriteRecipesList.length > 0"
-        [items]="recipesDataService.favouriteRecipesList" (changePage)="recipesService.onChangePage($event)">
+      <app-pagination *ngIf="!recipesService.isNothingFoundFavourite" [items]="recipesDataService.favouriteRecipesList"
+        (changePage)="recipesService.onChangePage($event)">
       </app-pagination>
 
       <app-pagination *ngIf="recipesDataService.latestRecipesList.length > 0"

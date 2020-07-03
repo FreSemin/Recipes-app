@@ -78,6 +78,11 @@ export class RecipesService implements OnInit {
 	public fatMinValue: number = this.fatMinStartedValue;
 	public fatMaxValue: number = this.fatMaxStartedValue;
 
+	public isRecipesSortedByName: boolean = false;
+
+	public searchFavouriteStr: string = '';
+	public isNothingFoundFavourite: boolean = false;
+
 	constructor(
 		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
@@ -289,6 +294,41 @@ export class RecipesService implements OnInit {
 
 	public redirectToNotFound(): void {
 		this._router.navigate(['/not-found']);
+	}
+
+	public strToLowerCase(value: string): string {
+		return Boolean(value) ? value.toLowerCase() : '';
+	}
+
+	public sortFavouriteByName(): void {
+		this.pageOfItems = this.recipesDataService.favouriteRecipesList
+			.sort((recipe: Recipe, anotherRecipe: Recipe) => {
+				const recipeTitle: string = this.strToLowerCase(recipe.title);
+				const anotherRecipeTitle: string = this.strToLowerCase(anotherRecipe.title);
+				const result: boolean = this.isRecipesSortedByName
+					? recipeTitle < anotherRecipeTitle
+					: recipeTitle > anotherRecipeTitle;
+				return result ? 1 : -1;
+			});
+		this.isRecipesSortedByName = !this.isRecipesSortedByName;
+	}
+
+	public searchFavourite(): void {
+		if (!(this.searchFavouriteStr === '')) {
+			this.pageOfItems = this.recipesDataService.favouriteRecipesList.filter((recipe: Recipe) => {
+				return this.strToLowerCase(recipe.title).includes(
+					this.strToLowerCase(this.searchFavouriteStr)
+				);
+			});
+		} else {
+			this.pageOfItems = this.recipesDataService.favouriteRecipesList;
+		}
+
+		if (this.pageOfItems.length === 0) {
+			this.isNothingFoundFavourite = true;
+		} else {
+			this.isNothingFoundFavourite = false;
+		}
 	}
 
 	// tslint:disable-next-line: no-empty

@@ -1,18 +1,34 @@
 <div class="favourite">
+	<div class="favourite__container">
+		<div class="favourite__header">
+			<div class="favourite__sort">
+				<button mat-mini-fab (click)="recipesService.sortFavouriteByName()">
+					<i class="fas fa-sort-alpha-down" *ngIf="!recipesService.isRecipesSortedByName"></i>
+					<i class="fas fa-sort-alpha-down-alt" *ngIf="recipesService.isRecipesSortedByName"></i>
+				</button>
+			</div>
+			<div class="favourite__search">
+				<mat-form-field>
+					<mat-label>Search</mat-label>
+					<input matInput [(ngModel)]="recipesService.searchFavouriteStr"
+						(ngModelChange)="recipesService.searchFavourite()">
+				</mat-form-field>
+			</div>
+		</div>
 
+		<div class="favourite__is-empty" *ngIf="recipeDataService.favouriteRecipesList.length === 0">
+			favourite is empty
+		</div>
 
+		<div class="favourite__is-empty" *ngIf="recipesService.isNothingFoundFavourite">
+			nothing Found
+		</div>
 
-  <div class="favourite__container">
+		<div class="favourite__side-bar">
+			<app-side-bar></app-side-bar>
+		</div>
+	</div>
 
-    <div class="favourite__is-empty" *ngIf="recipeDataService.favouriteRecipesList.length === 0">
-      favourite is empty
-    </div>
-
-    <div class="favourite__side-bar">
-      <app-side-bar></app-side-bar>
-    </div>
-  </div>
-
-  <app-recipes></app-recipes>
+	<app-recipes></app-recipes>
 
 </div>

@@ -1,8 +1,14 @@
 .favourite {
-
-    &__container {
-        max-width: 1290px;
-        margin: 0 auto;
-    }
-    
+  &__container {
+    max-width: 1290px;
+    margin: 0 auto;
+  }
+  &__header {
+    margin: 0 auto;
+    max-width: 640px;
+  }
+  &__sort {
+    display: flex;
+    justify-content: flex-start;
+  }
 }

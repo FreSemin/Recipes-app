@@ -17,7 +17,6 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	public selectDietsValues: string[] = [];
 	public selectSortingsValues: string[] = [];
 
-
 	public selectCuisinesValues: CuisinesSelect = {
 		cuisinesInclude: [new Cuisine('', false)],
 		cuisinesExclude: [new Cuisine('', false)],
@@ -133,7 +132,6 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		this.latestRecipesList = [];
 	}
 
-
 	//#region Cuisines start
 	public initCuisinesSelect(): void {
 		this._http.get<CuisinesSelect>(
@@ -188,7 +186,6 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		}
 	}
 	//#endregion Cuisines start
-
 
 	public initDietsSelect(): void {
 		this._http.get<DietsSelect>(
