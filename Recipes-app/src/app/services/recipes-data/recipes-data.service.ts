@@ -74,9 +74,7 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		this.loadLSFavouriteRecipes();
 		const indexRecipeToDelete: number = this.favouriteRecipesListLS.findIndex((recipe: Recipe) => recipe.id === recipeToDelete.id);
 		if (indexRecipeToDelete > -1) {
-			console.log(`delete ${recipeToDelete.id}`);
 			this.favouriteRecipesListLS.splice(indexRecipeToDelete, 1);
-			console.log(this.favouriteRecipesListLS);
 		}
 		this.saveLSFavouriteRecipes();
 
@@ -130,6 +128,20 @@ export class RecipesDataService implements OnInit, OnDestroy {
 
 	public destroyLatestRecipeList(): void {
 		this.latestRecipesList = [];
+	}
+
+	public clearFavouriteList(): void {
+		this.loadLSFavouriteRecipes();
+		this.favouriteRecipesListLS = [];
+		this.saveLSFavouriteRecipes();
+		this.initFavouriteRecipeList();
+	}
+
+	public clearLatestList(): void {
+		this.loadLSLatestRecipes();
+		this.latestRecipesListLS = [];
+		this.saveLSLatestRecipes();
+		this.initLatestRecipeList();
 	}
 
 	//#region Cuisines start

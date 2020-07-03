@@ -224,8 +224,8 @@ export class RecipesService implements OnInit {
 			.get<RecipesRandom>(
 				`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
 			)
-			.subscribe((randomRecipe: RecipesRandom) => {
-				this.recipeResults.push(new Recipe(randomRecipe.recipes[0]));  // only 1 element will get from the request
+			.subscribe((randomRecipes: RecipesRandom) => {
+				this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
 				this.isRadomResipeExists = true;
 				this.isRecipesListLoading = false;
 			});

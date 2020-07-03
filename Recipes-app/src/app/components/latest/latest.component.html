@@ -1,6 +1,13 @@
 <div class="latest">
 
   <div class="latest__container">
+    <div class="latest__header">
+      <div class="latest__clear" *ngIf="recipeDataService.latestRecipesList.length > 0">
+        <button mat-mini-fab (click)="recipeDataService.clearLatestList()">
+					clear all latest
+				</button>
+      </div>
+    </div>
 
     <div class="latest__is-empty" *ngIf="recipeDataService.latestRecipesList.length === 0">
       latest is empty
