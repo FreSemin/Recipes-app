@@ -1,3 +1,4 @@
+@import "./fonts.scss";
 @import "./variables.scss";
 
 // null styles
@@ -29,5 +30,7 @@ html {
 }
 body {
   background: $bg-grey;
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 400;
 }
 
