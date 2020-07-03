@@ -44,7 +44,7 @@ export class RecipesService implements OnInit {
 
 	public thumbLabelSliders: boolean = true;
 
-	public caloriesMinStartedValue: number = 10;
+	public caloriesMinStartedValue: number = 0;
 	public caloriesMaxStartedValue: number = 1000;
 	public caloriesMinValue: number = this.caloriesMinStartedValue;
 	public caloriesMaxValue: number = this.caloriesMaxStartedValue;
@@ -63,10 +63,20 @@ export class RecipesService implements OnInit {
 	public selectedSortingDirection: string = null;
 
 	public filterPanelCarbs: boolean = false;
-	public carbsMinStartedValue: number = 10;
+	public carbsMinStartedValue: number = 0;
 	public carbsMaxStartedValue: number = 200;
 	public carbsMinValue: number = this.carbsMinStartedValue;
 	public carbsMaxValue: number = this.carbsMaxStartedValue;
+
+	public proteinMinStartedValue: number = 0;
+	public proteinMaxStartedValue: number = 200;
+	public proteinMinValue: number = this.proteinMinStartedValue;
+	public proteinMaxValue: number = this.proteinMaxStartedValue;
+
+	public fatMinStartedValue: number = 0;
+	public fatMaxStartedValue: number = 200;
+	public fatMinValue: number = this.fatMinStartedValue;
+	public fatMaxValue: number = this.fatMaxStartedValue;
 
 	constructor(
 		private _http: HttpClient,
@@ -136,6 +146,10 @@ export class RecipesService implements OnInit {
 				&maxCalories=${this.caloriesMaxValue}
 				&minCarbs=${this.carbsMinValue}
 				&maxCarbs=${this.carbsMaxValue}
+				&minProtein=${this.proteinMinValue}
+				&maxProtein=${this.proteinMaxValue}
+				&minFat=${this.fatMinValue}
+				&maxFat=${this.fatMaxValue}
 				&maxReadyTime=${this.readyTime}
 				${this.selectedDiet}
 				${this.selectedSorting}
@@ -164,6 +178,10 @@ export class RecipesService implements OnInit {
 		this.selectedSortingDirection = null;
 		this.carbsMinValue = this.carbsMinStartedValue;
 		this.carbsMaxValue = this.carbsMaxStartedValue;
+		this.proteinMinValue = this.proteinMinStartedValue;
+		this.proteinMaxValue = this.proteinMaxStartedValue;
+		this.fatMinValue = this.fatMinStartedValue;
+		this.fatMaxValue = this.fatMaxStartedValue;
 	}
 
 	public showList(): void {

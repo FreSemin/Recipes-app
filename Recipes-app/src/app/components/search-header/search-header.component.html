@@ -166,6 +166,82 @@
             </div>
           </div>
         </div>
+        <div class="search-box__sliders">
+          <div class="search-box__sliders-box">
+            <div class="search-box__sliders-title">
+              <p>
+                min protein
+              </p>
+            </div>
+            <div class="search-box__slider-sec">
+              <div class="search-box__slider-nav">
+                <mat-form-field>
+                  <mat-label>min protein value</mat-label>
+                  <input matInput type="number" [(ngModel)]="recipesService.proteinMinValue">
+                </mat-form-field>
+              </div>
+              <mat-slider class="search-box__slider" min="10" max="100" step="10"
+                [value]="recipesService.proteinMinValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                [(ngModel)]="recipesService.proteinMinValue"></mat-slider>
+            </div>
+          </div>
+          <div class="search-box__sliders-box">
+            <div class="search-box__sliders-title">
+              <p>
+                max protein
+              </p>
+            </div>
+            <div class="search-box__slider-sec">
+              <div class="search-box__slider-nav">
+                <mat-form-field>
+                  <mat-label>max protein value</mat-label>
+                  <input matInput type="number" [(ngModel)]="recipesService.proteinMaxValue">
+                </mat-form-field>
+              </div>
+              <mat-slider class="search-box__slider" min="100" max="200" step="10"
+                [value]="recipesService.proteinMaxValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                [(ngModel)]="recipesService.proteinMaxValue"></mat-slider>
+            </div>
+          </div>
+        </div>
+        <div class="search-box__sliders">
+          <div class="search-box__sliders-box">
+            <div class="search-box__sliders-title">
+              <p>
+                min fat
+              </p>
+            </div>
+            <div class="search-box__slider-sec">
+              <div class="search-box__slider-nav">
+                <mat-form-field>
+                  <mat-label>min fat value</mat-label>
+                  <input matInput type="number" [(ngModel)]="recipesService.fatMinValue">
+                </mat-form-field>
+              </div>
+              <mat-slider class="search-box__slider" min="10" max="100" step="10"
+                [value]="recipesService.fatMinValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                [(ngModel)]="recipesService.fatMinValue"></mat-slider>
+            </div>
+          </div>
+          <div class="search-box__sliders-box">
+            <div class="search-box__sliders-title">
+              <p>
+                max fat
+              </p>
+            </div>
+            <div class="search-box__slider-sec">
+              <div class="search-box__slider-nav">
+                <mat-form-field>
+                  <mat-label>max fat value</mat-label>
+                  <input matInput type="number" [(ngModel)]="recipesService.fatMaxValue">
+                </mat-form-field>
+              </div>
+              <mat-slider class="search-box__slider" min="100" max="200" step="10"
+                [value]="recipesService.fatMaxValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                [(ngModel)]="recipesService.fatMaxValue"></mat-slider>
+            </div>
+          </div>
+        </div>
 
       </mat-expansion-panel>
 
