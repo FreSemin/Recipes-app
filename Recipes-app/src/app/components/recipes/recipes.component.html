@@ -9,6 +9,10 @@
       nothing found
     </div>
 
+    <div *ngIf="recipesService.isRadomResipeExists && !recipesService.isRecipesListLoading">
+      <h3>Random Recipe, try cook it or you not strong enought</h3>
+    </div>
+
   </div>
 
   <div class="recipes__cards" [ngClass]="{

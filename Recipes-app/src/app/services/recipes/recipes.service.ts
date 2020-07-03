@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { RecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
 import { Observable, combineLatest } from 'rxjs';
 import Cuisine from 'src/app/models/cuisines/cuisines';
+import RecipesRandom from 'src/app/components/recipes/models/recipe-random/recipe-random';
 
 @Injectable({
 	providedIn: 'root',
@@ -83,6 +84,8 @@ export class RecipesService implements OnInit {
 	public searchFavouriteStr: string = '';
 	public isNothingFoundFavourite: boolean = false;
 
+	public isRadomResipeExists: boolean = false;
+
 	constructor(
 		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
@@ -139,6 +142,8 @@ export class RecipesService implements OnInit {
 		this.recipesDataService.setAllExclude(false);
 		this.filterPanelCuisine = false;
 		this.filterPanelCalories = false;
+		this.isRadomResipeExists = false;
+		this.isNothingFound = false;
 
 		this._http
 			.get<RecipeBook>(
@@ -211,6 +216,19 @@ export class RecipesService implements OnInit {
 		// 	.subscribe((joke: RecipeJoke) => {
 		// 		this.jokeStr = joke.text;
 		// 	});
+	}
+
+	public getRandomRecipe(): void {
+		this.isRecipesListLoading = true;
+		this._http
+			.get<RecipesRandom>(
+				`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
+			)
+			.subscribe((randomRecipe: RecipesRandom) => {
+				this.recipeResults.push(new Recipe(randomRecipe.recipes[0]));  // only 1 element will get from the request
+				this.isRadomResipeExists = true;
+				this.isRecipesListLoading = false;
+			});
 	}
 
 	public addToFavourite(recipeToAdd: Recipe): void {
