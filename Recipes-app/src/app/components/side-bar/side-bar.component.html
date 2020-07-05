@@ -12,22 +12,18 @@
     </div>
 
     <div class="recipes-side-bar__container">
-      <button mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_blue">
-        <a class="app-main__menu-item" routerLink=''>
-          <i class="fas fa-home"></i> home
-        </a>
-      </button>
-      <button mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_red">
-        <a class="app-main__menu-item" routerLink='/favourite'>
-          <i class="fas fa-heart"></i> favourite recipes
-        </a>
-      </button>
-      <button mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_blue">
-        <a class="app-main__menu-item" routerLink='/latest'>
-          <i class="fas fa-clipboard"></i> latest recipes
-        </a>
-      </button>
-
+      <a mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_blue" routerLink=''
+        (click)="recipesService.sideBarToggel()">
+        <i class="fas fa-home "></i> home
+      </a>
+      <a class="recipes-side-bar__container-btn recipes-side-bar__container-btn_orange" mat-raised-button
+        routerLink='/favourite' (click)="recipesService.sideBarToggel()">
+        <i class="fas fa-heart"></i> favourite recipes
+      </a>
+      <a class="recipes-side-bar__container-btn recipes-side-bar__container-btn_green" mat-raised-button
+        routerLink='/latest' (click)="recipesService.sideBarToggel()">
+        <i class="fas fa-clipboard"></i> latest recipes
+      </a>
     </div>
   </div>
 </div>

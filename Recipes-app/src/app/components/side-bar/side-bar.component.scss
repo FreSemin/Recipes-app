@@ -11,7 +11,6 @@
     position: absolute;
     z-index: 2;
     top: -30px;
-    left: 50%;
     transition: all ease 0.6s;
 
     &-button {
@@ -75,28 +74,69 @@
     align-items: center;
 
     &-btn {
-      text-transform: uppercase;
+      text-transform: capitalize;
       font-size: 14px;
       min-width: 180px;
       margin: 0 10px;
-
+      font-family: $text-main-font;
       transition: all 0.6s;
 
       &:hover {
         transition: all 0.6s;
       }
 
-      &_red {
+      &_orange {
+        color: $text-orange;
+        background: $bg-white;
+
         &:hover {
-          color: $text-red;
+          background: $bg-orange;
+          color: $text-white;
         }
       }
 
       &_blue {
+        color: $text-blue;
+        background: $bg-white;
+
         &:hover {
-          color: $text-blue;
+          background: $bg-blue;
+          color: $text-white;
         }
       }
+      &_green {
+        color: $text-green;
+        background: $bg-white;
+
+        &:hover {
+          background: $bg-green;
+          color: $text-white;
+        }
+      }
+    }
+  }
+}
+
+
+@media (max-width: 640px) {
+  .recipes-side-bar {
+    bottom: calc(5px - 100vh);
+
+    &__box {
+      height: 100vh;
+    }
+    &_active {
+      bottom: 0;
+    }
+    &__container {
+      flex-direction: column;
+
+      &-btn {
+        margin: 10px 0;
+      }
+    }
+    &_nav {
+      top: -20px;
     }
   }
 }
