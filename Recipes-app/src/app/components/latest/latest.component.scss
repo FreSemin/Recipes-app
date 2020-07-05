@@ -1,8 +1,71 @@
+@import "../../../variables.scss";
+
 .latest {
-
   &__container {
-      max-width: 1290px;
-      margin: 0 auto;
+    max-width: 1290px;
+    margin: 0 auto;
   }
+  &__header {
+    margin: 20px auto 0 auto;
+    padding: 20px 0 15px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    max-width: 640px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    background: $bg-white;
+    box-shadow: $blocks-shadow;
+  }
+  &__title {
+    h3 {
+      color: $text-title-dark;
+      font-size: 28px;
+    }
+  }
+  &__btn {
+    &_clear {
+      margin-top: 20px;
+      background: $bg-white;
+      color: $text-title-light-dark;
+      font-size: 16px;
 
+      &:hover {
+        background: $bg-orange;
+        color: $text-white;
+      }
+      &:disabled {
+        &:hover {
+          color: $text-disabled-icon;
+          background-color: $bg-disabled-icon;
+        }
+      }
+    }
+  }
+  &__message {
+    margin: 40px auto 0 auto;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 640px;
+
+    p {
+      color: $text-title-light-dark;
+      text-transform: uppercase;
+      font-size: 18px;
+
+      span {
+        color: $text-orange;
+        font-size: 22px;
+      }
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .latest__header {
+    margin-top: 0;
+  }
 }
