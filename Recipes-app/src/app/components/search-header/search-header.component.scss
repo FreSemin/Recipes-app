@@ -124,8 +124,6 @@
       width: 100%;
       box-shadow: none;
     }
-    &_box {
-    }
     &-body {
       display: flex;
       justify-content: space-between;
@@ -157,8 +155,6 @@
       color: $text-title-light-dark;
       font-size: 16px;
     }
-    &-list {
-    }
     &-item {
       margin: 2px 0 0 25px;
     }
@@ -169,8 +165,6 @@
     flex-wrap: wrap;
     font-family: $text-main-font;
 
-    &-box {
-    }
     &-title {
       label {
         font-size: 16px;
@@ -187,8 +181,6 @@
   }
   &__slider-nav {
     font-family: $text-main-font;
-  }
-  &__slider {
   }
   .mat-form-field {
     font-family: $text-main-font;

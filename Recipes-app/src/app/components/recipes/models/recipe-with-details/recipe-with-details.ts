@@ -26,7 +26,6 @@ interface IRecipeWithDetails {
 	image: string;
 	imageType: string;
 	title: string;
-
 	vegetarian: boolean;
 	vegan: boolean;
 	glutenFree: boolean;

@@ -13,8 +13,6 @@ import { RecipesService } from 'src/app/services/recipes/recipes.service';
 	styleUrls: ['./recipe-with-details-card.component.scss'],
 })
 export class RecipeWithDetailsCardComponent implements OnInit, OnDestroy {
-	public panelOpenState: boolean = false;
-
 	@Input()
 	public recipeWithDetails: RecipeWithDetails;
 

@@ -1,12 +1,11 @@
 @import "../../../../../variables.scss";
+@import "../../../../../custom-material-styles.scss";
 
 .recipe-details {
   &__container {
     position: relative;
     margin: 0 auto;
     max-width: 1290px;
-  }
-  &__loader {
   }
   &__card {
     position: relative;
@@ -23,18 +22,12 @@
     background: $bg-white;
     box-shadow: $blocks-shadow;
   }
-  &__image {
-  }
-  &__header {
-  }
   &__body {
     display: flex;
     flex-direction: column;
-    &-head {
-    }
   }
   &__title {
-    margin-top: 20px;
+    margin-top: 10px;
     padding: 10px 5px;
     display: flex;
     justify-content: center;
@@ -42,16 +35,15 @@
     text-align: center;
     text-transform: uppercase;
     color: $text-title-dark;
-    border-bottom: 1px solid $border-orange;
-    font-size: 22px;
+    font-size: 24px;
   }
   &__subtitle {
+    margin: 20px 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    text-transform: uppercase;
+    text-transform: capitalize;
     font-size: 18px;
-
     color: $text-title-light-dark;
 
     span {
@@ -59,19 +51,20 @@
     }
 
     &_red {
-      color: red;
-      // color: $text-score-red;
+      color: $text-red;
+      text-transform: capitalize;
+      font-size: 18px;
     }
     &_green {
-      color: green;
-      // color: $text-score-green;
+      color: $text-green;
+      text-transform: capitalize;
+      font-size: 18px;
     }
   }
   &__box {
     position: relative;
     display: flex;
     justify-content: space-between;
-    background: $bg-grey;
 
     &_grid-list {
       flex-wrap: wrap;
@@ -80,83 +73,251 @@
       margin: 20px 0;
       padding: 5px;
       width: 30%;
+      min-width: 180px;
       box-sizing: border-box;
       display: flex;
       flex-direction: column;
       align-items: center;
+      justify-content: center;
       border-bottom: 1px solid $border-orange;
-    }
-    &-card-icon {
-      margin: 10px 0;
-      font-size: 26px;
+
+      &-icon {
+        margin: 10px 0;
+        color: $text-orange;
+        font-size: 26px;
+      }
     }
     &-text {
       padding: 0 5px;
       text-align: center;
-      word-break: break-all;
+      text-transform: capitalize;
+
+      &_booleans {
+        margin-top: 20px;
+      }
 
       &-title {
-        color: $text-title-light-dark;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        color: $text-title-dark;
         font-size: 18px;
+        line-height: 20px;
       }
       &-subtitle {
+        margin-top: 10px;
         color: $text-title-light-dark;
         font-size: 16px;
+        line-height: 18px;
       }
     }
   }
-  &__need-things {
+  &__ingredients {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+    &-title {
+      h6 {
+        color: $text-title-dark;
+        font-size: 18px;
+        line-height: 20px;
+        text-transform: capitalize;
+        span {
+          color: $text-orange;
+          font-size: 22px;
+        }
+      }
+    }
+    &-box {
+      margin: 30px 0 0 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    &-element {
+      margin: 20px 0;
+      width: 40%;
+      min-width: 180px;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    &-name {
+      color: $text-title-dark;
+      font-size: 18px;
+      line-height: 20px;
+    }
+    &-amount {
+      margin-top: 10px;
+      color: $text-title-light-dark;
+      font-size: 16px;
+      line-height: 18px;
+    }
   }
-  &__ingridients {
+  &__steps {
+    margin: 20px 0 0 0;
+    &-title {
+      text-align: center;
+      h6 {
+        color: $text-title-dark;
+        font-size: 22px;
+        line-height: 26px;
+        text-transform: capitalize;
+
+        span {
+          color: $text-orange;
+          font-size: 24px;
+        }
+      }
+    }
+    &-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    &-number {
+      margin: 40px 0 0 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      border-radius: 100%;
+      background: $bg-orange;
+      color: $text-white;
+      p {
+        font-size: 20px;
+      }
+    }
+    &-text {
+      margin: 10px 0 20px 0;
+      text-align: center;
+      p {
+        color: $text-title-light-dark;
+        font-size: 16px;
+        line-height: 24px;
+      }
+    }
   }
   &__recipe {
+    margin: 40px 0 0 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
-  }
-  &__recipe-title {
-    font-size: 26px;
-    color: $text-title-dark;
-  }
-  &__recipe-text {
-    margin-top: 15px;
-    font-size: 18px;
-    color: $text-title-light-dark;
-
-    &_with-el {
-      line-height: 20px;
-    }
-  }
-  &__adults {
-    &-content {
-    }
-    &-instruction {
-      color: $text-title-dark;
-    }
-    &-wines {
-      color: $text-title-light-dark;
-    }
-  }
-  &__check {
-  }
-
-  &__review {
-    width: 100%;
     &-title {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+      text-align: center;
+      text-transform: capitalize;
       font-size: 26px;
       color: $text-title-dark;
+      span {
+        color: $text-orange;
+        font-size: 28px;
+      }
     }
     &-text {
       margin-top: 15px;
       font-size: 18px;
       color: $text-title-light-dark;
-      &_with-el {
-        line-height: 20px;
+      line-height: 30px;
+    }
+  }
+
+  &__review {
+    margin: 30px 0 0 0;
+    width: 100%;
+    &-title {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      p {
+        font-size: 26px;
+        color: $text-title-dark;
       }
     }
+    &-text {
+      margin-top: 15px;
+      font-size: 18px;
+      color: $text-title-light-dark;
+      line-height: 30px;
+      a {
+        color: green;
+      }
+      &_with-el {
+        a {
+          color: $text-orange;
+        }
+        b {
+          font-weight: 700;
+        }
+      }
+    }
+  }
+  &__source {
+    margin-top: 20px;
+    a {
+      color: $text-orange;
+      font-size: 16px;
+    }
+  }
+
+  &__adults {
+    margin: 30px 0 0 0;
+    &-title {
+      text-transform: uppercase;
+      text-align: center;
+      p {
+        font-size: 20px;
+        color: $text-title-dark;
+        span {
+          color: $text-orange;
+          font-size: 22px;
+        }
+      }
+    }
+    &-content {
+      margin-top: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+    &-instruction {
+      margin-top: 20px;
+      color: $text-title-dark;
+      line-height: 30px;
+    }
+    &-wines {
+      margin-top: 10px;
+      color: $text-title-dark;
+      line-height: 30px;
+    }
+  }
+}
+
+@media (max-width: 640px) {
+  .recipe-details__card {
+    margin-top: 0;
+  }
+  .recipe-details__card {
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 375px) {
+  .recipe-details__box {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .recipe-details__ingredients-box {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }

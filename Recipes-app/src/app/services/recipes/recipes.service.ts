@@ -14,7 +14,7 @@ import RecipesRandom from 'src/app/components/recipes/models/recipe-random/recip
 	providedIn: 'root',
 })
 export class RecipesService implements OnInit {
-	private _API_KEY: string = '?apiKey=32f7c85c9be64fdab0ab0375f1bc35d0';
+	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
 
 	// 6b81ee8ae3fb4592aa7f4d40e40b091b -- main api acc key
 	// 32f7c85c9be64fdab0ab0375f1bc35d0 -- second api acc key
@@ -262,6 +262,7 @@ export class RecipesService implements OnInit {
 			this.checkRecipeDetails(recipeId),
 		])
 			.subscribe(([recipeWithDetails]: [RecipeWithDetails]) => {
+				console.log(recipeWithDetails);
 				this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
 				this.isRecipesListLoading = false;
 			});

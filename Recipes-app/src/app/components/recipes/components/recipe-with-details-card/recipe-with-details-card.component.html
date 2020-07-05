@@ -1,21 +1,23 @@
 <div class="recipe-details">
   <div class="recipe-details__container">
-
-    <div class="recipe-details__loader" *ngIf="recipesService.isRecipesListLoading">
-      loading... recipe with details
-    </div>
-
     <div class="recipe-details__card">
 
       <div class="recipe-details__image">
         <img [src]="recipeWithDetails.image" alt="">
       </div>
 
-      <div class="recipe-details__header">
-        <p>there will be stepper!</p>
-        <!-- {{ recipeWithDetails.analyzedInstructions | json }} -->
-
-      </div>
+      <!-- <div class="recipe-details__steps">
+        <div *ngFor="let steps of recipeWithDetails.analyzedInstructions">
+          <div *ngFor="let step of steps.steps">
+            <h3>
+              {{step.number}}
+            </h3>
+            <p>
+              {{step.step}}
+            </p>
+          </div>
+        </div>
+      </div> -->
 
       <div class="recipe-details__body">
         <div class="recipe-details__body-head">
@@ -35,17 +37,13 @@
 
         <div class="recipe-details__box recipe-details__box_grid-list">
 
-          <!-- card with icon -->
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-card-icon">
-              <p>icon</p>
+              <i class="fas fa-clock"></i>
             </div>
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                preparationMinutes:
-                <span>
-                  {{recipeWithDetails.preparationMinutes}}
-                </span>
+                preparation minutes
               </p>
             </div>
             <div class="recipe-details__box-text">
@@ -55,14 +53,13 @@
             </div>
           </div>
 
-          <!-- card with icon -->
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-card-icon">
-              <p>icon</p>
+              <i class="fas fa-hourglass"></i>
             </div>
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                readyInMinutes:
+                ready in minutes
               </p>
             </div>
             <div class="recipe-details__box-text">
@@ -72,14 +69,13 @@
             </div>
           </div>
 
-          <!-- card with icon -->
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-card-icon">
-              <p>icon</p>
+              <i class="fas fa-utensils"></i>
             </div>
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                servings:
+                servings
               </p>
             </div>
             <div class="recipe-details__box-text">
@@ -89,14 +85,13 @@
             </div>
           </div>
 
-          <!-- card with icon -->
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-card-icon">
-              <p>icon</p>
+              <i class="fas fa-star"></i>
             </div>
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                spoonacularScore:
+                spoonacular score
               </p>
             </div>
             <div class="recipe-details__box-text">
@@ -106,10 +101,9 @@
             </div>
           </div>
 
-          <!-- card with icon -->
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-card-icon">
-              <p>icon</p>
+              <i class="fas fa-dollar-sign"></i>
             </div>
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
@@ -118,7 +112,7 @@
             </div>
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-subtitle">
-                {{recipeWithDetails.pricePerServing}}
+                {{recipeWithDetails.pricePerServing | currency}}
               </p>
             </div>
           </div>
@@ -126,7 +120,7 @@
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                weightWatcherSmartPoints:
+                weight watcher smart points:
               </p>
             </div>
             <div class="recipe-details__box-text">
@@ -150,10 +144,9 @@
           </div>
 
           <div class="recipe-details__box-card" *ngIf="recipeWithDetails.cuisines.length > 0">
-            <!-- *ngIf="recipeWithDetails.cuisines" -->
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                Cuisines(kitchens):
+                cuisines
               </p>
             </div>
             <div class="recipe-details__box-text">
@@ -163,10 +156,10 @@
             </div>
           </div>
 
-          <div class="recipe-details__box-card">
+          <div class="recipe-details__box-card" *ngIf="recipeWithDetails.dishTypes.length > 0">
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                DIsh Types
+                dish types
               </p>
             </div>
             <div class="recipe-details__box-text">
@@ -179,7 +172,7 @@
           <div class="recipe-details__box-card" *ngIf="recipeWithDetails.diets.length > 0">
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                any Diets here?
+                diets
               </p>
             </div>
             <div class="recipe-details__box-text">
@@ -205,14 +198,14 @@
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                is vegetarian
+                is vegetarian?
               </p>
             </div>
-            <div class="recipe-details__box-text">
-              <p class="recipe-details__box-text-subtitle" *ngIf="recipeWithDetails.vegetarian">
+            <div class="recipe-details__box-text recipe-details__box-text_booleans">
+              <p class="recipe-details__subtitle_green" *ngIf="recipeWithDetails.vegetarian">
                 yes
               </p>
-              <p class="recipe-details__box-text-subtitle" *ngIf="!recipeWithDetails.vegetarian">
+              <p class="recipe-details__subtitle_red" *ngIf="!recipeWithDetails.vegetarian">
                 no
               </p>
             </div>
@@ -221,14 +214,14 @@
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                is vegan
+                is vegan?
               </p>
             </div>
-            <div class="recipe-details__box-text">
-              <p class="recipe-details__box-text-subtitle" *ngIf="recipeWithDetails.vegan">
+            <div class="recipe-details__box-text recipe-details__box-text_booleans">
+              <p class="recipe-details__subtitle_green" *ngIf="recipeWithDetails.vegan">
                 yes
               </p>
-              <p class="recipe-details__box-text-subtitle" *ngIf="!recipeWithDetails.vegan">
+              <p class="recipe-details__subtitle_red" *ngIf="!recipeWithDetails.vegan">
                 no
               </p>
             </div>
@@ -237,14 +230,14 @@
           <div class="recipe-details__box-card">
             <div class="recipe-details__box-text">
               <p class="recipe-details__box-text-title">
-                is gluten Free
+                is gluten Free?
               </p>
             </div>
-            <div class="recipe-details__box-text">
-              <p class="recipe-details__box-text-subtitle" *ngIf="recipeWithDetails.glutenFree">
+            <div class="recipe-details__box-text recipe-details__box-text_booleans">
+              <p class="recipe-details__subtitle_green" *ngIf="recipeWithDetails.glutenFree">
                 yes
               </p>
-              <p class="recipe-details__box-text-subtitle" *ngIf="!recipeWithDetails.glutenFree">
+              <p class="recipe-details__subtitle_red" *ngIf="!recipeWithDetails.glutenFree">
                 no
               </p>
             </div>
@@ -256,11 +249,11 @@
                 is healthy?
               </p>
             </div>
-            <div class="recipe-details__box-text">
-              <p class="recipe-details__box-text-subtitle" *ngIf="recipeWithDetails.veryHealthy">
+            <div class="recipe-details__box-text recipe-details__box-text_booleans">
+              <p class="recipe-details__subtitle_green" *ngIf="recipeWithDetails.veryHealthy">
                 yes
               </p>
-              <p class="recipe-details__box-text-subtitle" *ngIf="!recipeWithDetails.veryHealthy">
+              <p class="recipe-details__subtitle_red" *ngIf="!recipeWithDetails.veryHealthy">
                 no
               </p>
             </div>
@@ -268,63 +261,73 @@
 
         </div>
 
-        <div class="recipe-details__need-things">
-          <div class="recipe-details__ingridients">
-            <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
-              <mat-expansion-panel-header>
-                <mat-panel-title>
-                  What Ingridients you need?
-                </mat-panel-title>
-                <mat-panel-description>
-                  {{ !panelOpenState ? 'Let see, open me' : ''}}
-                </mat-panel-description>
-              </mat-expansion-panel-header>
-              <div class="recipe-details__ingridients-image"
-                *ngFor="let recipeIngredient of recipeWithDetails.extendedIngredients;">
-                <img [src]="recipeIngredient.image" alt="">
-                <h1>{{recipeIngredient.name}}</h1>
-                <h2>{{recipeIngredient.amount}}</h2>
+        <div class="recipe-details__ingredients">
+          <div class="recipe-details__ingredients-title">
+            <h6>
+              what you need to
+              <span>
+                cook
+              </span>
+            </h6>
+          </div>
+          <div class="recipe-details__ingredients-box">
+            <div class="recipe-details__ingredients-element"
+              *ngFor="let recipeIngredient of recipeWithDetails.extendedIngredients;">
+              <img [src]="recipeIngredient.image" alt="" class="recipe-details__ingredients-image">
+              <h4 class="recipe-details__ingredients-name">
+                {{recipeIngredient.name}}
+              </h4>
+              <h5 class="recipe-details__ingredients-amount">
+                {{recipeIngredient.amount}}
+              </h5>
+            </div>
+          </div>
+        </div>
+
+        <div class="recipe-details__steps">
+          <div class="recipe-details__steps-title">
+            <h6>
+              steps of
+              <span>
+                cooking
+              </span>
+            </h6>
+          </div>
+
+          <div *ngFor="let steps of recipeWithDetails.analyzedInstructions">
+            <div *ngFor="let step of steps.steps">
+              <div class="recipe-details__steps-box">
+                <div class="recipe-details__steps-number">
+                  <p>
+                    {{step.number}}
+                  </p>
+                </div>
+                <div class="recipe-details__steps-text">
+                  <p>
+                    {{step.step}}
+                  </p>
+                </div>
               </div>
-            </mat-expansion-panel>
+            </div>
           </div>
         </div>
 
         <div class="recipe-details__recipe">
-          <h3 class="recipe-details__recipe-title">
-            All way of cooking
-          </h3>
-          <p class="recipe-details__recipe-text recipe-details-text_with-el">
+          <p class="recipe-details__recipe-title">
+            <span>
+              Full
+            </span> way of cooking
+          </p>
+          <p class="recipe-details__recipe-text">
             {{ recipeWithDetails.instructions }}
           </p>
         </div>
 
-        <div class="recipe-details__adults">
-          <div class="recipe-details__check">
-            are you 18?
-          </div>
-          <div class="recipe-details__adults-content">
-            <div class="recipe-details__adults-instruction">
-              <p>
-                Wine Instruction
-                <span>
-                  {{recipeWithDetails.winePairing.pairingText}}
-                </span>
-              </p>
-            </div>
-            <div class="recipe-details__adults-wines">
-              <p>
-                Winew Pairings winew
-                <span>
-                  {{recipeWithDetails.winePairing.pairedWines}}
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-
         <div class="recipe-details__review">
           <div class="recipe-details__review-title">
-            Summary
+            <p>
+              Summary
+            </p>
           </div>
           <p class="recipe-details__review-text recipe-details__review-text_with-el"
             [innerHTML]="recipeWithDetails.summary">
@@ -335,6 +338,38 @@
           <a [href]="recipeWithDetails.sourceUrl" class="recipe-details__link">
             Source
           </a>
+        </div>
+
+        <div class="recipe-details__adults">
+          <div class="recipe-details__adults-title">
+            <p>
+              are you
+              <span>
+                18
+              </span>
+              ?
+            </p>
+          </div>
+          <div class="recipe-details__adults-content">
+            <div class="recipe-details__adults-title">
+              <p>
+                Instruction
+              </p>
+            </div>
+            <div class="recipe-details__adults-instruction">
+              <p>
+                  {{recipeWithDetails.winePairing.pairingText}}
+              </p>
+            </div>
+            <div class="recipe-details__adults-wines">
+              <p>
+                Winew Pairings:
+                <span>
+                  {{recipeWithDetails.winePairing.pairedWines}}
+                </span>
+              </p>
+            </div>
+          </div>
         </div>
 
       </div>
@@ -349,5 +384,3 @@
   </div>
 
 </div>
-
-
