@@ -41,7 +41,7 @@ export class RecipesService implements OnInit {
 	public excludeCuisine: string = null;
 
 	public filterPanelCuisine: boolean = false;
-	public filterPanelCalories: boolean = false;
+	public filterPanelRecipeComponents: boolean = false;
 
 	public thumbLabelSliders: boolean = true;
 
@@ -49,8 +49,6 @@ export class RecipesService implements OnInit {
 	public caloriesMaxStartedValue: number = 1000;
 	public caloriesMinValue: number = this.caloriesMinStartedValue;
 	public caloriesMaxValue: number = this.caloriesMaxStartedValue;
-
-	public filterPanelReadyTime: boolean = false;
 
 	public readyTimeStartedValue: number = 1000;
 	public readyTime: number = this.readyTimeStartedValue;
@@ -63,7 +61,6 @@ export class RecipesService implements OnInit {
 
 	public selectedSortingDirection: string = null;
 
-	public filterPanelCarbs: boolean = false;
 	public carbsMinStartedValue: number = 0;
 	public carbsMaxStartedValue: number = 200;
 	public carbsMinValue: number = this.carbsMinStartedValue;
@@ -85,6 +82,8 @@ export class RecipesService implements OnInit {
 	public isNothingFoundFavourite: boolean = false;
 
 	public isRadomResipeExists: boolean = false;
+
+	public isFiltersNeed: boolean = false;
 
 	constructor(
 		private _http: HttpClient,
@@ -141,7 +140,7 @@ export class RecipesService implements OnInit {
 		this.recipesDataService.setAllInclude(false);
 		this.recipesDataService.setAllExclude(false);
 		this.filterPanelCuisine = false;
-		this.filterPanelCalories = false;
+		this.filterPanelRecipeComponents = false;
 		this.isRadomResipeExists = false;
 		this.isNothingFound = false;
 
@@ -219,16 +218,16 @@ export class RecipesService implements OnInit {
 	}
 
 	public getRandomRecipe(): void {
-		this.isRecipesListLoading = true;
-		this._http
-			.get<RecipesRandom>(
-				`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
-			)
-			.subscribe((randomRecipes: RecipesRandom) => {
-				this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
-				this.isRadomResipeExists = true;
-				this.isRecipesListLoading = false;
-			});
+		// this.isRecipesListLoading = true;
+		// this._http
+		// 	.get<RecipesRandom>(
+		// 		`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
+		// 	)
+		// 	.subscribe((randomRecipes: RecipesRandom) => {
+		// 		this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
+		// 		this.isRadomResipeExists = true;
+		// 		this.isRecipesListLoading = false;
+		// 	});
 	}
 
 	public addToFavourite(recipeToAdd: Recipe): void {

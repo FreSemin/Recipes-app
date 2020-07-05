@@ -1,11 +1,12 @@
 @import "../../../variables.scss";
+@import "../../../custom-material-styles.scss";
 
 .search-box {
   width: 100%;
   transition: all ease 0.6s;
   &__container {
     margin-top: 10px;
-    padding: 10px 10px 20px 10px;
+    padding: 15px 10px 20px 10px;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -15,59 +16,227 @@
     box-shadow: $blocks-shadow;
   }
   &__header {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+  &__header-img {
+    img {
+      width: 100px;
+      height: 100px;
+    }
   }
   &__title {
-    text-transform: uppercase;
-    font-size: 25px;
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+    h1 {
+      color: $text-title-dark;
+      text-transform: uppercase;
+      line-height: 40px;
+      font-size: 30px;
+
+      span {
+        color: $text-orange;
+        font-size: 34px;
+      }
+    }
   }
   &__joke {
+    margin-top: 10px;
+    width: 100%;
+    text-align: center;
     p {
-      font-size: 10px;
+      color: $text-title-light-dark;
+      line-height: 18px;
+      font-size: 12px;
     }
   }
   &__search {
+    margin-top: 10px;
+    padding: 0 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+
     button {
       margin-left: 15px;
       font-size: 14px;
       text-transform: uppercase;
     }
   }
+  &__step {
+    margin-right: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &-number {
+      margin-right: 10px;
+      color: $text-orange;
+      font-size: 20px;
+    }
+    &-text {
+      color: $text-title-dark;
+      font-size: 18px;
+    }
+  }
+  &__form {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
   &__filters {
     display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     width: 100%;
+
+    .search-box__step_filters {
+      .search-box__step-number {
+        font-size: 16px;
+      }
+      .search-box__step-text {
+        font-size: 14px;
+      }
+    }
+    .mat-expansion-panel-header-title {
+      font-family: $text-main-font;
+      color: $text-title-dark;
+    }
+    .mat-expansion-panel-header-description {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      font-size: 16px;
+      font-family: $text-main-font;
+    }
+    &-header {
+      width: 100%;
+      box-shadow: none;
+    }
+    &_box {
+    }
+    &-body {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      width: 100%;
+    }
     &-element {
-      width: 50%;
+      margin-bottom: 15px;
       align-self: flex-start;
+      min-width: 300px;
+      width: 40%;
+      &_big {
+        width: 50%;
+      }
     }
   }
   &__cuisines {
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-start;
+    display: flex;
+    justify-content: space-between;
     &-box {
-    }
+      font-family: $text-main-font;
 
+      .mat-checkbox {
+        font-family: $text-main-font;
+      }
+    }
+    &-text {
+      margin-bottom: 10px;
+      color: $text-title-light-dark;
+      font-size: 16px;
+    }
     &-list {
     }
     &-item {
-      margin: 0 0 0 25px;
+      margin: 2px 0 0 25px;
     }
   }
   &__sliders {
-      display: flex;
-      justify-content: space-around;
-    &__sliders-box {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    font-family: $text-main-font;
+
+    &-box {
     }
-    &__sliders-title {
+    &-title {
+      label {
+        font-size: 16px;
+        color: $text-title-light-dark;
+
+        &:hover {
+          cursor: pointer;
+        }
+      }
     }
   }
   &__slider-sec {
+    margin: 10px 0 20px 0;
   }
   &__slider-nav {
+    font-family: $text-main-font;
   }
   &__slider {
+  }
+  .mat-form-field {
+    font-family: $text-main-font;
+  }
+}
+
+@media (max-width: 1060px) {
+  .search-box__cuisines {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+}
+
+@media (max-width: 660px) {
+  .search-box__container {
+    margin-top: 0;
+  }
+  .search-box__filters-body {
+    flex-direction: column;
+    align-items: center;
+  }
+  .search-box__filters-element {
+    width: 100%;
+    &_big {
+      width: 100%;
+    }
+  }
+  .search-box__search {
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 490px) {
+  .search-box__search {
+    margin-top: 20px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .search-box__cuisines {
+    flex-direction: column;
+    align-items: center;
+
+    &-box:last-child {
+      margin-top: 20px;
+    }
+  }
+  ::ng-deep .mat-expansion-panel-body {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }

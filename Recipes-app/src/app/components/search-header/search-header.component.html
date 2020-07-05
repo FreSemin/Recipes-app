@@ -2,8 +2,11 @@
   <div class="search-box__container">
 
     <div class="search-box__header">
+      <div class="search-box__header-img">
+        <img src="../../../assets/images/recipe-app-logo.png" alt="">
+      </div>
       <div class="search-box__title">
-        <h1>Find your today recipe</h1>
+        <h1>Find what you will <span>cook</span> today</h1>
       </div>
       <div class="search-box__joke">
         <p>
@@ -13,359 +16,365 @@
     </div>
 
     <div class="search-box__search">
-      <mat-form-field>
-        <mat-label>Search</mat-label>
-        <input matInput [(ngModel)]="recipesService.searchString">
-      </mat-form-field>
-      <button mat-raised-button (click)="recipesService.onSearchRecipes(recipesService.searchString)">
-        find recipes
-      </button>
+      <label class="search-box__step" for="search">
+        <span class="search-box__step-number">
+          1.
+        </span>
+        <p class="search-box__step-text">
+          Let's search
+        </p>
+      </label>
+      <div class="search-box__form">
+        <mat-form-field>
+          <mat-label>Enter recipe</mat-label>
+          <input matInput id="search" [(ngModel)]="recipesService.searchString" >
+        </mat-form-field>
+        <button mat-raised-button (click)="recipesService.onSearchRecipes(recipesService.searchString)">
+          <i class="fas fa-search"></i>
+        </button>
+      </div>
     </div>
 
     <div class="search-box__filters">
-      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelCuisine = true"
-        (closed)="recipesService.filterPanelCuisine = false">
+      <mat-expansion-panel class="search-box__filters-header search-box__filters_box"
+        (opened)="recipesService.isFiltersNeed = true" (closed)="recipesService.isFiltersNeed = false" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>
-            {{ recipesService.filterPanelCuisine ? 'Click to hide filters' : ' Open me if you want some filters'}}
+            <div class="search-box__step search-box__step_filters">
+              <span class="search-box__step-number">
+                2.
+              </span>
+              <p class="search-box__step-text">
+                Choise filters
+              </p>
+            </div>
           </mat-panel-title>
+          <mat-panel-description>
+            <i class="fas fa-filter"></i>
+          </mat-panel-description>
         </mat-expansion-panel-header>
-        <div class="search-box__cuisines">
-          <div class="search-box__cuisines-box">
-            <p>
-              Include cuisines
-            </p>
-            <mat-checkbox [checked]="recipesDataService.allIncludeComplete"
-              [indeterminate]="recipesDataService.someIncludeComplete()"
-              (change)="recipesDataService.setAllInclude($event.checked)">
-              All
-            </mat-checkbox>
-            <ul class="search-box__cuisines-list">
-              <li class="search-box__cuisines-item"
-                *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesInclude">
-                <mat-checkbox [(ngModel)]="cuisinesEl.complete"
-                  (ngModelChange)="recipesDataService.updateAllIncludeComplete()">
-                  {{cuisinesEl.name}}
+
+
+
+        <div class="search-box__filters-body">
+
+          <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelCuisine = true"
+            (closed)="recipesService.filterPanelCuisine = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ recipesService.filterPanelCuisine ? 'CLose Cuisines' : ' Open Cuisines'}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="search-box__cuisines">
+              <div class="search-box__cuisines-box">
+                <p class="search-box__cuisines-text">
+                  Include cuisines
+                </p>
+                <mat-checkbox [checked]="recipesDataService.allIncludeComplete"
+                  [indeterminate]="recipesDataService.someIncludeComplete()"
+                  (change)="recipesDataService.setAllInclude($event.checked)">
+                  All
                 </mat-checkbox>
-              </li>
-            </ul>
-          </div>
-          <div class="search-box__cuisines-box">
-            <p>
-              Exclude cuisines
-            </p>
-            <mat-checkbox [checked]="recipesDataService.allExcludeComplete"
-              [indeterminate]="recipesDataService.someExcludeComplete()"
-              (change)="recipesDataService.setAllExclude($event.checked)">
-              All
-            </mat-checkbox>
-            <ul class="search-box__cuisines-list">
-              <li class="search-box__cuisines-item"
-                *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesExclude">
-                <mat-checkbox [(ngModel)]="cuisinesEl.complete"
-                  (ngModelChange)="recipesDataService.updateAllExcludeComplete()">
-                  {{cuisinesEl.name}}
+                <ul class="search-box__cuisines-list">
+                  <li class="search-box__cuisines-item"
+                    *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesInclude">
+                    <mat-checkbox [(ngModel)]="cuisinesEl.complete"
+                      (ngModelChange)="recipesDataService.updateAllIncludeComplete()">
+                      {{cuisinesEl.name}}
+                    </mat-checkbox>
+                  </li>
+                </ul>
+              </div>
+              <div class="search-box__cuisines-box">
+                <p class="search-box__cuisines-text">
+                  Exclude cuisines
+                </p>
+                <mat-checkbox [checked]="recipesDataService.allExcludeComplete"
+                  [indeterminate]="recipesDataService.someExcludeComplete()"
+                  (change)="recipesDataService.setAllExclude($event.checked)">
+                  All
                 </mat-checkbox>
-              </li>
-            </ul>
-          </div>
+                <ul class="search-box__cuisines-list">
+                  <li class="search-box__cuisines-item"
+                    *ngFor="let cuisinesEl of recipesDataService.selectCuisinesValues.cuisinesExclude">
+                    <mat-checkbox [(ngModel)]="cuisinesEl.complete"
+                      (ngModelChange)="recipesDataService.updateAllExcludeComplete()">
+                      {{cuisinesEl.name}}
+                    </mat-checkbox>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </mat-expansion-panel>
+
+
+          <mat-expansion-panel class="search-box__filters-element search-box__filters-element_big" (opened)="recipesService.filterPanelRecipeComponents = true"
+            (closed)="recipesService.filterPanelRecipeComponents = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ recipesService.filterPanelRecipeComponents ? 'Close Calories, Carbs, Fat, Protein' : ' Open Calories, Carbs, Fat, Protein' }}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="search-box__sliders">
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="min-calories">
+                    Min Calories
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <input matInput type="number" id="min-calories" [(ngModel)]="recipesService.caloriesMinValue">
+                    </mat-form-field>
+                  </div>
+                  <mat-slider class="search-box__slider" min="10" max="50" step="10"
+                    [value]="recipesService.caloriesMinValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                    [(ngModel)]="recipesService.caloriesMinValue"></mat-slider>
+                </div>
+              </div>
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="max-calories">
+                    Max Calories
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <input matInput type="number" id="max-calories" [(ngModel)]="recipesService.caloriesMaxValue">
+                    </mat-form-field>
+                  </div>
+                  <mat-slider class="search-box__slider" min="50" max="1000" step="10"
+                    [value]="recipesService.caloriesMaxValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                    [(ngModel)]="recipesService.caloriesMaxValue"></mat-slider>
+                </div>
+              </div>
+            </div>
+            <div class="search-box__sliders">
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="min-carbs">
+                    Min Carbs
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <input matInput type="number" id="min-carbs" [(ngModel)]="recipesService.carbsMinValue">
+                    </mat-form-field>
+                  </div>
+                  <mat-slider class="search-box__slider" min="10" max="100" step="10"
+                    [value]="recipesService.carbsMinValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                    [(ngModel)]="recipesService.carbsMinValue"></mat-slider>
+                </div>
+              </div>
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="max-carbs">
+                    Max Carbs
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <input matInput type="number" id="max-carbs" [(ngModel)]="recipesService.carbsMaxValue">
+                    </mat-form-field>
+                  </div>
+                  <mat-slider class="search-box__slider" min="100" max="200" step="10"
+                    [value]="recipesService.carbsMaxValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                    [(ngModel)]="recipesService.carbsMaxValue"></mat-slider>
+                </div>
+              </div>
+            </div>
+            <div class="search-box__sliders">
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="min-protein">
+                    Min Protein
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <input matInput type="number" id="min-protein" [(ngModel)]="recipesService.proteinMinValue">
+                    </mat-form-field>
+                  </div>
+                  <mat-slider class="search-box__slider" min="10" max="100" step="10"
+                    [value]="recipesService.proteinMinValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                    [(ngModel)]="recipesService.proteinMinValue"></mat-slider>
+                </div>
+              </div>
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="max-protein">
+                    Max Protein
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <input matInput type="number" id="max-protein" [(ngModel)]="recipesService.proteinMaxValue">
+                    </mat-form-field>
+                  </div>
+                  <mat-slider class="search-box__slider" min="100" max="200" step="10"
+                    [value]="recipesService.proteinMaxValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                    [(ngModel)]="recipesService.proteinMaxValue"></mat-slider>
+                </div>
+              </div>
+            </div>
+            <div class="search-box__sliders">
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="min-fat">
+                    Min Fat
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <input matInput type="number" id="min-fat" [(ngModel)]="recipesService.fatMinValue">
+                    </mat-form-field>
+                  </div>
+                  <mat-slider class="search-box__slider" min="10" max="100" step="10"
+                    [value]="recipesService.fatMinValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                    [(ngModel)]="recipesService.fatMinValue"></mat-slider>
+                </div>
+              </div>
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="max-fat">
+                    Max Fat
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <input matInput type="number" id="max-fat" [(ngModel)]="recipesService.fatMaxValue">
+                    </mat-form-field>
+                  </div>
+                  <mat-slider class="search-box__slider" min="100" max="200" step="10"
+                    [value]="recipesService.fatMaxValue" [thumbLabel]="recipesService.thumbLabelSliders"
+                    [(ngModel)]="recipesService.fatMaxValue"></mat-slider>
+                </div>
+              </div>
+            </div>
+            <div class="search-box__sliders">
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="max-ready-time">
+                    Max Ready Time
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <input matInput type="number" id="max-ready-time" [(ngModel)]="recipesService.readyTime">
+                    </mat-form-field>
+                  </div>
+                  <mat-slider class="search-box__slider" min="0" max="1000" step="10" [value]="recipesService.readyTime"
+                    [thumbLabel]="recipesService.thumbLabelSliders" [(ngModel)]="recipesService.readyTime"></mat-slider>
+                </div>
+              </div>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelDiets = true"
+            (closed)="recipesService.filterPanelDiets = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ recipesService.filterPanelDiets ? 'Close Diets' : 'Open Diets'}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="search-box__sliders">
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="diets">
+                    Choise Diets
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <mat-label>Diets</mat-label>
+                      <mat-select [(ngModel)]="recipesService.selectedDiet" id="diets">
+                        <mat-option [value]="">
+                          None
+                        </mat-option>
+                        <mat-option *ngFor="let dietEl of recipesDataService.selectDietsValues" [value]="dietEl">
+                          {{ dietEl }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+
+
+          <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelSorting = true"
+            (closed)="recipesService.filterPanelSorting = false">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ recipesService.filterPanelSorting ? 'Close Sorting' : 'Open Sorting'}}
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="search-box__sliders">
+              <div class="search-box__sliders-box">
+                <div class="search-box__sliders-title">
+                  <label for="sorting">
+                    Choise Sorting
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <mat-label>Sorting Type</mat-label>
+                      <mat-select [(ngModel)]="recipesService.selectedSorting" id="sorting">
+                        <mat-option [value]="">
+                          None
+                        </mat-option>
+                        <mat-option *ngFor="let sortBy of recipesDataService.selectSortingsValues" [value]="sortBy">
+                          {{ sortBy }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div class="search-box__sliders-box" [hidden]="!recipesService.selectedSorting">
+                <div class="search-box__sliders-title">
+                  <label for="sorting-order">
+                    Choise Sorting Order
+                  </label>
+                </div>
+                <div class="search-box__slider-sec">
+                  <div class="search-box__slider-nav">
+                    <mat-form-field>
+                      <mat-label>Sorting Order</mat-label>
+                      <mat-select [(ngModel)]="recipesService.selectedSortingDirection" id="sorting-order">
+                        <mat-option [value]="">
+                          None
+                        </mat-option>
+                        <mat-option value="asc">
+                          Ascending
+                        </mat-option>
+                        <mat-option value="desc">
+                          Descending
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </mat-expansion-panel>
+
+
         </div>
-      </mat-expansion-panel>
-
-
-      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelCalories = true"
-        (closed)="recipesService.filterPanelCalories = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ recipesService.filterPanelCalories ? 'Click to hide your calories) filters' : ' Open me if you want some calories filters'}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="search-box__sliders">
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                min calories
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>min calories value</mat-label>
-                  <input matInput type="number" [(ngModel)]="recipesService.caloriesMinValue">
-                </mat-form-field>
-              </div>
-              <mat-slider class="search-box__slider" min="10" max="50" step="10"
-                [value]="recipesService.caloriesMinValue" [thumbLabel]="recipesService.thumbLabelSliders"
-                [(ngModel)]="recipesService.caloriesMinValue"></mat-slider>
-            </div>
-          </div>
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                max calories
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>max calories value</mat-label>
-                  <input matInput type="number" [(ngModel)]="recipesService.caloriesMaxValue">
-                </mat-form-field>
-              </div>
-              <mat-slider class="search-box__slider" min="50" max="1000" step="10"
-                [value]="recipesService.caloriesMaxValue" [thumbLabel]="recipesService.thumbLabelSliders"
-                [(ngModel)]="recipesService.caloriesMaxValue"></mat-slider>
-            </div>
-          </div>
-        </div>
-
-      </mat-expansion-panel>
-
-      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelCarbs = true"
-        (closed)="recipesService.filterPanelCarbs = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ recipesService.filterPanelCarbs ? 'Click to hide carbs' : ' Open me if you want some carbs filter'}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="search-box__sliders">
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                min carbs
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>min carbs value</mat-label>
-                  <input matInput type="number" [(ngModel)]="recipesService.carbsMinValue">
-                </mat-form-field>
-              </div>
-              <mat-slider class="search-box__slider" min="10" max="100" step="10"
-                [value]="recipesService.carbsMinValue" [thumbLabel]="recipesService.thumbLabelSliders"
-                [(ngModel)]="recipesService.carbsMinValue"></mat-slider>
-            </div>
-          </div>
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                max carbs
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>max carbs value</mat-label>
-                  <input matInput type="number" [(ngModel)]="recipesService.carbsMaxValue">
-                </mat-form-field>
-              </div>
-              <mat-slider class="search-box__slider" min="100" max="200" step="10"
-                [value]="recipesService.carbsMaxValue" [thumbLabel]="recipesService.thumbLabelSliders"
-                [(ngModel)]="recipesService.carbsMaxValue"></mat-slider>
-            </div>
-          </div>
-        </div>
-        <div class="search-box__sliders">
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                min protein
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>min protein value</mat-label>
-                  <input matInput type="number" [(ngModel)]="recipesService.proteinMinValue">
-                </mat-form-field>
-              </div>
-              <mat-slider class="search-box__slider" min="10" max="100" step="10"
-                [value]="recipesService.proteinMinValue" [thumbLabel]="recipesService.thumbLabelSliders"
-                [(ngModel)]="recipesService.proteinMinValue"></mat-slider>
-            </div>
-          </div>
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                max protein
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>max protein value</mat-label>
-                  <input matInput type="number" [(ngModel)]="recipesService.proteinMaxValue">
-                </mat-form-field>
-              </div>
-              <mat-slider class="search-box__slider" min="100" max="200" step="10"
-                [value]="recipesService.proteinMaxValue" [thumbLabel]="recipesService.thumbLabelSliders"
-                [(ngModel)]="recipesService.proteinMaxValue"></mat-slider>
-            </div>
-          </div>
-        </div>
-        <div class="search-box__sliders">
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                min fat
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>min fat value</mat-label>
-                  <input matInput type="number" [(ngModel)]="recipesService.fatMinValue">
-                </mat-form-field>
-              </div>
-              <mat-slider class="search-box__slider" min="10" max="100" step="10"
-                [value]="recipesService.fatMinValue" [thumbLabel]="recipesService.thumbLabelSliders"
-                [(ngModel)]="recipesService.fatMinValue"></mat-slider>
-            </div>
-          </div>
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                max fat
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>max fat value</mat-label>
-                  <input matInput type="number" [(ngModel)]="recipesService.fatMaxValue">
-                </mat-form-field>
-              </div>
-              <mat-slider class="search-box__slider" min="100" max="200" step="10"
-                [value]="recipesService.fatMaxValue" [thumbLabel]="recipesService.thumbLabelSliders"
-                [(ngModel)]="recipesService.fatMaxValue"></mat-slider>
-            </div>
-          </div>
-        </div>
-
-      </mat-expansion-panel>
-
-      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelReadyTime = true"
-        (closed)="recipesService.filterPanelReadyTime = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ recipesService.filterPanelReadyTime ? 'Click to hide ready time filters' : ' search by ready time'}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="search-box__sliders">
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                max ready time
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>max ready time</mat-label>
-                  <input matInput type="number" [(ngModel)]="recipesService.readyTime">
-                </mat-form-field>
-              </div>
-              <mat-slider class="search-box__slider" min="0" max="1000" step="10" [value]="recipesService.readyTime"
-                [thumbLabel]="recipesService.thumbLabelSliders" [(ngModel)]="recipesService.readyTime"></mat-slider>
-            </div>
-          </div>
-        </div>
-
-      </mat-expansion-panel>
-
-      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelDiets = true"
-        (closed)="recipesService.filterPanelDiets = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ recipesService.filterPanelDiets ? 'Click to hide diets' : ' search by diets'}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="search-box__sliders">
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                choise diet
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>diets</mat-label>
-                  <mat-select [(ngModel)]="recipesService.selectedDiet">
-                    <mat-option [value]="">
-                      none
-                    </mat-option>
-                    <mat-option *ngFor="let diet of recipesDataService.selectDietsValues" [value]="diet">
-                      {{ diet }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </mat-expansion-panel>
-
-
-      <mat-expansion-panel class="search-box__filters-element" (opened)="recipesService.filterPanelSorting = true"
-        (closed)="recipesService.filterPanelSorting = false">
-        <mat-expansion-panel-header>
-          <mat-panel-title>
-            {{ recipesService.filterPanelSorting ? 'Click to hide sorts' : ' sort somethings'}}
-          </mat-panel-title>
-        </mat-expansion-panel-header>
-        <div class="search-box__sliders">
-          <div class="search-box__sliders-box">
-            <div class="search-box__sliders-title">
-              <p>
-                choise sorting
-              </p>
-            </div>
-            <div class="search-box__slider-sec">
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>sorting option</mat-label>
-                  <mat-select [(ngModel)]="recipesService.selectedSorting">
-                    <mat-option [value]="">
-                      none
-                    </mat-option>
-                    <mat-option *ngFor="let sortBy of recipesDataService.selectSortingsValues" [value]="sortBy">
-                      {{ sortBy }}
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-          <div class="search-box__sliders-box" [hidden]="!recipesService.selectedSorting">
-            <div class="search-box__sliders-title">
-              <p>
-                choise sorting order
-              </p>
-            </div>
-            <div class="search-box__slider-sec" >
-              <div class="search-box__slider-nav">
-                <mat-form-field>
-                  <mat-label>sorting option</mat-label>
-                  <mat-select [(ngModel)]="recipesService.selectedSortingDirection">
-                    <mat-option [value]="">
-                      none
-                    </mat-option>
-                    <mat-option value="asc">
-                      ascending
-                    </mat-option>
-                    <mat-option value="desc">
-                      descending
-                    </mat-option>
-                  </mat-select>
-                </mat-form-field>
-              </div>
-            </div>
-          </div>
-        </div>
-
       </mat-expansion-panel>
 
 
