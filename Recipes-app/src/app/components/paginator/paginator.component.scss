@@ -115,3 +115,14 @@
 	margin-left: 10px;
 	@include link-nav-styles();
 }
+
+@media (max-width: 640px) {
+  .pagination {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .page-item {
+    margin: 10px 0;
+  }
+}

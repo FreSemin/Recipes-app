@@ -10,34 +10,36 @@
     <div class="recipe-card__body-cont">
 
       <div class="recipe-card__title">
-        <h1>{{ recipe.title }}</h1>
+        <h2>{{ recipe.title }}</h2>
       </div>
 
       <div class="recipe-card__inf">
         <div class="recipe-card__inf-element" *ngFor="let nutritionEl of recipe.nutrition">
-          <p>{{nutritionEl.title}}</p>
-          <p>{{ nutritionEl.amount }}</p>
-          <p>{{ nutritionEl.unit }}</p>
+          <p class="recipe-card__inf-title">{{nutritionEl.title}}</p>
+          <p class="recipe-card__inf-amount">{{ nutritionEl.amount |number : '3.1-3' }}</p>
+          <p class="recipe-card__inf-unit">{{ nutritionEl.unit }}</p>
         </div>
       </div>
 
+      <div class="recipe-card__nav">
+        <button mat-mini-fab class="recipe-card__btn recipe-card__btn_favourite-add" (click)="addRecipeToFavourite()"
+          *ngIf="!isFavorite">
+          <i class="far fa-heart"></i>
+        </button>
 
+        <button mat-mini-fab class="recipe-card__btn recipe-card__btn_favourite-delete"
+          (click)="deleteRecipeFromFavourite()" *ngIf="isFavorite">
+          <i class="fas fa-heart"></i>
+        </button>
+
+
+        <button mat-raised-button class="recipe-card__btn recipe-card__btn_details" (click)="checkDetails()">
+          Details
+        </button>
+
+      </div>
     </div>
-    <div>
-      <button mat-raised-button (click)="addRecipeToFavourite()" *ngIf="!isFavorite">
-        add to favorite :3
-      </button>
 
-      <button mat-raised-button (click)="deleteRecipeFromFavourite()" *ngIf="isFavorite">
-        delete
-      </button>
-
-
-      <button mat-raised-button (click)="checkDetails()">
-        check details
-      </button>
-
-    </div>
   </div>
 
 </div>
