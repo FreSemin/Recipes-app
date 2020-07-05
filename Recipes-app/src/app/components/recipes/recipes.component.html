@@ -61,13 +61,13 @@
         (changePage)="recipesService.onChangePage($event)">
       </app-pagination>
 
-      <!-- <app-pagination *ngIf="!recipesService.isNothingFoundFavourite" [items]="recipesDataService.favouriteRecipesList"
+      <app-pagination *ngIf="!recipesService.isNothingFoundFavourite" [items]="recipesDataService.favouriteRecipesList"
         (changePage)="recipesService.onChangePage($event)">
       </app-pagination>
 
       <app-pagination *ngIf="recipesDataService.latestRecipesList.length > 0"
         [items]="recipesDataService.latestRecipesList" (changePage)="recipesService.onChangePage($event)">
-      </app-pagination> -->
+      </app-pagination>
     </div>
   </div>
 

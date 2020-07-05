@@ -1,32 +1,48 @@
 <div class="favourite">
   <div class="favourite__container">
     <div class="favourite__header">
-      <div class="favourite__sort">
-        <button mat-mini-fab (click)="recipesService.sortFavouriteByName()">
-          <i class="fas fa-sort-alpha-down" *ngIf="!recipesService.isRecipesSortedByName"></i>
-          <i class="fas fa-sort-alpha-down-alt" *ngIf="recipesService.isRecipesSortedByName"></i>
-        </button>
+      <div class="favourite__title">
+        <h3>Favourites</h3>
       </div>
-      <div class="favourite__search">
-        <mat-form-field>
-          <mat-label>Search</mat-label>
-          <input matInput [(ngModel)]="recipesService.searchFavouriteStr"
-            (ngModelChange)="recipesService.searchFavourite()">
-        </mat-form-field>
+      <div class="favourite__actions">
+        <div class="favourite__search">
+          <mat-form-field>
+            <mat-label>Search</mat-label>
+            <input matInput [disabled]="recipeDataService.favouriteRecipesList.length === 0"
+              [(ngModel)]="recipesService.searchFavouriteStr" (ngModelChange)="recipesService.searchFavourite()">
+          </mat-form-field>
+        </div>
+        <div class="favourite__sort">
+          <button mat-mini-fab class="favourite__btn" [disabled]="!(recipeDataService.favouriteRecipesList.length > 1)"
+            (click)="recipesService.sortFavouriteByName()">
+            <i class="fas fa-sort-alpha-down" *ngIf="!recipesService.isRecipesSortedByName"></i>
+            <i class="fas fa-sort-alpha-down-alt" *ngIf="recipesService.isRecipesSortedByName"></i>
+          </button>
+        </div>
+        <div class="favourite__clear">
+          <button mat-mini-fab class="favourite__btn" [disabled]="recipeDataService.favouriteRecipesList.length === 0"
+            (click)="recipeDataService.clearFavouriteList()">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
       </div>
-      <div class="favourite__clear" *ngIf="recipeDataService.favouriteRecipesList.length > 0">
-        <button mat-mini-fab (click)="recipeDataService.clearFavouriteList()">
-          clear all
-        </button>
-      </div>
+
     </div>
 
-    <div class="favourite__is-empty" *ngIf="recipeDataService.favouriteRecipesList.length === 0">
-      favourite is empty
-    </div>
-
-    <div class="favourite__is-empty" *ngIf="recipesService.isNothingFoundFavourite">
-      nothing Found
+    <div class="favourite__message"
+      *ngIf="recipeDataService.favouriteRecipesList.length === 0 || recipesService.isNothingFoundFavourite">
+      <p *ngIf="recipeDataService.favouriteRecipesList.length === 0">
+        favourite is
+        <span>
+          empty
+        </span>
+      </p>
+      <p *ngIf="recipesService.isNothingFoundFavourite">
+        <span>
+          nothing
+        </span>
+        Found
+      </p>
     </div>
 
     <div class="favourite__side-bar">

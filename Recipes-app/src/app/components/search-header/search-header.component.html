@@ -27,7 +27,7 @@
       <div class="search-box__form">
         <mat-form-field>
           <mat-label>Enter recipe</mat-label>
-          <input matInput id="search" [(ngModel)]="recipesService.searchString" >
+          <input matInput id="search" [(ngModel)]="recipesService.searchString">
         </mat-form-field>
         <button mat-raised-button (click)="recipesService.onSearchRecipes(recipesService.searchString)">
           <i class="fas fa-search"></i>
@@ -108,7 +108,8 @@
           </mat-expansion-panel>
 
 
-          <mat-expansion-panel class="search-box__filters-element search-box__filters-element_big" (opened)="recipesService.filterPanelRecipeComponents = true"
+          <mat-expansion-panel class="search-box__filters-element search-box__filters-element_big"
+            (opened)="recipesService.filterPanelRecipeComponents = true"
             (closed)="recipesService.filterPanelRecipeComponents = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
