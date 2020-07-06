@@ -18,13 +18,11 @@
 
   </div>
 
-  <div class="recipes__cards" [ngClass]="{
-			'recipes__cards_favourites': (recipesDataService.favouriteRecipesList.length !== 0) ? true : false
-		}">
+  <div class="recipes__cards">
     <div class="recipes__cards-box" *ngIf="recipesService.recipeResults.length > 0">
       <app-recipes-card *ngFor="let recipeEl of recipesService.pageOfItems;" [recipe]="recipeEl"
-        (onAddRecipeToFavourite)="recipesService.addToFavourite($event)"
-        (onDeleteRecipeFromFavourite)="recipesService.deleteFromFavourite($event)"
+        (onAddRecipeToFavourite)="recipesDataService.addToFavorite($event)"
+        (onDeleteRecipeFromFavourite)="recipesDataService.deleteFromFavourite($event)"
         (onCheckDetails)="recipesService.initRecipeDetails($event)"
         [isFavorite]="recipesService.checkForFavourite(recipeEl) ? true : false">
       </app-recipes-card>
@@ -32,7 +30,7 @@
 
     <div class="recipes__cards-box" *ngIf="recipesDataService.favouriteRecipesList.length > 0">
       <app-recipes-card *ngFor="let recipeLSEl of recipesService.pageOfItems;" [recipe]="recipeLSEl"
-        (onDeleteRecipeFromFavourite)="recipesService.deleteFromFavourite($event)"
+        (onDeleteRecipeFromFavourite)="recipesDataService.deleteFromFavourite($event)"
         (onCheckDetails)="recipesService.initRecipeDetails($event)"
         [isFavorite]="recipesService.checkForFavourite(recipeLSEl) ? true : false">
       </app-recipes-card>
@@ -40,8 +38,8 @@
 
     <div class="recipes__cards-box" *ngIf="recipesDataService.latestRecipesList.length > 0">
       <app-recipes-card *ngFor="let recipeLSEl of recipesService.pageOfItems;" [recipe]="recipeLSEl"
-        (onAddRecipeToFavourite)="recipesService.addToFavourite($event)"
-        (onDeleteRecipeFromFavourite)="recipesService.deleteFromFavourite($event)"
+        (onAddRecipeToFavourite)="recipesDataService.addToFavorite($event)"
+        (onDeleteRecipeFromFavourite)="recipesDataService.deleteFromFavourite($event)"
         (onCheckDetails)="recipesService.initRecipeDetails($event)"
         [isFavorite]="recipesService.checkForFavourite(recipeLSEl) ? true : false">
       </app-recipes-card>

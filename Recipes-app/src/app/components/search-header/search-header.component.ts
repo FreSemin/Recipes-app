@@ -13,9 +13,10 @@ export class SearchHeaderComponent implements OnInit {
 
 	public ngOnInit(): void {
 		this.recipesService.getRandomJoke();
-    this.recipesDataService.initCuisinesSelect();
-    this.recipesDataService.initDietsSelect();
-    this.recipesDataService.initSortingSelect();
+		this.recipesDataService.initFilters();
+		// this.recipesDataService.initCuisinesSelect();
+		// this.recipesDataService.initDietsSelect();
+		// this.recipesDataService.initSortingSelect();
 	}
 
 }

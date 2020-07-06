@@ -29,7 +29,7 @@
           <mat-label>Enter recipe</mat-label>
           <input matInput id="search" [(ngModel)]="recipesService.searchString">
         </mat-form-field>
-        <button mat-raised-button (click)="recipesService.onSearchRecipes(recipesService.searchString)">
+        <button mat-raised-button (click)="recipesService.searchRecipes(recipesService.searchString)">
           <i class="fas fa-search"></i>
         </button>
       </div>
@@ -62,7 +62,7 @@
             (closed)="recipesService.filterPanelCuisine = false">
             <mat-expansion-panel-header>
               <mat-panel-title>
-                {{ recipesService.filterPanelCuisine ? 'CLose Cuisines' : ' Open Cuisines'}}
+                {{ recipesService.filterPanelCuisine ? 'Close Cuisines' : ' Open Cuisines'}}
               </mat-panel-title>
             </mat-expansion-panel-header>
             <div class="search-box__cuisines">

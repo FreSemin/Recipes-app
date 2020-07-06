@@ -43,17 +43,26 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	public ngOnInit(): void {
 	}
 
-	public checkForLatest(recipeId: number): boolean {
-		this.loadLSLatestRecipes();
-		return this.latestRecipesListLS.some(
-			(element: Recipe) => {
-				if (recipeId === element.id) {
-					return true;
-				} else {
-					return false;
-				}
-			}
-		);
+	public initDietsSelect(): void {
+		this._http.get<DietsSelect>(
+			`${this._baseAssetsUrl}/json/diets-values/diets-values.json`
+		).subscribe((data: DietsSelect) => {
+			this.selectDietsValues = data.dietsValues;
+		});
+	}
+
+	public initSortingSelect(): void {
+		this._http.get<SortingsSelect>(
+			`${this._baseAssetsUrl}/json/sortings-values/sortings-values.json`
+		).subscribe((data: SortingsSelect) => {
+			this.selectSortingsValues = data.sortingsValues;
+		});
+	}
+
+	public initFilters(): void {
+		this.initCuisinesSelect();
+		this.initDietsSelect();
+		this.initSortingSelect();
 	}
 
 	public addToFavorite(recipeToAdd: Recipe): void {
@@ -122,14 +131,6 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		this.latestRecipesList = this.latestRecipesListLS;
 	}
 
-	public destroyFavouriteRecipeList(): void {
-		this.favouriteRecipesList = [];
-	}
-
-	public destroyLatestRecipeList(): void {
-		this.latestRecipesList = [];
-	}
-
 	public clearFavouriteList(): void {
 		this.loadLSFavouriteRecipes();
 		this.favouriteRecipesListLS = [];
@@ -144,21 +145,29 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		this.initLatestRecipeList();
 	}
 
-	//#region Cuisines start
-	public initCuisinesSelect(): void {
-		this._http.get<CuisinesSelect>(
-			`${this._baseAssetsUrl}/cuisines-values/cuisines-values.json`
-		).subscribe((data: CuisinesSelect) => {
-			data.cuisinesValuesStrings.forEach((element: string) => {
-				this.cuisinesValuesInclude.push(new Cuisine(element, false));
-				this.cuisinesValuesExclude.push(new Cuisine(element, false));
-			});
-			this.cuisinesValuesInclude.shift();   // delete empty element
-			this.cuisinesValuesExclude.shift();   // delete empty element
-			this.selectCuisinesValues.cuisinesInclude = this.cuisinesValuesInclude;
-			this.selectCuisinesValues.cuisinesExclude = this.cuisinesValuesExclude;
-		});
+	public destroyFavouriteRecipeList(): void {
+		this.favouriteRecipesList = [];
 	}
+
+	public destroyLatestRecipeList(): void {
+		this.latestRecipesList = [];
+	}
+
+	public checkForLatest(recipeId: number): boolean {
+		this.loadLSLatestRecipes();
+		return this.latestRecipesListLS.some(
+			(element: Recipe) => {
+				if (recipeId === element.id) {
+					return true;
+				} else {
+					return false;
+				}
+			}
+		);
+	}
+
+	//#region Cuisines start
+
 
 	public updateAllIncludeComplete(): void {
 		this.allIncludeComplete = this.selectCuisinesValues.cuisinesInclude != null
@@ -197,23 +206,22 @@ export class RecipesDataService implements OnInit, OnDestroy {
 			this.selectCuisinesValues.cuisinesExclude.forEach((cuisine: Cuisine) => cuisine.complete = completed);
 		}
 	}
-	//#endregion Cuisines start
 
-	public initDietsSelect(): void {
-		this._http.get<DietsSelect>(
-			`${this._baseAssetsUrl}/diets-values/diets-values.json`
-		).subscribe((data: DietsSelect) => {
-			this.selectDietsValues = data.dietsValues;
+	public initCuisinesSelect(): void {
+		this._http.get<CuisinesSelect>(
+			`${this._baseAssetsUrl}/json/cuisines-values/cuisines-values.json`
+		).subscribe((data: CuisinesSelect) => {
+			data.cuisinesValuesStrings.forEach((element: string) => {
+				this.cuisinesValuesInclude.push(new Cuisine(element, false));
+				this.cuisinesValuesExclude.push(new Cuisine(element, false));
+			});
+			this.cuisinesValuesInclude.shift();   // delete empty element
+			this.cuisinesValuesExclude.shift();   // delete empty element
+			this.selectCuisinesValues.cuisinesInclude = this.cuisinesValuesInclude;
+			this.selectCuisinesValues.cuisinesExclude = this.cuisinesValuesExclude;
 		});
 	}
-
-	public initSortingSelect(): void {
-		this._http.get<SortingsSelect>(
-			`${this._baseAssetsUrl}/sortings-values/sortings-values.json`
-		).subscribe((data: SortingsSelect) => {
-			this.selectSortingsValues = data.sortingsValues;
-		});
-	}
+	//#endregion Cuisines end
 
 	// tslint:disable-next-line: no-empty
 	public ngOnDestroy(): void {

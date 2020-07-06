@@ -14,7 +14,7 @@ import RecipesRandom from 'src/app/components/recipes/models/recipe-random/recip
 	providedIn: 'root',
 })
 export class RecipesService implements OnInit {
-	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
+	private _API_KEY: string = '?apiKey=32f7c85c9be64fdab0ab0375f1bc35d0';
 
 	// 6b81ee8ae3fb4592aa7f4d40e40b091b -- main api acc key
 	// 32f7c85c9be64fdab0ab0375f1bc35d0 -- second api acc key
@@ -28,12 +28,17 @@ export class RecipesService implements OnInit {
 	public pageOfItems: Recipe[] = [];
 
 	public favouriteRecipes: Recipe[] = [];
+	public recipeWithDetails: RecipeWithDetails = null;
 
 	public isSideBarEnabled: boolean = false;
 	public isRecipesListLoading: boolean = false;
 	public isNothingFound: boolean = false;
+	public thumbLabelSliders: boolean = true;
 
-	public recipeWithDetails: RecipeWithDetails = null;
+	public selectedDiet: string = null;
+	public selectedSorting: string = null;
+	public selectedSortingDirection: string = null;
+	public searchFavouriteStr: string = '';
 
 	public resultCuisinesInclude: string[] = [];
 	public resultCuisinesExclude: string[] = [];
@@ -42,8 +47,8 @@ export class RecipesService implements OnInit {
 
 	public filterPanelCuisine: boolean = false;
 	public filterPanelRecipeComponents: boolean = false;
-
-	public thumbLabelSliders: boolean = true;
+	public filterPanelDiets: boolean = false;
+	public filterPanelSorting: boolean = false;
 
 	public caloriesMinStartedValue: number = 0;
 	public caloriesMaxStartedValue: number = 1000;
@@ -52,14 +57,6 @@ export class RecipesService implements OnInit {
 
 	public readyTimeStartedValue: number = 1000;
 	public readyTime: number = this.readyTimeStartedValue;
-
-	public selectedDiet: string = null;
-	public filterPanelDiets: boolean = false;
-
-	public selectedSorting: string = null;
-	public filterPanelSorting: boolean = false;
-
-	public selectedSortingDirection: string = null;
 
 	public carbsMinStartedValue: number = 0;
 	public carbsMaxStartedValue: number = 200;
@@ -77,12 +74,8 @@ export class RecipesService implements OnInit {
 	public fatMaxValue: number = this.fatMaxStartedValue;
 
 	public isRecipesSortedByName: boolean = false;
-
-	public searchFavouriteStr: string = '';
 	public isNothingFoundFavourite: boolean = false;
-
 	public isRadomResipeExists: boolean = false;
-
 	public isFiltersNeed: boolean = false;
 
 	constructor(
@@ -90,6 +83,29 @@ export class RecipesService implements OnInit {
 		public recipesDataService: RecipesDataService,
 		private _router: Router
 	) { }
+
+	public getRandomJoke(): void {
+		// this._http
+		// 	.get<RecipeJoke>(
+		// 		`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
+		// 	)
+		// 	.subscribe((joke: RecipeJoke) => {
+		// 		this.jokeStr = joke.text;
+		// 	});
+	}
+
+	public getRandomRecipe(): void {
+		// this.isRecipesListLoading = true;
+		// this._http
+		// 	.get<RecipesRandom>(
+		// 		`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
+		// 	)
+		// 	.subscribe((randomRecipes: RecipesRandom) => {
+		// 		this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
+		// 		this.isRadomResipeExists = true;
+		// 		this.isRecipesListLoading = false;
+		// 	});
+	}
 
 	public checkSearchOptions(): void {
 		this.resultCuisinesInclude = [];
@@ -134,13 +150,36 @@ export class RecipesService implements OnInit {
 		}
 	}
 
-	public searchRecipes(searchString: string): void {
-		this.recipeResults = [];
-		this.isRecipesListLoading = true;
+	public clearFiltersFields(): void {
 		this.recipesDataService.setAllInclude(false);
 		this.recipesDataService.setAllExclude(false);
-		this.filterPanelCuisine = false;
-		this.filterPanelRecipeComponents = false;
+		this.caloriesMinValue = this.caloriesMinStartedValue;
+		this.caloriesMaxValue = this.caloriesMaxStartedValue;
+		this.readyTime = this.readyTimeStartedValue;
+		this.selectedDiet = null;
+		this.selectedSorting = null;
+		this.selectedSortingDirection = null;
+		this.carbsMinValue = this.carbsMinStartedValue;
+		this.carbsMaxValue = this.carbsMaxStartedValue;
+		this.proteinMinValue = this.proteinMinStartedValue;
+		this.proteinMaxValue = this.proteinMaxStartedValue;
+		this.fatMinValue = this.fatMinStartedValue;
+		this.fatMaxValue = this.fatMaxStartedValue;
+	}
+
+	public showList(): void {
+		this.recipesDataService.loadLSFavouriteRecipes();
+		this.recipeResults = [];
+		this.recipeBook.results.forEach((element: Recipe) => {
+			this.recipeResults.push(new Recipe(element));
+		});
+	}
+
+	public searchRecipes(searchString: string): void {
+		this.checkSearchOptions();
+
+		this.recipeResults = [];
+		this.isRecipesListLoading = true;
 		this.isRadomResipeExists = false;
 		this.isNothingFound = false;
 
@@ -166,7 +205,6 @@ export class RecipesService implements OnInit {
 				&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
-				console.log(data);
 				if (!(data.totalResults === 0)) {
 					this.searchString = '';
 					this.recipeBook = new RecipeBook(data);
@@ -179,63 +217,7 @@ export class RecipesService implements OnInit {
 				}
 			});
 
-		this.caloriesMinValue = this.caloriesMinStartedValue;
-		this.caloriesMaxValue = this.caloriesMaxStartedValue;
-		this.readyTime = this.readyTimeStartedValue;
-		this.selectedDiet = null;
-		this.selectedSorting = null;
-		this.selectedSortingDirection = null;
-		this.carbsMinValue = this.carbsMinStartedValue;
-		this.carbsMaxValue = this.carbsMaxStartedValue;
-		this.proteinMinValue = this.proteinMinStartedValue;
-		this.proteinMaxValue = this.proteinMaxStartedValue;
-		this.fatMinValue = this.fatMinStartedValue;
-		this.fatMaxValue = this.fatMaxStartedValue;
-	}
-
-	public showList(): void {
-		this.recipesDataService.loadLSFavouriteRecipes();
-
-		this.recipeResults = [];
-		this.recipeBook.results.forEach((element: Recipe) => {
-			this.recipeResults.push(new Recipe(element));
-		});
-	}
-
-	public onSearchRecipes(searchStr: string): void {
-		this.checkSearchOptions();
-		this.searchRecipes(searchStr);
-	}
-
-	public getRandomJoke(): void {
-		// this._http
-		// 	.get<RecipeJoke>(
-		// 		`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
-		// 	)
-		// 	.subscribe((joke: RecipeJoke) => {
-		// 		this.jokeStr = joke.text;
-		// 	});
-	}
-
-	public getRandomRecipe(): void {
-		// this.isRecipesListLoading = true;
-		// this._http
-		// 	.get<RecipesRandom>(
-		// 		`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
-		// 	)
-		// 	.subscribe((randomRecipes: RecipesRandom) => {
-		// 		this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
-		// 		this.isRadomResipeExists = true;
-		// 		this.isRecipesListLoading = false;
-		// 	});
-	}
-
-	public addToFavourite(recipeToAdd: Recipe): void {
-		this.recipesDataService.addToFavorite(recipeToAdd);
-	}
-
-	public deleteFromFavourite(recipeToDelete: Recipe): void {
-		this.recipesDataService.deleteFromFavourite(recipeToDelete);
+		this.clearFiltersFields();
 	}
 
 	public checkRecipeDetails(recipeId: number): Observable<RecipeWithDetails> {
@@ -262,7 +244,6 @@ export class RecipesService implements OnInit {
 			this.checkRecipeDetails(recipeId),
 		])
 			.subscribe(([recipeWithDetails]: [RecipeWithDetails]) => {
-				console.log(recipeWithDetails);
 				this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
 				this.isRecipesListLoading = false;
 			});
@@ -287,10 +268,6 @@ export class RecipesService implements OnInit {
 		}
 	}
 
-	public sideBarToggel(): void {
-		this.isSideBarEnabled = !this.isSideBarEnabled;
-	}
-
 	public checkForFavourite(recipe: Recipe): boolean {
 		this.recipesDataService.loadLSFavouriteRecipes();
 		return this.recipesDataService.favouriteRecipesListLS.some(
@@ -302,16 +279,6 @@ export class RecipesService implements OnInit {
 				}
 			}
 		);
-	}
-
-	public onChangePage(pageOfItems: Recipe[]): void {
-		// update current page of items
-		this.pageOfItems = pageOfItems;
-		window.scroll(0, 0);
-	}
-
-	public redirectToNotFound(): void {
-		this._router.navigate(['/not-found']);
 	}
 
 	public strToLowerCase(value: string): string {
@@ -347,6 +314,19 @@ export class RecipesService implements OnInit {
 		} else {
 			this.isNothingFoundFavourite = false;
 		}
+	}
+
+	public redirectToNotFound(): void {
+		this._router.navigate(['/not-found']);
+	}
+
+	public onChangePage(pageOfItems: Recipe[]): void {
+		this.pageOfItems = pageOfItems;  // update current page of items
+		window.scroll(0, 0);
+	}
+
+	public sideBarToggel(): void {
+		this.isSideBarEnabled = !this.isSideBarEnabled;
 	}
 
 	// tslint:disable-next-line: no-empty

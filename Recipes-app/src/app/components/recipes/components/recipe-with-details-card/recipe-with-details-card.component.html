@@ -6,19 +6,6 @@
         <img [src]="recipeWithDetails.image" alt="">
       </div>
 
-      <!-- <div class="recipe-details__steps">
-        <div *ngFor="let steps of recipeWithDetails.analyzedInstructions">
-          <div *ngFor="let step of steps.steps">
-            <h3>
-              {{step.number}}
-            </h3>
-            <p>
-              {{step.step}}
-            </p>
-          </div>
-        </div>
-      </div> -->
-
       <div class="recipe-details__body">
         <div class="recipe-details__body-head">
           <h1 class="recipe-details__title">
@@ -340,7 +327,8 @@
           </a>
         </div>
 
-        <div class="recipe-details__adults">
+        <div class="recipe-details__adults"
+          *ngIf="recipeWithDetails.winePairing.pairingText && recipeWithDetails.winePairing.pairedWines">
           <div class="recipe-details__adults-title">
             <p>
               are you
@@ -358,7 +346,7 @@
             </div>
             <div class="recipe-details__adults-instruction">
               <p>
-                  {{recipeWithDetails.winePairing.pairingText}}
+                {{recipeWithDetails.winePairing.pairingText}}
               </p>
             </div>
             <div class="recipe-details__adults-wines">
@@ -373,7 +361,6 @@
         </div>
 
       </div>
-
 
     </div>
 
