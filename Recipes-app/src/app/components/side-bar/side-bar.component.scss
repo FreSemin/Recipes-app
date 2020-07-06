@@ -105,11 +105,14 @@
       &_green {
         @include btn-effects($text-green, $bg-green);
       }
+      &_purple {
+        @include btn-effects($text-purple, $bg-purple);
+      }
     }
   }
 }
 
-@media (max-width: 640px) {
+@media (max-width: 810px) {
   .recipes-side-bar {
     bottom: calc(5px - 100vh);
 

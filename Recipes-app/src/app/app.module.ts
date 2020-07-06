@@ -21,6 +21,7 @@ import { MaterialModule } from './modules/material-modules/meterial.module';
 import { PaginationComponent } from './components/paginator/paginator.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { LatestComponent } from './components/latest/latest.component';
+import { AboutComponent } from './components/about/about.component';
 
 @NgModule({
 	declarations: [
@@ -34,6 +35,7 @@ import { LatestComponent } from './components/latest/latest.component';
 		FavouriteComponent,
 		RecipeWithDetailsCardComponent,
 		NotFoundPageComponent,
+		AboutComponent,
 		LatestComponent,
 	],
 	imports: [

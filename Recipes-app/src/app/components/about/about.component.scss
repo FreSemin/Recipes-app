@@ -1,0 +1,55 @@
+@import "../../../variables.scss";
+
+.about {
+  &__container {
+    margin: 0 auto;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 1290px;
+    height: 100vh;
+  }
+  &__box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    max-width: 640px;
+  }
+  &__image {
+    img {
+      height: 150px;
+      width: 150px;
+    }
+  }
+  &__title {
+    margin-top: 30px;
+    h6 {
+      color: $text-title-dark;
+      font-size: 32px;
+    }
+  }
+  &__subtitle {
+    margin-top: 20px;
+    p {
+      font-size: 20px;
+      color: $text-title-light-dark;
+    }
+  }
+  &__text {
+    margin-top: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+    line-height: 30px;
+    color: $text-title-light-dark;
+    font-size: 22px;
+  }
+  &__side-bar {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1290px;
+  }
+}

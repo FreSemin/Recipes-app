@@ -5,6 +5,7 @@ import { FavouriteComponent } from './components/favourite/favourite.component';
 import { RecipesComponent } from './components/recipes/recipes.component';
 import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
 import { LatestComponent } from './components/latest/latest.component';
+import { AboutComponent } from './components/about/about.component';
 
 const routes: Routes = [
 	{
@@ -23,7 +24,11 @@ const routes: Routes = [
 	{
 		path: 'latest',
 		component: LatestComponent,
-	},
+  },
+  {
+    path: 'about',
+    component: AboutComponent,
+  },
 	{
 		path: 'recipe-details',
 		component: RecipesComponent,
