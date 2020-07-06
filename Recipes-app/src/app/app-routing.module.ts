@@ -9,6 +9,11 @@ import { LatestComponent } from './components/latest/latest.component';
 const routes: Routes = [
 	{
 		path: '',
+		redirectTo: '/home',
+		pathMatch: 'full'
+	},
+	{
+		path: 'home',
 		component: HomeComponent
 	},
 	{
