@@ -24,11 +24,11 @@ const routes: Routes = [
 	{
 		path: 'latest',
 		component: LatestComponent,
-  },
-  {
-    path: 'about',
-    component: AboutComponent,
-  },
+	},
+	{
+		path: 'about',
+		component: AboutComponent,
+	},
 	{
 		path: 'recipe-details',
 		component: RecipesComponent,
