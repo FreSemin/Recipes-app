@@ -1,36 +1,46 @@
 @import "../../../variables.scss";
 
 .not-found {
-}
-.not-found__container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
-}
-.not-found__container_bg-orange {
-  background: $bg-not-found-page;
-}
-.not-found__box {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  max-width: 800px;
-  max-height: 600px;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  flex-direction: column;
-}
-.not-found__img {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  img {
-    object-fit: contain;
-    position: absolute;
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+    &_bg-orange {
+      background: $bg-not-found-page;
+    }
+    &-btn {
+      text-transform: uppercase;
+      color: $text-blue;
+      background: $bg-white;
+      font-size: 16px;
+
+      &:hover {
+        background: $bg-blue;
+        color: $text-white;
+      }
+    }
   }
-}
-.not-found__nav {
+  &__box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 800px;
+    max-height: 600px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+  }
+  &__img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    img {
+      object-fit: contain;
+      position: absolute;
+    }
+  }
+
 }

@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-not-found-page',
-  templateUrl: './not-found-page.component.html',
-  styleUrls: ['./not-found-page.component.scss']
+	selector: 'app-not-found-page',
+	templateUrl: './not-found-page.component.html',
+	styleUrls: ['./not-found-page.component.scss']
 })
 export class NotFoundPageComponent implements OnInit {
 
-  constructor() { }
+	// tslint:disable-next-line: no-empty
+	constructor() { }
 
-  ngOnInit(): void {
-  }
+	// tslint:disable-next-line: no-empty
+	public ngOnInit(): void {
+	}
 
 }

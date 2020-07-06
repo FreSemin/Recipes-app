@@ -8,7 +8,6 @@ import { RecipesService } from 'src/app/services/recipes/recipes.service';
 })
 export class SideBarComponent implements OnInit {
 
-	// tslint:disable-next-line: no-empty
 	constructor(public recipesService: RecipesService) { }
 
 	// tslint:disable-next-line: no-empty

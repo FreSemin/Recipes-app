@@ -1,5 +1,15 @@
 @import "../../../variables.scss";
 
+@mixin btn-effects($text-color, $bg-color) {
+  color: $text-color;
+  background: $bg-white;
+
+  &:hover {
+    background: $bg-color;
+    color: $text-white;
+  }
+}
+
 .recipes-side-bar {
   position: fixed;
   z-index: 10;
@@ -86,37 +96,18 @@
       }
 
       &_orange {
-        color: $text-orange;
-        background: $bg-white;
-
-        &:hover {
-          background: $bg-orange;
-          color: $text-white;
-        }
+        @include btn-effects($text-orange, $bg-orange);
       }
 
       &_blue {
-        color: $text-blue;
-        background: $bg-white;
-
-        &:hover {
-          background: $bg-blue;
-          color: $text-white;
-        }
+        @include btn-effects($text-blue, $bg-blue);
       }
       &_green {
-        color: $text-green;
-        background: $bg-white;
-
-        &:hover {
-          background: $bg-green;
-          color: $text-white;
-        }
+        @include btn-effects($text-green, $bg-green);
       }
     }
   }
 }
-
 
 @media (max-width: 640px) {
   .recipes-side-bar {

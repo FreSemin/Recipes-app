@@ -14,8 +14,8 @@ const routes: Routes = [
 	{
 		path: 'favourite',
 		component: FavouriteComponent,
-  },
-  {
+	},
+	{
 		path: 'latest',
 		component: LatestComponent,
 	},

@@ -167,8 +167,6 @@ export class RecipesDataService implements OnInit, OnDestroy {
 	}
 
 	//#region Cuisines start
-
-
 	public updateAllIncludeComplete(): void {
 		this.allIncludeComplete = this.selectCuisinesValues.cuisinesInclude != null
 			&& this.selectCuisinesValues.cuisinesInclude.every((cuisine: Cuisine) => cuisine.complete);

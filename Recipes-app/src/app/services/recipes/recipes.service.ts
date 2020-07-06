@@ -14,10 +14,7 @@ import RecipesRandom from 'src/app/components/recipes/models/recipe-random/recip
 	providedIn: 'root',
 })
 export class RecipesService implements OnInit {
-	private _API_KEY: string = '?apiKey=32f7c85c9be64fdab0ab0375f1bc35d0';
-
-	// 6b81ee8ae3fb4592aa7f4d40e40b091b -- main api acc key
-	// 32f7c85c9be64fdab0ab0375f1bc35d0 -- second api acc key
+	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
 
 	public searchString: string = '';
 	public jokeStr: string = '';
@@ -85,26 +82,26 @@ export class RecipesService implements OnInit {
 	) { }
 
 	public getRandomJoke(): void {
-		// this._http
-		// 	.get<RecipeJoke>(
-		// 		`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
-		// 	)
-		// 	.subscribe((joke: RecipeJoke) => {
-		// 		this.jokeStr = joke.text;
-		// 	});
+		this._http
+			.get<RecipeJoke>(
+				`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
+			)
+			.subscribe((joke: RecipeJoke) => {
+				this.jokeStr = joke.text;
+			});
 	}
 
 	public getRandomRecipe(): void {
-		// this.isRecipesListLoading = true;
-		// this._http
-		// 	.get<RecipesRandom>(
-		// 		`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
-		// 	)
-		// 	.subscribe((randomRecipes: RecipesRandom) => {
-		// 		this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
-		// 		this.isRadomResipeExists = true;
-		// 		this.isRecipesListLoading = false;
-		// 	});
+		this.isRecipesListLoading = true;
+		this._http
+			.get<RecipesRandom>(
+				`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
+			)
+			.subscribe((randomRecipes: RecipesRandom) => {
+				this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
+				this.isRadomResipeExists = true;
+				this.isRecipesListLoading = false;
+			});
 	}
 
 	public checkSearchOptions(): void {
