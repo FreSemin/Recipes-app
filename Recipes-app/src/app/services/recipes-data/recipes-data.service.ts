@@ -209,12 +209,14 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		this._http.get<CuisinesSelect>(
 			`${this._baseAssetsUrl}/json/cuisines-values/cuisines-values.json`
 		).subscribe((data: CuisinesSelect) => {
+			if (this.cuisinesValuesInclude.length > 0 && this.cuisinesValuesExclude.length > 0) {
+				this.cuisinesValuesInclude = [];
+				this.cuisinesValuesExclude = [];
+			}
 			data.cuisinesValuesStrings.forEach((element: string) => {
 				this.cuisinesValuesInclude.push(new Cuisine(element, false));
 				this.cuisinesValuesExclude.push(new Cuisine(element, false));
 			});
-			this.cuisinesValuesInclude.shift();   // delete empty element
-			this.cuisinesValuesExclude.shift();   // delete empty element
 			this.selectCuisinesValues.cuisinesInclude = this.cuisinesValuesInclude;
 			this.selectCuisinesValues.cuisinesExclude = this.cuisinesValuesExclude;
 		});

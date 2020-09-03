@@ -82,26 +82,26 @@ export class RecipesService implements OnInit {
 	) { }
 
 	public getRandomJoke(): void {
-		this._http
-			.get<RecipeJoke>(
-				`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
-			)
-			.subscribe((joke: RecipeJoke) => {
-				this.jokeStr = joke.text;
-			});
+		// this._http
+		// 	.get<RecipeJoke>(
+		// 		`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
+		// 	)
+		// 	.subscribe((joke: RecipeJoke) => {
+		// 		this.jokeStr = joke.text;
+		// 	});
 	}
 
 	public getRandomRecipe(): void {
-		this.isRecipesListLoading = true;
-		this._http
-			.get<RecipesRandom>(
-				`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
-			)
-			.subscribe((randomRecipes: RecipesRandom) => {
-				this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
-				this.isRadomResipeExists = true;
-				this.isRecipesListLoading = false;
-			});
+		// this.isRecipesListLoading = true;
+		// this._http
+		// 	.get<RecipesRandom>(
+		// 		`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
+		// 	)
+		// 	.subscribe((randomRecipes: RecipesRandom) => {
+		// 		this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
+		// 		this.isRadomResipeExists = true;
+		// 		this.isRecipesListLoading = false;
+		// 	});
 	}
 
 	public checkSearchOptions(): void {
@@ -162,6 +162,12 @@ export class RecipesService implements OnInit {
 		this.proteinMaxValue = this.proteinMaxStartedValue;
 		this.fatMinValue = this.fatMinStartedValue;
 		this.fatMaxValue = this.fatMaxStartedValue;
+
+		// this.resultCuisinesInclude = null;
+		// this.resultCuisinesInclude = null;
+
+		// this.resultCuisinesInclude = [];
+		// this.resultCuisinesExclude = [];
 	}
 
 	public showList(): void {
