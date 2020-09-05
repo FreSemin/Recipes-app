@@ -1,31 +1,31 @@
 <div class="recipes-side-bar" [ngClass]="{
-  'recipes-side-bar_active': recipesService.isSideBarEnabled
+  'recipes-side-bar_active': sidebarState$ | async
 }">
   <div class="recipes-side-bar__box">
 
     <div class="recipes-side-bar__nav" [ngClass]="{
-      'recipes-side-bar_nav-active': recipesService.isSideBarEnabled
+      'recipes-side-bar_nav-active': sidebarState$ | async
     }">
-      <button class="recipes-side-bar__nav-button" (click)="recipesService.sideBarToggel()">
+      <button class="recipes-side-bar__nav-button" (click)="sidebarToggle()">
         <i class="fas fa-angle-up"></i>
       </button>
     </div>
 
     <div class="recipes-side-bar__container">
       <a mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_blue" routerLink=''
-        (click)="recipesService.sideBarToggel()">
+        (click)="sidebarToggle()">
         <i class="fas fa-home "></i> home
       </a>
       <a class="recipes-side-bar__container-btn recipes-side-bar__container-btn_orange" mat-raised-button
-        routerLink='/favourite' (click)="recipesService.sideBarToggel()">
+        routerLink='/favourite' (click)="sidebarToggle()">
         <i class="fas fa-heart"></i> favourite recipes
       </a>
       <a class="recipes-side-bar__container-btn recipes-side-bar__container-btn_green" mat-raised-button
-        routerLink='/latest' (click)="recipesService.sideBarToggel()">
+        routerLink='/latest' (click)="sidebarToggle()">
         <i class="fas fa-clipboard"></i> latest recipes
       </a>
       <a class="recipes-side-bar__container-btn recipes-side-bar__container-btn_purple" mat-raised-button
-        routerLink='/about' (click)="recipesService.sideBarToggel()">
+        routerLink='/about' (click)="sidebarToggle()">
         <i class="fas fa-book-open"></i> About
       </a>
     </div>

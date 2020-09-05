@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { RecipesService } from 'src/app/services/recipes/recipes.service';
+
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { SidebarToggle } from '../../store/action/side-bar/side-bar.action';
 
 @Component({
 	selector: 'app-side-bar',
@@ -7,11 +10,17 @@ import { RecipesService } from 'src/app/services/recipes/recipes.service';
 	styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent implements OnInit {
+	public sidebarState$: Observable<boolean>;
 
-	constructor(public recipesService: RecipesService) { }
+	constructor(private store: Store<{ sideBar: boolean }>) {
+		this.sidebarState$ = store.pipe(select('sideBar'));
+	}
+
+	public sidebarToggle(): void {
+		this.store.dispatch(new SidebarToggle());
+	}
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void {
 	}
-
 }

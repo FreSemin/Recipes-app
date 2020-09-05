@@ -27,7 +27,6 @@ export class RecipesService implements OnInit {
 	public favouriteRecipes: Recipe[] = [];
 	public recipeWithDetails: RecipeWithDetails = null;
 
-	public isSideBarEnabled: boolean = false;
 	public isRecipesListLoading: boolean = false;
 	public isNothingFound: boolean = false;
 	public thumbLabelSliders: boolean = true;
@@ -162,12 +161,6 @@ export class RecipesService implements OnInit {
 		this.proteinMaxValue = this.proteinMaxStartedValue;
 		this.fatMinValue = this.fatMinStartedValue;
 		this.fatMaxValue = this.fatMaxStartedValue;
-
-		// this.resultCuisinesInclude = null;
-		// this.resultCuisinesInclude = null;
-
-		// this.resultCuisinesInclude = [];
-		// this.resultCuisinesExclude = [];
 	}
 
 	public showList(): void {
@@ -326,10 +319,6 @@ export class RecipesService implements OnInit {
 	public onChangePage(pageOfItems: Recipe[]): void {
 		this.pageOfItems = pageOfItems;  // update current page of items
 		window.scroll(0, 0);
-	}
-
-	public sideBarToggel(): void {
-		this.isSideBarEnabled = !this.isSideBarEnabled;
 	}
 
 	// tslint:disable-next-line: no-empty
