@@ -1,10 +1,10 @@
 <div class="recipes-side-bar" [ngClass]="{
-  'recipes-side-bar_active': sidebarState$ | async
+  'recipes-side-bar_active': (sidebarState$ | async).isSidebarEnabled
 }">
   <div class="recipes-side-bar__box">
 
     <div class="recipes-side-bar__nav" [ngClass]="{
-      'recipes-side-bar_nav-active': sidebarState$ | async
+      'recipes-side-bar_nav-active': (sidebarState$ | async).isSidebarEnabled
     }">
       <button class="recipes-side-bar__nav-button" (click)="sidebarToggle()">
         <i class="fas fa-angle-up"></i>

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { SidebarToggle } from '../../store/action/side-bar/side-bar.action';
+import { ISidebar } from 'src/app/store/states/side-bar/side-bar.state';
 
 @Component({
 	selector: 'app-side-bar',
@@ -10,9 +11,9 @@ import { SidebarToggle } from '../../store/action/side-bar/side-bar.action';
 	styleUrls: ['./side-bar.component.scss']
 })
 export class SideBarComponent implements OnInit {
-	public sidebarState$: Observable<boolean>;
+	public sidebarState$: Observable<ISidebar>;
 
-	constructor(private store: Store<{ sideBar: boolean }>) {
+	constructor(private store: Store<{ sideBar: ISidebar }>) {
 		this.sidebarState$ = store.pipe(select('sideBar'));
 	}
 
