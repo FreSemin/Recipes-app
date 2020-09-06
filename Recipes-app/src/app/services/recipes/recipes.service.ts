@@ -9,6 +9,9 @@ import { RecipeWithDetails } from 'src/app/components/recipes/models/recipe-with
 import { Observable, combineLatest } from 'rxjs';
 import Cuisine from 'src/app/models/cuisines/cuisines';
 import RecipesRandom from 'src/app/components/recipes/models/recipe-random/recipe-random';
+import { ISidebar } from 'src/app/store/states/side-bar/side-bar.state';
+import { Store, select } from '@ngrx/store';
+import { SidebarToggle } from 'src/app/store/action/side-bar/side-bar.action';
 
 @Injectable({
 	providedIn: 'root',
@@ -21,6 +24,8 @@ export class RecipesService implements OnInit {
 
 	public recipeBook: RecipeBook = null;
 	public recipeResults: Recipe[] = [];
+
+	public sidebarState$: Observable<ISidebar>;
 
 	public pageOfItems: Recipe[] = [];
 
@@ -77,8 +82,11 @@ export class RecipesService implements OnInit {
 	constructor(
 		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
-		private _router: Router
-	) { }
+		private _router: Router,
+		private store: Store<{ sideBar: ISidebar }>
+	) {
+		this.sidebarState$ = store.pipe(select('sideBar'));
+	}
 
 	public getRandomJoke(): void {
 		// this._http
@@ -101,6 +109,10 @@ export class RecipesService implements OnInit {
 		// 		this.isRadomResipeExists = true;
 		// 		this.isRecipesListLoading = false;
 		// 	});
+	}
+
+	public sidebarToggle(): void {
+		this.store.dispatch(new SidebarToggle());
 	}
 
 	public checkSearchOptions(): void {

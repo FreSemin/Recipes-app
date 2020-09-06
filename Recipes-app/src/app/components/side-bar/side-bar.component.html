@@ -1,31 +1,31 @@
 <div class="recipes-side-bar" [ngClass]="{
-  'recipes-side-bar_active': (sidebarState$ | async).isSidebarEnabled
+  'recipes-side-bar_active': (recipesService.sidebarState$ | async).isSidebarEnabled
 }">
   <div class="recipes-side-bar__box">
 
     <div class="recipes-side-bar__nav" [ngClass]="{
-      'recipes-side-bar_nav-active': (sidebarState$ | async).isSidebarEnabled
+      'recipes-side-bar_nav-active': (recipesService.sidebarState$ | async).isSidebarEnabled
     }">
-      <button class="recipes-side-bar__nav-button" (click)="sidebarToggle()">
+      <button class="recipes-side-bar__nav-button" (click)="recipesService.sidebarToggle()">
         <i class="fas fa-angle-up"></i>
       </button>
     </div>
 
     <div class="recipes-side-bar__container">
       <a mat-raised-button class="recipes-side-bar__container-btn recipes-side-bar__container-btn_blue" routerLink=''
-        (click)="sidebarToggle()">
+        (click)="recipesService.sidebarToggle()">
         <i class="fas fa-home "></i> home
       </a>
       <a class="recipes-side-bar__container-btn recipes-side-bar__container-btn_orange" mat-raised-button
-        routerLink='/favourite' (click)="sidebarToggle()">
+        routerLink='/favourite' (click)="recipesService.sidebarToggle()">
         <i class="fas fa-heart"></i> favourite recipes
       </a>
       <a class="recipes-side-bar__container-btn recipes-side-bar__container-btn_green" mat-raised-button
-        routerLink='/latest' (click)="sidebarToggle()">
+        routerLink='/latest' (click)="recipesService.sidebarToggle()">
         <i class="fas fa-clipboard"></i> latest recipes
       </a>
       <a class="recipes-side-bar__container-btn recipes-side-bar__container-btn_purple" mat-raised-button
-        routerLink='/about' (click)="sidebarToggle()">
+        routerLink='/about' (click)="recipesService.sidebarToggle()">
         <i class="fas fa-book-open"></i> About
       </a>
     </div>
