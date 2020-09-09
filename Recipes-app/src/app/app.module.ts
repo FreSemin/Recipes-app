@@ -29,6 +29,7 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 import { sidebarReducer } from './store/reducer/side-bar/side-bar.reducer';
+import { appReducers } from './store';
 
 @NgModule({
 	declarations: [
@@ -53,7 +54,7 @@ import { sidebarReducer } from './store/reducer/side-bar/side-bar.reducer';
 		MaterialModule,
 		BrowserAnimationsModule,
 		AppRoutingModule,
-		StoreModule.forRoot({ sideBar: sidebarReducer }),
+		StoreModule.forRoot(appReducers),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,

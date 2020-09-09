@@ -12,6 +12,7 @@ import RecipesRandom from 'src/app/components/recipes/models/recipe-random/recip
 import { ISidebar } from 'src/app/store/states/side-bar/side-bar.state';
 import { Store, select } from '@ngrx/store';
 import { SidebarToggle } from 'src/app/store/action/side-bar/side-bar.action';
+import { IAppState } from 'src/app/store/states/app-state/app.state';
 
 @Injectable({
 	providedIn: 'root',
@@ -83,9 +84,9 @@ export class RecipesService implements OnInit {
 		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
 		private _router: Router,
-		private store: Store<{ sideBar: ISidebar }>
+		private _store: Store<IAppState>
 	) {
-		this.sidebarState$ = store.pipe(select('sideBar'));
+		this.sidebarState$ = _store.select((state: IAppState) => state.sidebar);
 	}
 
 	public getRandomJoke(): void {
@@ -112,7 +113,7 @@ export class RecipesService implements OnInit {
 	}
 
 	public sidebarToggle(): void {
-		this.store.dispatch(new SidebarToggle());
+		this._store.dispatch(new SidebarToggle());
 	}
 
 	public checkSearchOptions(): void {
