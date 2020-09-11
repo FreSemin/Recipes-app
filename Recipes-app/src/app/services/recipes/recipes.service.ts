@@ -2,7 +2,7 @@ import { Injectable, OnInit } from '@angular/core';
 import { Recipe } from '../../components/recipes/models/recipe/recipe';
 import { HttpClient } from '@angular/common/http';
 import { RecipeBook } from 'src/app/components/recipes/models/recipes-book/recipes-book';
-import { RecipeJoke } from 'src/app/components/recipes/models/recipe-joke/recipe-joke';
+import { RecipeJoke, IRecipeJoke } from 'src/app/components/recipes/models/recipe-joke/recipe-joke';
 import { RecipesDataService } from '../recipes-data/recipes-data.service';
 import { Router } from '@angular/router';
 import { RecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
@@ -13,6 +13,8 @@ import { ISidebar } from 'src/app/store/states/side-bar/side-bar.state';
 import { Store, select } from '@ngrx/store';
 import { SidebarToggle } from 'src/app/store/action/side-bar/side-bar.action';
 import { IAppState } from 'src/app/store/states/app-state/app.state';
+import { RecipeJokeGet } from 'src/app/store/action/recipe-joke/recipe-joke.actions';
+import { selectRecipeJoke } from 'src/app/store/selectors/recipe-joke/recipe-joke.selectors';
 
 @Injectable({
 	providedIn: 'root',
@@ -21,12 +23,12 @@ export class RecipesService implements OnInit {
 	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
 
 	public searchString: string = '';
-	public jokeStr: string = '';
 
 	public recipeBook: RecipeBook = null;
 	public recipeResults: Recipe[] = [];
 
 	public sidebarState$: Observable<ISidebar>;
+	public recipeJoke$: Observable<IRecipeJoke>;
 
 	public pageOfItems: Recipe[] = [];
 
@@ -89,16 +91,6 @@ export class RecipesService implements OnInit {
 		this.sidebarState$ = _store.select((state: IAppState) => state.sidebar);
 	}
 
-	public getRandomJoke(): void {
-		// this._http
-		// 	.get<RecipeJoke>(
-		// 		`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
-		// 	)
-		// 	.subscribe((joke: RecipeJoke) => {
-		// 		this.jokeStr = joke.text;
-		// 	});
-	}
-
 	public getRandomRecipe(): void {
 		// this.isRecipesListLoading = true;
 		// this._http
@@ -110,6 +102,17 @@ export class RecipesService implements OnInit {
 		// 		this.isRadomResipeExists = true;
 		// 		this.isRecipesListLoading = false;
 		// 	});
+	}
+
+	public initRecipeJoke(): void {
+		this._store.dispatch(new RecipeJokeGet());
+		this.recipeJoke$ = this._store.pipe(select(selectRecipeJoke));
+	}
+
+	public loadRecipeJoke(): Observable<IRecipeJoke> {
+		return this._http.get<IRecipeJoke>(
+			`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
+		);
 	}
 
 	public sidebarToggle(): void {

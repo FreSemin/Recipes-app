@@ -10,7 +10,7 @@
       </div>
       <div class="search-box__joke">
         <p>
-          {{ recipesService.jokeStr }}
+          {{ (recipesService.recipeJoke$ | async).text }}
         </p>
       </div>
     </div>

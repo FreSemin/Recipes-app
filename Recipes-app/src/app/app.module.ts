@@ -28,8 +28,9 @@ import { AboutComponent } from './components/about/about.component';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { sidebarReducer } from './store/reducer/side-bar/side-bar.reducer';
 import { appReducers } from './store';
+import { EffectsModule } from '@ngrx/effects';
+import { RecipeJokeEffects } from './store/effects/recipe-joke/recipe-joke.effects';
 
 @NgModule({
 	declarations: [
@@ -55,6 +56,7 @@ import { appReducers } from './store';
 		BrowserAnimationsModule,
 		AppRoutingModule,
 		StoreModule.forRoot(appReducers),
+		EffectsModule.forRoot([RecipeJokeEffects]),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,
