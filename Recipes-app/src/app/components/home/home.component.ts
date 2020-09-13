@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 	}
 
 	public ngOnDestroy(): void {
+		this._recipesService.elementsRes = [];
 		this._recipesService.recipeResults = [];
 		this._recipesService.isRadomResipeExists = false;
 	}

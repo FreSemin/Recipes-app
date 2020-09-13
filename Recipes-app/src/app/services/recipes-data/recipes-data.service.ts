@@ -9,7 +9,6 @@ import SortingsSelect from 'src/app/models/sortings-select/sortings-select';
 
 @Injectable()
 export class RecipesDataService implements OnInit, OnDestroy {
-
 	private static _recipeFavouriteListKey: string = 'app-recipe-list';
 	private static _recipeLatestListKey: string = 'app-recipe-latest-list';
 	private _baseAssetsUrl: string = 'assets';

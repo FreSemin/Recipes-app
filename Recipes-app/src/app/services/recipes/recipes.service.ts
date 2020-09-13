@@ -31,6 +31,7 @@ export class RecipesService implements OnInit {
 	public recipeJoke$: Observable<IRecipeJoke>;
 
 	public pageOfItems: Recipe[] = [];
+	public elementsRes: Recipe[] = [];
 
 	public favouriteRecipes: Recipe[] = [];
 	public recipeWithDetails: RecipeWithDetails = null;
@@ -92,16 +93,19 @@ export class RecipesService implements OnInit {
 	}
 
 	public getRandomRecipe(): void {
-		// this.isRecipesListLoading = true;
-		// this._http
-		// 	.get<RecipesRandom>(
-		// 		`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
-		// 	)
-		// 	.subscribe((randomRecipes: RecipesRandom) => {
-		// 		this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
-		// 		this.isRadomResipeExists = true;
-		// 		this.isRecipesListLoading = false;
-		// 	});
+		this.isRecipesListLoading = true;
+		this._http
+			.get<RecipesRandom>(
+				`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
+			)
+			.subscribe((randomRecipes: RecipesRandom) => {
+				console.log(randomRecipes);
+				this.elementsRes = [];
+				this.elementsRes.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
+				// this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
+				this.isRadomResipeExists = true;
+				this.isRecipesListLoading = false;
+			});
 	}
 
 	public initRecipeJoke(): void {
@@ -180,19 +184,27 @@ export class RecipesService implements OnInit {
 	}
 
 	public showList(): void {
-		this.recipesDataService.loadLSFavouriteRecipes();
-		this.recipeResults = [];
+		// this.recipesDataService.loadLSFavouriteRecipes();
+		this.elementsRes = [];
+		// this.recipeResults = [];
+		// this.recipeBook.results.forEach((element: Recipe) => {
+			// this.recipeResults.push(new Recipe(element));
+		// });
+		// this.elementsRes = this.recipeBook.results;
 		this.recipeBook.results.forEach((element: Recipe) => {
-			this.recipeResults.push(new Recipe(element));
+			this.elementsRes.push(new Recipe(element));
 		});
+		console.log(this.recipeBook.results);
 	}
 
 	public searchRecipes(searchString: string): void {
 		this.checkSearchOptions();
 
-		this.recipeResults = [];
+		// this.recipeResults = [];
+		this.elementsRes = [];
+
 		this.isRecipesListLoading = true;
-		this.isRadomResipeExists = false;
+		// this.isRadomResipeExists = false;
 		this.isNothingFound = false;
 
 		this._http
@@ -217,11 +229,13 @@ export class RecipesService implements OnInit {
 				&number=100`
 			)
 			.subscribe((data: RecipeBook) => {
+				console.log(data);
 				if (!(data.totalResults === 0)) {
 					this.searchString = '';
 					this.recipeBook = new RecipeBook(data);
 					this.isRecipesListLoading = false;
 					this.isNothingFound = false;
+					console.log(this.recipeBook);
 					this.showList();
 				} else {
 					this.isRecipesListLoading = false;
@@ -332,7 +346,7 @@ export class RecipesService implements OnInit {
 		this._router.navigate(['/not-found']);
 	}
 
-	public onChangePage(pageOfItems: Recipe[]): void {
+	public onChangePage(pageOfItems: Recipe[] | any[]): void {
 		this.pageOfItems = pageOfItems;  // update current page of items
 		window.scroll(0, 0);
 	}

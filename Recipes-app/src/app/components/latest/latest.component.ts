@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { RecipesDataService } from 'src/app/services/recipes-data/recipes-data.service';
+import { RecipesService } from 'src/app/services/recipes/recipes.service';
 
 @Component({
 	selector: 'app-latest',
@@ -8,13 +9,15 @@ import { RecipesDataService } from 'src/app/services/recipes-data/recipes-data.s
 })
 export class LatestComponent implements OnInit, OnDestroy {
 
-	constructor(public recipeDataService: RecipesDataService) { }
+	constructor(public recipesService: RecipesService, public recipeDataService: RecipesDataService) { }
 
 	public ngOnInit(): void {
 		this.recipeDataService.initLatestRecipeList();
+		// this.recipesService.elementsRes = this.recipeDataService.latestRecipesList;
 	}
 
 	public ngOnDestroy(): void {
+		// this.recipesService.elementsRes = [];
 		this.recipeDataService.destroyLatestRecipeList();
 	}
 

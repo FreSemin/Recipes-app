@@ -13,10 +13,12 @@ export class FavouriteComponent implements OnInit, OnDestroy {
 
 	public ngOnInit(): void {
 		this.recipeDataService.initFavouriteRecipeList();
+		// this.recipesService.elementsRes = this.recipeDataService.favouriteRecipesList;
 	}
 
 	public ngOnDestroy(): void {
 		this.recipeDataService.destroyFavouriteRecipeList();
+		// this.recipesService.elementsRes = [];
 		this.recipesService.searchFavouriteStr = '';
 		this.recipesService.isNothingFoundFavourite = false;
 	}
