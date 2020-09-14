@@ -8,13 +8,16 @@ import { Router } from '@angular/router';
 import { RecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
 import { Observable, combineLatest } from 'rxjs';
 import Cuisine from 'src/app/models/cuisines/cuisines';
-import RecipesRandom from 'src/app/components/recipes/models/recipe-random/recipe-random';
+import RecipesRandom, { IRecipeRandom } from 'src/app/components/recipes/models/recipe-random/recipe-random';
 import { ISidebar } from 'src/app/store/states/side-bar/side-bar.state';
 import { Store, select } from '@ngrx/store';
 import { SidebarToggle } from 'src/app/store/action/side-bar/side-bar.action';
 import { IAppState } from 'src/app/store/states/app-state/app.state';
 import { RecipeJokeGet } from 'src/app/store/action/recipe-joke/recipe-joke.actions';
 import { selectRecipeJoke } from 'src/app/store/selectors/recipe-joke/recipe-joke.selectors';
+import { RecipesResultsClear, RecipesResultsGetRandom, RecipesResultsGetRandomSucces } from 'src/app/store/action/recipes-results/recipes-results.actions';
+import { IRecipesResults } from 'src/app/store/states/recipes-results/recipes-results.state';
+import { selectRecipesResults } from 'src/app/store/selectors/recipes-results/recipes-results.selectors';
 
 @Injectable({
 	providedIn: 'root',
@@ -29,14 +32,13 @@ export class RecipesService implements OnInit {
 
 	public sidebarState$: Observable<ISidebar>;
 	public recipeJoke$: Observable<IRecipeJoke>;
+	public recipesResults$: Observable<IRecipesResults>;
 
 	public pageOfItems: Recipe[] = [];
-	public elementsRes: Recipe[] = [];
 
 	public favouriteRecipes: Recipe[] = [];
 	public recipeWithDetails: RecipeWithDetails = null;
 
-	public isRecipesListLoading: boolean = false;
 	public isNothingFound: boolean = false;
 	public thumbLabelSliders: boolean = true;
 
@@ -92,20 +94,15 @@ export class RecipesService implements OnInit {
 		this.sidebarState$ = _store.select((state: IAppState) => state.sidebar);
 	}
 
-	public getRandomRecipe(): void {
-		this.isRecipesListLoading = true;
-		this._http
-			.get<RecipesRandom>(
-				`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
-			)
-			.subscribe((randomRecipes: RecipesRandom) => {
-				console.log(randomRecipes);
-				this.elementsRes = [];
-				this.elementsRes.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
-				// this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
-				this.isRadomResipeExists = true;
-				this.isRecipesListLoading = false;
-			});
+	public initRecipesRandom(): void {
+		this._store.dispatch(new RecipesResultsGetRandom());
+		this.recipesResults$ = this._store.pipe(select(selectRecipesResults));
+	}
+
+	public loadRecipeRandom(): Observable<IRecipeRandom> {
+		return this._http.get<IRecipeRandom>(
+			`https://api.spoonacular.com/recipes/random${this._API_KEY}`
+		);
 	}
 
 	public initRecipeJoke(): void {
@@ -117,6 +114,10 @@ export class RecipesService implements OnInit {
 		return this._http.get<IRecipeJoke>(
 			`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
 		);
+	}
+
+	public clearRecipesResults(): void {
+		this._store.dispatch(new RecipesResultsClear());
 	}
 
 	public sidebarToggle(): void {
@@ -183,28 +184,17 @@ export class RecipesService implements OnInit {
 		this.fatMaxValue = this.fatMaxStartedValue;
 	}
 
-	public showList(): void {
-		// this.recipesDataService.loadLSFavouriteRecipes();
-		this.elementsRes = [];
-		// this.recipeResults = [];
-		// this.recipeBook.results.forEach((element: Recipe) => {
-			// this.recipeResults.push(new Recipe(element));
-		// });
-		// this.elementsRes = this.recipeBook.results;
-		this.recipeBook.results.forEach((element: Recipe) => {
-			this.elementsRes.push(new Recipe(element));
-		});
-		console.log(this.recipeBook.results);
-	}
+	// public showList(): void {
+	// this.elementsRes = this.recipeBook.results;
+	// this.recipeBook.results.forEach((element: Recipe) => {
+	// 	this.elementsRes.push(new Recipe(element));
+	// });
+	// console.log(this.recipeBook.results);
+	// }
 
 	public searchRecipes(searchString: string): void {
 		this.checkSearchOptions();
 
-		// this.recipeResults = [];
-		this.elementsRes = [];
-
-		this.isRecipesListLoading = true;
-		// this.isRadomResipeExists = false;
 		this.isNothingFound = false;
 
 		this._http
@@ -233,12 +223,12 @@ export class RecipesService implements OnInit {
 				if (!(data.totalResults === 0)) {
 					this.searchString = '';
 					this.recipeBook = new RecipeBook(data);
-					this.isRecipesListLoading = false;
+					// this.isRecipesListLoading = false;
 					this.isNothingFound = false;
 					console.log(this.recipeBook);
-					this.showList();
+					// this.showList();
 				} else {
-					this.isRecipesListLoading = false;
+					// this.isRecipesListLoading = false;
 					this.isNothingFound = true;
 				}
 			});
@@ -265,13 +255,13 @@ export class RecipesService implements OnInit {
 
 		this._router
 			.navigate(['/recipe-details', recipeId]);
-		this.isRecipesListLoading = true;
+		// this.isRecipesListLoading = true;
 		combineLatest([
 			this.checkRecipeDetails(recipeId),
 		])
 			.subscribe(([recipeWithDetails]: [RecipeWithDetails]) => {
 				this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
-				this.isRecipesListLoading = false;
+				// this.isRecipesListLoading = false;
 			});
 	}
 

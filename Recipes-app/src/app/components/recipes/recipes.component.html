@@ -1,7 +1,7 @@
 <div class="recipes-box">
   <div class="recipes__container">
 
-    <div class="recipes__loader" *ngIf="recipesService.isRecipesListLoading">
+    <div class="recipes__loader" *ngIf="((recipesService.recipesResults$) | async).isLoading">
       <mat-spinner></mat-spinner>
     </div>
 
@@ -11,8 +11,7 @@
       </p>
     </div>
 
-    <div class="recipes__random-recipe"
-      *ngIf="recipesService.isRadomResipeExists && !recipesService.isRecipesListLoading">
+    <div class="recipes__random-recipe" *ngIf="((recipesService.recipesResults$) | async).isRandomExist">
       <p><span>Random </span>Recipe, you can't <span>cook it </span>! or can, I'm only a title not a chef.</p>
     </div>
 
@@ -28,7 +27,7 @@
       </app-recipes-card>
     </div> -->
 
-    <div class="recipes__cards">
+  <!-- <div class="recipes__cards">
       <div class="recipes__cards-box" *ngIf="recipesService.elementsRes.length > 0">
         <app-recipes-card *ngFor="let recipeEl of recipesService.pageOfItems;" [recipe]="recipeEl"
           (onAddRecipeToFavourite)="recipesDataService.addToFavorite($event)"
@@ -36,7 +35,17 @@
           (onCheckDetails)="recipesService.initRecipeDetails($event)"
           [isFavorite]="recipesService.checkForFavourite(recipeEl) ? true : false">
         </app-recipes-card>
-      </div>
+      </div> -->
+
+  <div class="recipes__cards">
+    <div class="recipes__cards-box" *ngIf="((recipesService.recipesResults$ | async).recipes.length > 0)">
+      <app-recipes-card *ngFor="let recipeEl of recipesService.pageOfItems;" [recipe]="recipeEl"
+        (onAddRecipeToFavourite)="recipesDataService.addToFavorite($event)"
+        (onDeleteRecipeFromFavourite)="recipesDataService.deleteFromFavourite($event)"
+        (onCheckDetails)="recipesService.initRecipeDetails($event)"
+        [isFavorite]="recipesService.checkForFavourite(recipeEl) ? true : false">
+      </app-recipes-card>
+    </div>
 
     <!-- <div class="recipes__cards-box" *ngIf="recipesDataService.favouriteRecipesList.length > 0">
       <app-recipes-card *ngFor="let recipeLSEl of recipesService.pageOfItems;" [recipe]="recipeLSEl"
@@ -77,7 +86,7 @@
         [items]="recipesDataService.latestRecipesList" (changePage)="recipesService.onChangePage($event)">
       </app-pagination> -->
 
-      <app-pagination *ngIf="recipesService.elementsRes.length > 0" [items]="recipesService.elementsRes"
+      <app-pagination *ngIf="((recipesService.recipesResults$ | async).recipes.length > 0)" [items]="((recipesService.recipesResults$ | async).recipes)"
         (changePage)="recipesService.onChangePage($event)">
       </app-pagination>
     </div>

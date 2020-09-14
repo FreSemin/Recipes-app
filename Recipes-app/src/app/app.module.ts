@@ -31,6 +31,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { appReducers } from './store';
 import { EffectsModule } from '@ngrx/effects';
 import { RecipeJokeEffects } from './store/effects/recipe-joke/recipe-joke.effects';
+import { RecipesResultsEffects } from './store/effects/recipes-results/recipes-results.effects';
 
 @NgModule({
 	declarations: [
@@ -56,7 +57,7 @@ import { RecipeJokeEffects } from './store/effects/recipe-joke/recipe-joke.effec
 		BrowserAnimationsModule,
 		AppRoutingModule,
 		StoreModule.forRoot(appReducers),
-		EffectsModule.forRoot([RecipeJokeEffects]),
+		EffectsModule.forRoot([RecipeJokeEffects, RecipesResultsEffects]),
 		StoreDevtoolsModule.instrument({
 			maxAge: 25,
 			logOnly: environment.production,
