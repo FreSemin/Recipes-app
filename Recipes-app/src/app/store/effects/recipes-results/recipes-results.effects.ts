@@ -2,9 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
-import { ERecipesResultsActions, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsLoadError } from '../../action/recipes-results/recipes-results.actions';
-import { catchError, switchMap } from 'rxjs/operators';
+import { ERecipesResultsActions, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsInit, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch, RecipesResultsGetSearchNoResults, RecipesResultsGetSearchSucces, RecipesResultsLoadError } from '../../action/recipes-results/recipes-results.actions';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { IRecipeRandom } from 'src/app/components/recipes/models/recipe-random/recipe-random';
+import { RecipeBook } from 'src/app/components/recipes/models/recipes-book/recipes-book';
+import Recipe, { IRecipe } from 'src/app/components/recipes/models/recipe/recipe';
+import { IRecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
 
 @Injectable()
 export class RecipesResultsEffects {
@@ -13,9 +16,37 @@ export class RecipesResultsEffects {
 	public getRecipesResultsRandomRecipe$: Observable<any> = this._actions$.pipe(
 		ofType<RecipesResultsGetRandom>(ERecipesResultsActions.RecipesResultsGetRandom),
 		switchMap(() => this._recipesService.loadRecipeRandom()),
-		switchMap((recipeJoke: IRecipeRandom) => {
-			return of(new RecipesResultsGetRandomSucces(recipeJoke.recipes));
+		switchMap((randomRecipes: IRecipeRandom) => {
+			return of(new RecipesResultsGetRandomSucces(randomRecipes.recipes.map((element: IRecipe) => element = new Recipe(element))));
 		}),
+		catchError(() => of(new RecipesResultsLoadError()))
+	);
+
+	@Effect()
+	public getRecipesResultsSearchRecipes$: Observable<any> = this._actions$.pipe(
+		ofType<RecipesResultsGetSearch>(ERecipesResultsActions.RecipesResultsGetSearch),
+		tap(() => this._recipesService.clearRecipesResults()),
+		tap(() => this._recipesService.checkSearchOptions()),
+
+		switchMap(() => this._recipesService.loadSearchRecipes()),
+		switchMap((data: RecipeBook) => {
+			if (data.results.length > 0) {
+				return of(new RecipesResultsGetSearchSucces(data.results.map((element: IRecipe) => element = new Recipe(element))));
+				// update images size by new Recipe()
+			} else {
+				return of(new RecipesResultsGetSearchNoResults());
+			}
+		}),
+
+		tap(() => this._recipesService.clearFiltersFields()),
+		catchError(() => of(new RecipesResultsLoadError()))
+	);
+
+	@Effect()
+	public getRecipesResultsRecipeWithDetails$: Observable<any> = this._actions$.pipe(
+		ofType<RecipesResultsGetRecipeWithDetailsSucces>(ERecipesResultsActions.RecipesResultsGetRecipeWithDetailsSucces),
+		tap(() => this._recipesService.clearRecipesResults()),
+		switchMap(() => of(new RecipesResultsGetRecipeWithDetailsInit(this._recipesService.recipeWithDetails))),
 		catchError(() => of(new RecipesResultsLoadError()))
 	);
 

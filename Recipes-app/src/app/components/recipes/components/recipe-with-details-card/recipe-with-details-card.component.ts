@@ -25,6 +25,6 @@ export class RecipeWithDetailsCardComponent implements OnInit, OnDestroy {
 	}
 
 	public ngOnDestroy(): void {
-		this.recipesService.recipeWithDetails = null;
+		this.recipesService.clearRecipesResults();
 	}
 }

@@ -32,8 +32,6 @@ export class Recipe implements IRecipe {
 		}
 
 		this.image = `https://spoonacular.com/recipeImages/${this.id}-636x393.${this.imageType}`;
-		// this.image = recipe.image;
-
 		this.title = recipe.title;
 	}
 }

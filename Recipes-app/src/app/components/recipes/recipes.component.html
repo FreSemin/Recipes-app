@@ -5,7 +5,8 @@
       <mat-spinner></mat-spinner>
     </div>
 
-    <div class="recipes__nothing-found" *ngIf="recipesService.isNothingFound">
+    <div class="recipes__nothing-found"
+      *ngIf="((recipesService.recipesResults$) | async).isNothingFound && !((recipesService.recipesResults$) | async).isLoading">
       <p>
         <span>nothing</span> found
       </p>
@@ -13,6 +14,11 @@
 
     <div class="recipes__random-recipe" *ngIf="((recipesService.recipesResults$) | async).isRandomExist">
       <p><span>Random </span>Recipe, you can't <span>cook it </span>! or can, I'm only a title not a chef.</p>
+    </div>
+
+    <div class="recipes__random-recipe"
+      *ngIf="((recipesService.recipesResults$) | async).loadError && !((recipesService.recipesResults$) | async).isLoading">
+      <p><span>Sorry </span>something goes wrong <span>or API </span>tired for today, try later :)</p>
     </div>
 
   </div>
@@ -64,9 +70,19 @@
       </app-recipes-card>
     </div> -->
 
-    <div class="recipes__cards" *ngIf="recipesService.recipeWithDetails">
+
+
+    <!--  -->
+    <!--  -->
+    <!-- <div class="recipes__cards" *ngIf="recipesService.recipeWithDetails">
       <app-recipe-with-details-card *ngIf="recipesService.recipeWithDetails"
         [recipeWithDetails]="recipesService.recipeWithDetails">
+      </app-recipe-with-details-card>
+    </div> -->
+
+    <div class="recipes__cards" *ngIf="((recipesService.recipesResults$ | async).recipesWithDetails)">
+      <app-recipe-with-details-card *ngIf="((recipesService.recipesResults$ | async).recipesWithDetails)"
+        [recipeWithDetails]="(recipesService.recipesResults$ | async).recipesWithDetails">
       </app-recipe-with-details-card>
     </div>
 
@@ -86,8 +102,8 @@
         [items]="recipesDataService.latestRecipesList" (changePage)="recipesService.onChangePage($event)">
       </app-pagination> -->
 
-      <app-pagination *ngIf="((recipesService.recipesResults$ | async).recipes.length > 0)" [items]="((recipesService.recipesResults$ | async).recipes)"
-        (changePage)="recipesService.onChangePage($event)">
+      <app-pagination *ngIf="((recipesService.recipesResults$ | async).recipes.length > 0)"
+        [items]="((recipesService.recipesResults$ | async).recipes)" (changePage)="recipesService.onChangePage($event)">
       </app-pagination>
     </div>
   </div>
