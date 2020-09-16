@@ -1,4 +1,4 @@
-import { CustomRecipesResultsAction, ERecipesResultsActions } from '../../action/recipes-results/recipes-results.actions';
+import { CustomRecipesResultsAction, ERecipesResultsActions } from '../../actions/recipes-results/recipes-results.actions';
 import { initialRecipesResultsState, IRecipesResults } from '../../states/recipes-results/recipes-results.state';
 
 export function recipesResultsReducers(

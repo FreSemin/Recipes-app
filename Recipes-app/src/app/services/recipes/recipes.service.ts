@@ -11,11 +11,11 @@ import Cuisine from 'src/app/models/cuisines/cuisines';
 import { IRecipeRandom } from 'src/app/components/recipes/models/recipe-random/recipe-random';
 import { ISidebar } from 'src/app/store/states/side-bar/side-bar.state';
 import { Store, select } from '@ngrx/store';
-import { SidebarToggle } from 'src/app/store/action/side-bar/side-bar.action';
+import { SidebarToggle } from 'src/app/store/actions/side-bar/side-bar.action';
 import { IAppState } from 'src/app/store/states/app-state/app.state';
-import { RecipeJokeGet } from 'src/app/store/action/recipe-joke/recipe-joke.actions';
+import { RecipeJokeGet } from 'src/app/store/actions/recipe-joke/recipe-joke.actions';
 import { selectRecipeJoke } from 'src/app/store/selectors/recipe-joke/recipe-joke.selectors';
-import { RecipesResultsClear, RecipesResultsGetFavorite, RecipesResultsGetLatest, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch } from 'src/app/store/action/recipes-results/recipes-results.actions';
+import { RecipesResultsClear, RecipesResultsGetFavorite, RecipesResultsGetLatest, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch } from 'src/app/store/actions/recipes-results/recipes-results.actions';
 import { IRecipesResults } from 'src/app/store/states/recipes-results/recipes-results.state';
 import { selectRecipesResults } from 'src/app/store/selectors/recipes-results/recipes-results.selectors';
 

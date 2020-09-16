@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
-import { ERecipeJokeActions, RecipeJokeGet, RecipeJokeGetSucces, RecipeJokeLoadError } from '../../action/recipe-joke/recipe-joke.actions';
+import { ERecipeJokeActions, RecipeJokeGet, RecipeJokeGetSucces, RecipeJokeLoadError } from '../../actions/recipe-joke/recipe-joke.actions';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';

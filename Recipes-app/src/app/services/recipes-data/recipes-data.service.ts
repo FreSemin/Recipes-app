@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import DietsSelect from 'src/app/models/diets-select/diets-select';
 import SortingsSelect from 'src/app/models/sortings-select/sortings-select';
 import { Observable, of } from 'rxjs';
-import { RecipesResultsClear, RecipesResultsGetFavorite } from 'src/app/store/action/recipes-results/recipes-results.actions';
+import { RecipesResultsClear, RecipesResultsGetFavorite } from 'src/app/store/actions/recipes-results/recipes-results.actions';
 import { Store } from '@ngrx/store';
 import { IAppState } from 'src/app/store/states/app-state/app.state';
 
