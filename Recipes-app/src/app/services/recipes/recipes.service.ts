@@ -2,13 +2,13 @@ import { Injectable, OnInit } from '@angular/core';
 import { Recipe } from '../../components/recipes/models/recipe/recipe';
 import { HttpClient } from '@angular/common/http';
 import { RecipeBook } from 'src/app/components/recipes/models/recipes-book/recipes-book';
-import { RecipeJoke, IRecipeJoke } from 'src/app/components/recipes/models/recipe-joke/recipe-joke';
+import { IRecipeJoke } from 'src/app/components/recipes/models/recipe-joke/recipe-joke';
 import { RecipesDataService } from '../recipes-data/recipes-data.service';
 import { Router } from '@angular/router';
 import { RecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
 import { Observable, combineLatest } from 'rxjs';
 import Cuisine from 'src/app/models/cuisines/cuisines';
-import RecipesRandom, { IRecipeRandom } from 'src/app/components/recipes/models/recipe-random/recipe-random';
+import { IRecipeRandom } from 'src/app/components/recipes/models/recipe-random/recipe-random';
 import { ISidebar } from 'src/app/store/states/side-bar/side-bar.state';
 import { Store, select } from '@ngrx/store';
 import { SidebarToggle } from 'src/app/store/action/side-bar/side-bar.action';
@@ -261,7 +261,7 @@ export class RecipesService implements OnInit {
 			this.recipesDataService.initFavouriteRecipeList();
 		}
 	}
-	
+
 	public loadFavorites(): void {
 		this._store.dispatch(new RecipesResultsGetFavorite());
 	}

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { IRecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
-import Recipe, { IRecipe } from 'src/app/components/recipes/models/recipe/recipe';
+import { IRecipe } from 'src/app/components/recipes/models/recipe/recipe';
 
 export enum ERecipesResultsActions {
 	RecipesResultsGetRandom = '[Recipes Results] Get Random',

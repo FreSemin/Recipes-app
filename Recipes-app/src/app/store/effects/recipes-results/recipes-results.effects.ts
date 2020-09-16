@@ -3,11 +3,10 @@ import { Observable, of } from 'rxjs';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
 import { ERecipesResultsActions, RecipesResultsGetFavorite, RecipesResultsGetFavoriteSucces, RecipesResultsGetLatest, RecipesResultsGetLatestSucces, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsInit, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch, RecipesResultsGetSearchNoResults, RecipesResultsGetSearchSucces, RecipesResultsLoadError } from '../../action/recipes-results/recipes-results.actions';
-import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { catchError, switchMap, tap } from 'rxjs/operators';
 import { IRecipeRandom } from 'src/app/components/recipes/models/recipe-random/recipe-random';
 import { RecipeBook } from 'src/app/components/recipes/models/recipes-book/recipes-book';
 import Recipe, { IRecipe } from 'src/app/components/recipes/models/recipe/recipe';
-import { IRecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
 import { RecipesDataService } from 'src/app/services/recipes-data/recipes-data.service';
 
 @Injectable()
@@ -32,7 +31,6 @@ export class RecipesResultsEffects {
 		switchMap(() => this._recipesService.loadSearchRecipes()),
 		switchMap((data: RecipeBook) => {
 			if (data.results.length > 0) {
-				console.log(data.results);
 				return of(new RecipesResultsGetSearchSucces(data.results.map((element: Recipe) => element = new Recipe(element))));
 				// update images size by new Recipe()
 			} else {

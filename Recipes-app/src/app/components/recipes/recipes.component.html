@@ -23,26 +23,6 @@
 
   </div>
 
-  <!-- <div class="recipes__cards">
-    <div class="recipes__cards-box" *ngIf="recipesService.recipeResults.length > 0">
-      <app-recipes-card *ngFor="let recipeEl of recipesService.pageOfItems;" [recipe]="recipeEl"
-        (onAddRecipeToFavourite)="recipesDataService.addToFavorite($event)"
-        (onDeleteRecipeFromFavourite)="recipesDataService.deleteFromFavourite($event)"
-        (onCheckDetails)="recipesService.initRecipeDetails($event)"
-        [isFavorite]="recipesService.checkForFavourite(recipeEl) ? true : false">
-      </app-recipes-card>
-    </div> -->
-
-  <!-- <div class="recipes__cards">
-      <div class="recipes__cards-box" *ngIf="recipesService.elementsRes.length > 0">
-        <app-recipes-card *ngFor="let recipeEl of recipesService.pageOfItems;" [recipe]="recipeEl"
-          (onAddRecipeToFavourite)="recipesDataService.addToFavorite($event)"
-          (onDeleteRecipeFromFavourite)="recipesDataService.deleteFromFavourite($event)"
-          (onCheckDetails)="recipesService.initRecipeDetails($event)"
-          [isFavorite]="recipesService.checkForFavourite(recipeEl) ? true : false">
-        </app-recipes-card>
-      </div> -->
-
   <div class="recipes__cards">
     <div class="recipes__cards-box" *ngIf="((recipesService.recipesResults$ | async).recipes.length > 0)">
       <app-recipes-card *ngFor="let recipeEl of recipesService.pageOfItems;" [recipe]="recipeEl"
@@ -52,33 +32,6 @@
         [isFavorite]="recipesService.checkForFavourite(recipeEl) ? true : false">
       </app-recipes-card>
     </div>
-
-    <!-- <div class="recipes__cards-box" *ngIf="recipesDataService.favouriteRecipesList.length > 0">
-      <app-recipes-card *ngFor="let recipeLSEl of recipesService.pageOfItems;" [recipe]="recipeLSEl"
-        (onDeleteRecipeFromFavourite)="recipesDataService.deleteFromFavourite($event)"
-        (onCheckDetails)="recipesService.initRecipeDetails($event)"
-        [isFavorite]="recipesService.checkForFavourite(recipeLSEl) ? true : false">
-      </app-recipes-card>
-    </div> -->
-
-    <!-- <div class="recipes__cards-box" *ngIf="recipesDataService.latestRecipesList.length > 0">
-      <app-recipes-card *ngFor="let recipeLSEl of recipesService.pageOfItems;" [recipe]="recipeLSEl"
-        (onAddRecipeToFavourite)="recipesDataService.addToFavorite($event)"
-        (onDeleteRecipeFromFavourite)="recipesDataService.deleteFromFavourite($event)"
-        (onCheckDetails)="recipesService.initRecipeDetails($event)"
-        [isFavorite]="recipesService.checkForFavourite(recipeLSEl) ? true : false">
-      </app-recipes-card>
-    </div> -->
-
-
-
-    <!--  -->
-    <!--  -->
-    <!-- <div class="recipes__cards" *ngIf="recipesService.recipeWithDetails">
-      <app-recipe-with-details-card *ngIf="recipesService.recipeWithDetails"
-        [recipeWithDetails]="recipesService.recipeWithDetails">
-      </app-recipe-with-details-card>
-    </div> -->
 
     <div class="recipes__cards" *ngIf="((recipesService.recipesResults$ | async).recipesWithDetails)">
       <app-recipe-with-details-card *ngIf="((recipesService.recipesResults$ | async).recipesWithDetails)"
@@ -90,18 +43,6 @@
 
   <div class="recipes__container">
     <div class="recipes__paginator">
-      <!-- <app-pagination *ngIf="recipesService.recipeResults.length > 0" [items]="recipesService.recipeResults"
-        (changePage)="recipesService.onChangePage($event)">
-      </app-pagination>
-
-      <app-pagination *ngIf="!recipesService.isNothingFoundFavourite" [items]="recipesDataService.favouriteRecipesList"
-        (changePage)="recipesService.onChangePage($event)">
-      </app-pagination>
-
-      <app-pagination *ngIf="recipesDataService.latestRecipesList.length > 0"
-        [items]="recipesDataService.latestRecipesList" (changePage)="recipesService.onChangePage($event)">
-      </app-pagination> -->
-
       <app-pagination *ngIf="((recipesService.recipesResults$ | async).recipes.length > 0)"
         [items]="((recipesService.recipesResults$ | async).recipes)" (changePage)="recipesService.onChangePage($event)">
       </app-pagination>
