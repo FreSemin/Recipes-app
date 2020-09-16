@@ -53,17 +53,24 @@ export function recipesResultsReducers(
 				isLoading: true,
 			};
 
-		// case ERecipesResultsActions.RecipesResultsGetRecipeWithDetailsSucces:
-		// 	return {
-		// 		...state,
-		// 		isLoading: false,
-		// 	};
-
 		case ERecipesResultsActions.RecipesResultsGetRecipeWithDetailsInit:
 			return {
 				...state,
 				isLoading: false,
 				recipesWithDetails: action.payload,
+			};
+
+		case ERecipesResultsActions.RecipesResultsGetFavorite:
+			return {
+				...state,
+				isLoading: true,
+			};
+
+		case ERecipesResultsActions.RecipesResultsGetFavoriteSucces:
+			return {
+				...state,
+				recipes: action.payload,
+				isLoading: false,
 			};
 
 		case ERecipesResultsActions.RecipesResultsClear:

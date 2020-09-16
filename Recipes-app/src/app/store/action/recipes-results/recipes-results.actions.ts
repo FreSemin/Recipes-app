@@ -12,6 +12,8 @@ export enum ERecipesResultsActions {
 	RecipesResultsGetRecipeWithDetails = '[Recipes Results] Get Recipe With Details',
 	RecipesResultsGetRecipeWithDetailsSucces = '[Recipes Results] Get Recipe With Details Succes',
 	RecipesResultsGetRecipeWithDetailsInit = '[Recipes Results] Get Recipe With Details Init',
+	RecipesResultsGetFavorite = '[Recipes Results] Get Favorite',
+	RecipesResultsGetFavoriteSucces = '[Recipes Results] Get Favorite Succes',
 	RecipesResultsClear = '[Recipes Results] Clear',
 	RecipesResultsLoadError = '[Recipes Results] Load Error',
 }
@@ -62,8 +64,6 @@ export class RecipesResultsGetRecipeWithDetails implements CustomRecipesResultsA
 // tslint:disable-next-line: max-classes-per-file
 export class RecipesResultsGetRecipeWithDetailsSucces implements CustomRecipesResultsAction {
 	public readonly type: string = ERecipesResultsActions.RecipesResultsGetRecipeWithDetailsSucces;
-
-	// constructor(public payload: IRecipeWithDetails) { }
 }
 
 // tslint:disable-next-line: max-classes-per-file
@@ -71,6 +71,18 @@ export class RecipesResultsGetRecipeWithDetailsInit implements CustomRecipesResu
 	public readonly type: string = ERecipesResultsActions.RecipesResultsGetRecipeWithDetailsInit;
 
 	constructor(public payload: IRecipeWithDetails) { }
+}
+
+// tslint:disable-next-line: max-classes-per-file
+export class RecipesResultsGetFavorite implements CustomRecipesResultsAction {
+	public readonly type: string = ERecipesResultsActions.RecipesResultsGetFavorite;
+}
+
+// tslint:disable-next-line: max-classes-per-file
+export class RecipesResultsGetFavoriteSucces implements CustomRecipesResultsAction {
+	public readonly type: string = ERecipesResultsActions.RecipesResultsGetFavoriteSucces;
+
+	constructor(public payload: IRecipe[]) { }
 }
 
 // tslint:disable-next-line: max-classes-per-file

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
-import { ERecipesResultsActions, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsInit, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch, RecipesResultsGetSearchNoResults, RecipesResultsGetSearchSucces, RecipesResultsLoadError } from '../../action/recipes-results/recipes-results.actions';
-import { catchError, switchMap, tap } from 'rxjs/operators';
+import { ERecipesResultsActions, RecipesResultsGetFavorite, RecipesResultsGetFavoriteSucces, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsInit, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch, RecipesResultsGetSearchNoResults, RecipesResultsGetSearchSucces, RecipesResultsLoadError } from '../../action/recipes-results/recipes-results.actions';
+import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { IRecipeRandom } from 'src/app/components/recipes/models/recipe-random/recipe-random';
 import { RecipeBook } from 'src/app/components/recipes/models/recipes-book/recipes-book';
 import Recipe, { IRecipe } from 'src/app/components/recipes/models/recipe/recipe';
 import { IRecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
+import { RecipesDataService } from 'src/app/services/recipes-data/recipes-data.service';
 
 @Injectable()
 export class RecipesResultsEffects {
@@ -50,8 +51,20 @@ export class RecipesResultsEffects {
 		catchError(() => of(new RecipesResultsLoadError()))
 	);
 
+	@Effect()
+	public getRecipesResultsFavorite$: Observable<any> = this._actions$.pipe(
+		ofType<RecipesResultsGetFavorite>(ERecipesResultsActions.RecipesResultsGetFavorite),
+		tap(() => this._recipesService.clearRecipesResults()),
+		switchMap(() => this._recipesDataService.initFavouriteRecipeList()),
+		switchMap((favoriteRecipes: IRecipe[]) => {
+			return of(new RecipesResultsGetFavoriteSucces(favoriteRecipes));
+		}),
+		catchError(() => of(new RecipesResultsLoadError()))
+	);
+
 	constructor(
 		private _actions$: Actions,
 		private _recipesService: RecipesService,
+		private _recipesDataService: RecipesDataService,
 	) { }
 }

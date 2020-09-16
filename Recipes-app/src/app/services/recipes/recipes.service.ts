@@ -15,7 +15,7 @@ import { SidebarToggle } from 'src/app/store/action/side-bar/side-bar.action';
 import { IAppState } from 'src/app/store/states/app-state/app.state';
 import { RecipeJokeGet } from 'src/app/store/action/recipe-joke/recipe-joke.actions';
 import { selectRecipeJoke } from 'src/app/store/selectors/recipe-joke/recipe-joke.selectors';
-import { RecipesResultsClear, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch } from 'src/app/store/action/recipes-results/recipes-results.actions';
+import { RecipesResultsClear, RecipesResultsGetFavorite, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch } from 'src/app/store/action/recipes-results/recipes-results.actions';
 import { IRecipesResults } from 'src/app/store/states/recipes-results/recipes-results.state';
 import { selectRecipesResults } from 'src/app/store/selectors/recipes-results/recipes-results.selectors';
 
@@ -260,6 +260,10 @@ export class RecipesService implements OnInit {
 		if (this._router.url.includes('favourite')) {
 			this.recipesDataService.initFavouriteRecipeList();
 		}
+	}
+	
+	public loadFavorites(): void {
+		this._store.dispatch(new RecipesResultsGetFavorite());
 	}
 
 	public checkForFavourite(recipe: Recipe): boolean {

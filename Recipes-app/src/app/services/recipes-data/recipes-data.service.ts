@@ -1,11 +1,15 @@
 import { Injectable, OnInit, OnDestroy } from '@angular/core';
-import { Recipe } from '../../components/recipes/models/recipe/recipe';
+import { IRecipe, Recipe } from '../../components/recipes/models/recipe/recipe';
 import { HttpClient } from '@angular/common/http';
 import CuisinesSelect from 'src/app/models/cuisines-select/cuisines-select';
 import Cuisine from 'src/app/models/cuisines/cuisines';
 import { Router } from '@angular/router';
 import DietsSelect from 'src/app/models/diets-select/diets-select';
 import SortingsSelect from 'src/app/models/sortings-select/sortings-select';
+import { Observable, of } from 'rxjs';
+import { RecipesResultsClear, RecipesResultsGetFavorite } from 'src/app/store/action/recipes-results/recipes-results.actions';
+import { Store } from '@ngrx/store';
+import { IAppState } from 'src/app/store/states/app-state/app.state';
 
 @Injectable()
 export class RecipesDataService implements OnInit, OnDestroy {
@@ -36,7 +40,7 @@ export class RecipesDataService implements OnInit, OnDestroy {
 
 	public tempCuisine: Cuisine = null;
 
-	constructor(private _http: HttpClient, private _router: Router) { }
+	constructor(private _http: HttpClient, private _router: Router, private _store: Store<IAppState>) { }
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void {
@@ -89,6 +93,7 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		// update view recipes
 		if (this._router.url.includes('favourite')) {
 			this.initFavouriteRecipeList();
+			this._store.dispatch(new RecipesResultsGetFavorite());
 		}
 	}
 
@@ -120,9 +125,11 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		localStorage.setItem(RecipesDataService._recipeLatestListKey, recipesToSaveLatest);
 	}
 
-	public initFavouriteRecipeList(): void {
+	public initFavouriteRecipeList(): Observable<any> {
 		this.loadLSFavouriteRecipes();
 		this.favouriteRecipesList = this.favouriteRecipesListLS;
+
+		return of(this.favouriteRecipesList);
 	}
 
 	public initLatestRecipeList(): void {
@@ -135,6 +142,7 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		this.favouriteRecipesListLS = [];
 		this.saveLSFavouriteRecipes();
 		this.initFavouriteRecipeList();
+		this._store.dispatch(new RecipesResultsClear());
 	}
 
 	public clearLatestList(): void {

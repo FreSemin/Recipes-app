@@ -10,6 +10,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 	constructor(private _recipesService: RecipesService) { }
 
 	public ngOnInit(): void {
+		this._recipesService.clearRecipesResults();
 		this._recipesService.initRecipesRandom();
 	}
 
