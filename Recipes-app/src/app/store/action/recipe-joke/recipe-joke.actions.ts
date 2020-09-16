@@ -2,7 +2,8 @@ import { Action } from '@ngrx/store';
 
 export enum ERecipeJokeActions {
 	RecipeJokeGet = '[Recipe Joke] Get Joke',
-	RecipeJokeGetSucces = '[Recipe Joke] Get Succes Joke',
+	RecipeJokeGetSucces = '[Recipe Joke] Get Joke Succes',
+	RecipeJokeLoadError = '[Recipe Joke] Load Error'
 }
 
 export interface CustomActions extends Action {
@@ -19,4 +20,9 @@ export class RecipeJokeGetSucces implements CustomActions {
 	public readonly type: string = ERecipeJokeActions.RecipeJokeGetSucces;
 
 	constructor(public payload: string) { }
+}
+
+// tslint:disable-next-line: max-classes-per-file
+export class RecipeJokeLoadError implements CustomActions {
+	public readonly type: string = ERecipeJokeActions.RecipeJokeLoadError;
 }

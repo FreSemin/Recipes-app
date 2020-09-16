@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Effect, ofType, Actions } from '@ngrx/effects';
-import { ERecipeJokeActions, RecipeJokeGet, RecipeJokeGetSucces } from '../../action/recipe-joke/recipe-joke.actions';
+import { ERecipeJokeActions, RecipeJokeGet, RecipeJokeGetSucces, RecipeJokeLoadError } from '../../action/recipe-joke/recipe-joke.actions';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
 import { Observable, of } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
@@ -16,7 +16,7 @@ export class RecipeJokeEffects {
 		switchMap((recipeJoke: IRecipeJoke) => {
 			return of(new RecipeJokeGetSucces(recipeJoke.text));
 		}),
-		catchError(() => of({ type: '[Recipe Joke] Recipe Joke Loaded Error' }))
+		catchError(() => of(new RecipeJokeLoadError()))
 	);
 
 	constructor(
