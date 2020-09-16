@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Effect, ofType, Actions } from '@ngrx/effects';
 import { RecipesService } from 'src/app/services/recipes/recipes.service';
-import { ERecipesResultsActions, RecipesResultsGetFavorite, RecipesResultsGetFavoriteSucces, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsInit, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch, RecipesResultsGetSearchNoResults, RecipesResultsGetSearchSucces, RecipesResultsLoadError } from '../../action/recipes-results/recipes-results.actions';
+import { ERecipesResultsActions, RecipesResultsGetFavorite, RecipesResultsGetFavoriteSucces, RecipesResultsGetLatest, RecipesResultsGetLatestSucces, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsInit, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch, RecipesResultsGetSearchNoResults, RecipesResultsGetSearchSucces, RecipesResultsLoadError } from '../../action/recipes-results/recipes-results.actions';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { IRecipeRandom } from 'src/app/components/recipes/models/recipe-random/recipe-random';
 import { RecipeBook } from 'src/app/components/recipes/models/recipes-book/recipes-book';
@@ -32,7 +32,8 @@ export class RecipesResultsEffects {
 		switchMap(() => this._recipesService.loadSearchRecipes()),
 		switchMap((data: RecipeBook) => {
 			if (data.results.length > 0) {
-				return of(new RecipesResultsGetSearchSucces(data.results.map((element: IRecipe) => element = new Recipe(element))));
+				console.log(data.results);
+				return of(new RecipesResultsGetSearchSucces(data.results.map((element: Recipe) => element = new Recipe(element))));
 				// update images size by new Recipe()
 			} else {
 				return of(new RecipesResultsGetSearchNoResults());
@@ -58,6 +59,17 @@ export class RecipesResultsEffects {
 		switchMap(() => this._recipesDataService.initFavouriteRecipeList()),
 		switchMap((favoriteRecipes: IRecipe[]) => {
 			return of(new RecipesResultsGetFavoriteSucces(favoriteRecipes));
+		}),
+		catchError(() => of(new RecipesResultsLoadError()))
+	);
+
+	@Effect()
+	public getRecipesResultLatest$: Observable<any> = this._actions$.pipe(
+		ofType<RecipesResultsGetLatest>(ERecipesResultsActions.RecipesResultsGetLatest),
+		tap(() => this._recipesService.clearRecipesResults()),
+		switchMap(() => this._recipesDataService.initLatestRecipeList()),
+		switchMap((latestRecipes: IRecipe[]) => {
+			return of(new RecipesResultsGetLatestSucces(latestRecipes));
 		}),
 		catchError(() => of(new RecipesResultsLoadError()))
 	);

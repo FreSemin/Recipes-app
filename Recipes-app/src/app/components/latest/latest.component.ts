@@ -13,11 +13,10 @@ export class LatestComponent implements OnInit, OnDestroy {
 
 	public ngOnInit(): void {
 		this.recipeDataService.initLatestRecipeList();
-		// this.recipesService.elementsRes = this.recipeDataService.latestRecipesList;
+		this.recipesService.loadLatest();
 	}
 
 	public ngOnDestroy(): void {
-		// this.recipesService.elementsRes = [];
 		this.recipeDataService.destroyLatestRecipeList();
 	}
 

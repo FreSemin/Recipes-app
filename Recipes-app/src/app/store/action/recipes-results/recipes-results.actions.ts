@@ -14,6 +14,8 @@ export enum ERecipesResultsActions {
 	RecipesResultsGetRecipeWithDetailsInit = '[Recipes Results] Get Recipe With Details Init',
 	RecipesResultsGetFavorite = '[Recipes Results] Get Favorite',
 	RecipesResultsGetFavoriteSucces = '[Recipes Results] Get Favorite Succes',
+	RecipesResultsGetLatest = '[Recipes Results] Get Latest',
+	RecipesResultsGetLatestSucces = '[Recipes Results] Get Latest Succes',
 	RecipesResultsClear = '[Recipes Results] Clear',
 	RecipesResultsLoadError = '[Recipes Results] Load Error',
 }
@@ -81,6 +83,18 @@ export class RecipesResultsGetFavorite implements CustomRecipesResultsAction {
 // tslint:disable-next-line: max-classes-per-file
 export class RecipesResultsGetFavoriteSucces implements CustomRecipesResultsAction {
 	public readonly type: string = ERecipesResultsActions.RecipesResultsGetFavoriteSucces;
+
+	constructor(public payload: IRecipe[]) { }
+}
+
+// tslint:disable-next-line: max-classes-per-file
+export class RecipesResultsGetLatest implements CustomRecipesResultsAction {
+	public readonly type: string = ERecipesResultsActions.RecipesResultsGetLatest;
+}
+
+// tslint:disable-next-line: max-classes-per-file
+export class RecipesResultsGetLatestSucces implements CustomRecipesResultsAction {
+	public readonly type: string = ERecipesResultsActions.RecipesResultsGetLatestSucces;
 
 	constructor(public payload: IRecipe[]) { }
 }

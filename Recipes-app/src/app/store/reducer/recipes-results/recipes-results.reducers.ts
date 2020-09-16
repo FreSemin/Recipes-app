@@ -73,6 +73,19 @@ export function recipesResultsReducers(
 				isLoading: false,
 			};
 
+			case ERecipesResultsActions.RecipesResultsGetLatest:
+			return {
+				...state,
+				isLoading: true,
+			};
+
+		case ERecipesResultsActions.RecipesResultsGetLatestSucces:
+			return {
+				...state,
+				recipes: action.payload,
+				isLoading: false,
+			};
+
 		case ERecipesResultsActions.RecipesResultsClear:
 			return {
 				...state,

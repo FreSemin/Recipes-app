@@ -132,9 +132,11 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		return of(this.favouriteRecipesList);
 	}
 
-	public initLatestRecipeList(): void {
+	public initLatestRecipeList(): Observable<any> {
 		this.loadLSLatestRecipes();
 		this.latestRecipesList = this.latestRecipesListLS;
+
+		return of(this.latestRecipesList);
 	}
 
 	public clearFavouriteList(): void {
@@ -150,6 +152,7 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		this.latestRecipesListLS = [];
 		this.saveLSLatestRecipes();
 		this.initLatestRecipeList();
+		this._store.dispatch(new RecipesResultsClear());
 	}
 
 	public destroyFavouriteRecipeList(): void {

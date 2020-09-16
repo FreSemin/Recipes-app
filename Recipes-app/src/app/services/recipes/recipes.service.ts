@@ -15,7 +15,7 @@ import { SidebarToggle } from 'src/app/store/action/side-bar/side-bar.action';
 import { IAppState } from 'src/app/store/states/app-state/app.state';
 import { RecipeJokeGet } from 'src/app/store/action/recipe-joke/recipe-joke.actions';
 import { selectRecipeJoke } from 'src/app/store/selectors/recipe-joke/recipe-joke.selectors';
-import { RecipesResultsClear, RecipesResultsGetFavorite, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch } from 'src/app/store/action/recipes-results/recipes-results.actions';
+import { RecipesResultsClear, RecipesResultsGetFavorite, RecipesResultsGetLatest, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch } from 'src/app/store/action/recipes-results/recipes-results.actions';
 import { IRecipesResults } from 'src/app/store/states/recipes-results/recipes-results.state';
 import { selectRecipesResults } from 'src/app/store/selectors/recipes-results/recipes-results.selectors';
 
@@ -23,7 +23,7 @@ import { selectRecipesResults } from 'src/app/store/selectors/recipes-results/re
 	providedIn: 'root',
 })
 export class RecipesService implements OnInit {
-	private _API_KEY: string = '?apiKey=32f7c85c9be64fdab0ab0375f1bc35d0';
+	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
 
 	public searchString: string = '';
 
@@ -264,6 +264,10 @@ export class RecipesService implements OnInit {
 	
 	public loadFavorites(): void {
 		this._store.dispatch(new RecipesResultsGetFavorite());
+	}
+
+	public loadLatest(): void {
+		this._store.dispatch(new RecipesResultsGetLatest());
 	}
 
 	public checkForFavourite(recipe: Recipe): boolean {
