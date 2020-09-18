@@ -329,7 +329,7 @@ export class RecipesService implements OnInit {
 		this._router.navigate(['/not-found']);
 	}
 
-	public onChangePage(pageOfItems: Recipe[] | any[]): void {
+	public onChangePage(pageOfItems: Recipe[]): void {
 		this.pageOfItems = pageOfItems;  // update current page of items
 		window.scroll(0, 0);
 	}
