@@ -43,7 +43,7 @@
 
   <div class="recipes__container">
     <div class="recipes__paginator">
-      <app-pagination *ngIf="((recipesService.recipesResults$ | async).recipes.length > 0)"
+      <app-pagination *ngIf="((recipesService.recipesResults$ | async).recipes.length > 0) && !this.recipesService.isNothingFoundFavourite"
         [items]="((recipesService.recipesResults$ | async).recipes)" (changePage)="recipesService.onChangePage($event)">
       </app-pagination>
     </div>

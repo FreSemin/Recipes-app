@@ -6,7 +6,7 @@ import { IRecipeJoke } from 'src/app/components/recipes/models/recipe-joke/recip
 import { RecipesDataService } from '../recipes-data/recipes-data.service';
 import { Router } from '@angular/router';
 import { RecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, of } from 'rxjs';
 import Cuisine from 'src/app/models/cuisines/cuisines';
 import { IRecipeRandom } from 'src/app/components/recipes/models/recipe-random/recipe-random';
 import { ISidebar } from 'src/app/store/states/side-bar/side-bar.state';
@@ -288,28 +288,35 @@ export class RecipesService implements OnInit {
 	}
 
 	public sortFavouriteByName(): void {
-		this.pageOfItems = this.recipesDataService.favouriteRecipesList
-			.sort((recipe: Recipe, anotherRecipe: Recipe) => {
-				const recipeTitle: string = this.strToLowerCase(recipe.title);
-				const anotherRecipeTitle: string = this.strToLowerCase(anotherRecipe.title);
-				const result: boolean = this.isRecipesSortedByName
-					? recipeTitle < anotherRecipeTitle
-					: recipeTitle > anotherRecipeTitle;
-				return result ? 1 : -1;
+		this.recipesResults$
+			.subscribe((recipesResultsData: IRecipesResults) => {
+				this.pageOfItems = (recipesResultsData.recipes.slice()
+					.sort((recipe: Recipe, anotherRecipe: Recipe) => {
+						const recipeTitle: string = this.strToLowerCase(recipe.title);
+						const anotherRecipeTitle: string = this.strToLowerCase(anotherRecipe.title);
+						const result: boolean = this.isRecipesSortedByName
+							? recipeTitle < anotherRecipeTitle
+							: recipeTitle > anotherRecipeTitle;
+						return result ? 1 : -1;
+					})
+				);
+				this.isRecipesSortedByName = !this.isRecipesSortedByName;
 			});
-		this.isRecipesSortedByName = !this.isRecipesSortedByName;
 	}
 
 	public searchFavourite(): void {
-		if (!(this.searchFavouriteStr === '')) {
-			this.pageOfItems = this.recipesDataService.favouriteRecipesList.filter((recipe: Recipe) => {
-				return this.strToLowerCase(recipe.title).includes(
-					this.strToLowerCase(this.searchFavouriteStr)
-				);
+		this.recipesResults$
+			.subscribe((recipesResultsData: IRecipesResults) => {
+				if (!(this.searchFavouriteStr === '')) {
+					this.pageOfItems = (recipesResultsData.recipes.filter((recipe: Recipe) => {
+						return this.strToLowerCase(recipe.title).includes(
+							this.strToLowerCase(this.searchFavouriteStr)
+						);
+					}));
+				} else {
+					this.pageOfItems = recipesResultsData.recipes;
+				}
 			});
-		} else {
-			this.pageOfItems = this.recipesDataService.favouriteRecipesList;
-		}
 
 		if (this.pageOfItems.length === 0) {
 			this.isNothingFoundFavourite = true;
