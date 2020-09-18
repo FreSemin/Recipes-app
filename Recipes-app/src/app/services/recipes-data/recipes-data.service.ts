@@ -159,10 +159,6 @@ export class RecipesDataService implements OnInit, OnDestroy {
 		this.favouriteRecipesList = [];
 	}
 
-	public destroyLatestRecipeList(): void {
-		this.latestRecipesList = [];
-	}
-
 	public checkForLatest(recipeId: number): boolean {
 		this.loadLSLatestRecipes();
 		return this.latestRecipesListLS.some(
