@@ -2,13 +2,22 @@ import { Injectable, OnInit } from '@angular/core';
 import { Recipe } from '../../components/recipes/models/recipe/recipe';
 import { HttpClient } from '@angular/common/http';
 import { RecipeBook } from 'src/app/components/recipes/models/recipes-book/recipes-book';
-import { RecipeJoke } from 'src/app/components/recipes/models/recipe-joke/recipe-joke';
+import { IRecipeJoke } from 'src/app/components/recipes/models/recipe-joke/recipe-joke';
 import { RecipesDataService } from '../recipes-data/recipes-data.service';
 import { Router } from '@angular/router';
 import { RecipeWithDetails } from 'src/app/components/recipes/models/recipe-with-details/recipe-with-details';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, of } from 'rxjs';
 import Cuisine from 'src/app/models/cuisines/cuisines';
-import RecipesRandom from 'src/app/components/recipes/models/recipe-random/recipe-random';
+import { IRecipeRandom } from 'src/app/components/recipes/models/recipe-random/recipe-random';
+import { ISidebar } from 'src/app/store/states/side-bar/side-bar.state';
+import { Store, select } from '@ngrx/store';
+import { SidebarToggle } from 'src/app/store/actions/side-bar/side-bar.action';
+import { IAppState } from 'src/app/store/states/app-state/app.state';
+import { RecipeJokeGet } from 'src/app/store/actions/recipe-joke/recipe-joke.actions';
+import { selectRecipeJoke } from 'src/app/store/selectors/recipe-joke/recipe-joke.selectors';
+import { RecipesResultsClear, RecipesResultsGetFavorite, RecipesResultsGetLatest, RecipesResultsGetRandom, RecipesResultsGetRandomSucces, RecipesResultsGetRecipeWithDetails, RecipesResultsGetRecipeWithDetailsSucces, RecipesResultsGetSearch } from 'src/app/store/actions/recipes-results/recipes-results.actions';
+import { IRecipesResults } from 'src/app/store/states/recipes-results/recipes-results.state';
+import { selectRecipesResults } from 'src/app/store/selectors/recipes-results/recipes-results.selectors';
 
 @Injectable({
 	providedIn: 'root',
@@ -17,18 +26,19 @@ export class RecipesService implements OnInit {
 	private _API_KEY: string = '?apiKey=6b81ee8ae3fb4592aa7f4d40e40b091b';
 
 	public searchString: string = '';
-	public jokeStr: string = '';
 
 	public recipeBook: RecipeBook = null;
 	public recipeResults: Recipe[] = [];
+
+	public sidebarState$: Observable<ISidebar>;
+	public recipeJoke$: Observable<IRecipeJoke>;
+	public recipesResults$: Observable<IRecipesResults>;
 
 	public pageOfItems: Recipe[] = [];
 
 	public favouriteRecipes: Recipe[] = [];
 	public recipeWithDetails: RecipeWithDetails = null;
 
-	public isSideBarEnabled: boolean = false;
-	public isRecipesListLoading: boolean = false;
 	public isNothingFound: boolean = false;
 	public thumbLabelSliders: boolean = true;
 
@@ -78,30 +88,40 @@ export class RecipesService implements OnInit {
 	constructor(
 		private _http: HttpClient,
 		public recipesDataService: RecipesDataService,
-		private _router: Router
-	) { }
-
-	public getRandomJoke(): void {
-		this._http
-			.get<RecipeJoke>(
-				`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
-			)
-			.subscribe((joke: RecipeJoke) => {
-				this.jokeStr = joke.text;
-			});
+		private _router: Router,
+		private _store: Store<IAppState>
+	) {
+		this.sidebarState$ = _store.select((state: IAppState) => state.sidebar);
+		this.recipesResults$ = this._store.pipe(select(selectRecipesResults));
+		this.recipeJoke$ = this._store.pipe(select(selectRecipeJoke));
 	}
 
-	public getRandomRecipe(): void {
-		this.isRecipesListLoading = true;
-		this._http
-			.get<RecipesRandom>(
-				`https://api.spoonacular.com/recipes/random${this._API_KEY}&number=1`
-			)
-			.subscribe((randomRecipes: RecipesRandom) => {
-				this.recipeResults.push(new Recipe(randomRecipes.recipes[0]));  // only 1 element will get from the request
-				this.isRadomResipeExists = true;
-				this.isRecipesListLoading = false;
-			});
+	public initRecipesRandom(): void {
+		this._store.dispatch(new RecipesResultsGetRandom());
+	}
+
+	public loadRecipeRandom(): Observable<IRecipeRandom> {
+		return this._http.get<IRecipeRandom>(
+			`https://api.spoonacular.com/recipes/random${this._API_KEY}`
+		);
+	}
+
+	public initRecipeJoke(): void {
+		this._store.dispatch(new RecipeJokeGet());
+	}
+
+	public loadRecipeJoke(): Observable<IRecipeJoke> {
+		return this._http.get<IRecipeJoke>(
+			`https://api.spoonacular.com/food/jokes/random${this._API_KEY}`
+		);
+	}
+
+	public clearRecipesResults(): void {
+		this._store.dispatch(new RecipesResultsClear());
+	}
+
+	public sidebarToggle(): void {
+		this._store.dispatch(new SidebarToggle());
 	}
 
 	public checkSearchOptions(): void {
@@ -162,59 +182,35 @@ export class RecipesService implements OnInit {
 		this.proteinMaxValue = this.proteinMaxStartedValue;
 		this.fatMinValue = this.fatMinStartedValue;
 		this.fatMaxValue = this.fatMaxStartedValue;
+		this.searchString = '';
 	}
 
-	public showList(): void {
-		this.recipesDataService.loadLSFavouriteRecipes();
-		this.recipeResults = [];
-		this.recipeBook.results.forEach((element: Recipe) => {
-			this.recipeResults.push(new Recipe(element));
-		});
+	public initSearchRecipes(): void {
+		this._store.dispatch(new RecipesResultsGetSearch());
 	}
 
-	public searchRecipes(searchString: string): void {
-		this.checkSearchOptions();
-
-		this.recipeResults = [];
-		this.isRecipesListLoading = true;
-		this.isRadomResipeExists = false;
-		this.isNothingFound = false;
-
-		this._http
+	public loadSearchRecipes(): Observable<RecipeBook> {
+		return this._http
 			.get<RecipeBook>(
 				`https://api.spoonacular.com/recipes/complexSearch${this._API_KEY}
-				&query=${searchString}
-				&instructionsRequired=true
-				${this.resultCuisinesInclude}
-				${this.resultCuisinesExclude}
-				&minCalories=${this.caloriesMinValue}
-				&maxCalories=${this.caloriesMaxValue}
-				&minCarbs=${this.carbsMinValue}
-				&maxCarbs=${this.carbsMaxValue}
-				&minProtein=${this.proteinMinValue}
-				&maxProtein=${this.proteinMaxValue}
-				&minFat=${this.fatMinValue}
-				&maxFat=${this.fatMaxValue}
-				&maxReadyTime=${this.readyTime}
-				${this.selectedDiet}
-				${this.selectedSorting}
-				${this.selectedSortingDirection}
-				&number=100`
-			)
-			.subscribe((data: RecipeBook) => {
-				if (!(data.totalResults === 0)) {
-					this.searchString = '';
-					this.recipeBook = new RecipeBook(data);
-					this.isRecipesListLoading = false;
-					this.isNothingFound = false;
-					this.showList();
-				} else {
-					this.isRecipesListLoading = false;
-					this.isNothingFound = true;
-				}
-			});
-
-		this.clearFiltersFields();
+			&query=${this.searchString}
+			&instructionsRequired=true
+			${this.resultCuisinesInclude}
+			${this.resultCuisinesExclude}
+			&minCalories=${this.caloriesMinValue}
+			&maxCalories=${this.caloriesMaxValue}
+			&minCarbs=${this.carbsMinValue}
+			&maxCarbs=${this.carbsMaxValue}
+			&minProtein=${this.proteinMinValue}
+			&maxProtein=${this.proteinMaxValue}
+			&minFat=${this.fatMinValue}
+			&maxFat=${this.fatMaxValue}
+			&maxReadyTime=${this.readyTime}
+			${this.selectedDiet}
+			${this.selectedSorting}
+			${this.selectedSortingDirection}
+			&number=100`
+			);
 	}
 
 	public checkRecipeDetails(recipeId: number): Observable<RecipeWithDetails> {
@@ -225,6 +221,8 @@ export class RecipesService implements OnInit {
 	}
 
 	public initRecipeDetails(recipe: Recipe, recipeIdFromUrl?: number): void {
+		this._store.dispatch(new RecipesResultsGetRecipeWithDetails());
+
 		let recipeId: number;
 
 		if (recipe === null) {
@@ -236,13 +234,12 @@ export class RecipesService implements OnInit {
 
 		this._router
 			.navigate(['/recipe-details', recipeId]);
-		this.isRecipesListLoading = true;
 		combineLatest([
 			this.checkRecipeDetails(recipeId),
 		])
 			.subscribe(([recipeWithDetails]: [RecipeWithDetails]) => {
 				this.recipeWithDetails = new RecipeWithDetails(recipeWithDetails);
-				this.isRecipesListLoading = false;
+				this._store.dispatch(new RecipesResultsGetRecipeWithDetailsSucces());
 			});
 	}
 
@@ -265,6 +262,14 @@ export class RecipesService implements OnInit {
 		}
 	}
 
+	public loadFavorites(): void {
+		this._store.dispatch(new RecipesResultsGetFavorite());
+	}
+
+	public loadLatest(): void {
+		this._store.dispatch(new RecipesResultsGetLatest());
+	}
+
 	public checkForFavourite(recipe: Recipe): boolean {
 		this.recipesDataService.loadLSFavouriteRecipes();
 		return this.recipesDataService.favouriteRecipesListLS.some(
@@ -283,28 +288,35 @@ export class RecipesService implements OnInit {
 	}
 
 	public sortFavouriteByName(): void {
-		this.pageOfItems = this.recipesDataService.favouriteRecipesList
-			.sort((recipe: Recipe, anotherRecipe: Recipe) => {
-				const recipeTitle: string = this.strToLowerCase(recipe.title);
-				const anotherRecipeTitle: string = this.strToLowerCase(anotherRecipe.title);
-				const result: boolean = this.isRecipesSortedByName
-					? recipeTitle < anotherRecipeTitle
-					: recipeTitle > anotherRecipeTitle;
-				return result ? 1 : -1;
+		this.recipesResults$
+			.subscribe((recipesResultsData: IRecipesResults) => {
+				this.pageOfItems = (recipesResultsData.recipes.slice()
+					.sort((recipe: Recipe, anotherRecipe: Recipe) => {
+						const recipeTitle: string = this.strToLowerCase(recipe.title);
+						const anotherRecipeTitle: string = this.strToLowerCase(anotherRecipe.title);
+						const result: boolean = this.isRecipesSortedByName
+							? recipeTitle < anotherRecipeTitle
+							: recipeTitle > anotherRecipeTitle;
+						return result ? 1 : -1;
+					})
+				);
+				this.isRecipesSortedByName = !this.isRecipesSortedByName;
 			});
-		this.isRecipesSortedByName = !this.isRecipesSortedByName;
 	}
 
 	public searchFavourite(): void {
-		if (!(this.searchFavouriteStr === '')) {
-			this.pageOfItems = this.recipesDataService.favouriteRecipesList.filter((recipe: Recipe) => {
-				return this.strToLowerCase(recipe.title).includes(
-					this.strToLowerCase(this.searchFavouriteStr)
-				);
+		this.recipesResults$
+			.subscribe((recipesResultsData: IRecipesResults) => {
+				if (!(this.searchFavouriteStr === '')) {
+					this.pageOfItems = (recipesResultsData.recipes.filter((recipe: Recipe) => {
+						return this.strToLowerCase(recipe.title).includes(
+							this.strToLowerCase(this.searchFavouriteStr)
+						);
+					}));
+				} else {
+					this.pageOfItems = recipesResultsData.recipes;
+				}
 			});
-		} else {
-			this.pageOfItems = this.recipesDataService.favouriteRecipesList;
-		}
 
 		if (this.pageOfItems.length === 0) {
 			this.isNothingFoundFavourite = true;
@@ -320,10 +332,6 @@ export class RecipesService implements OnInit {
 	public onChangePage(pageOfItems: Recipe[]): void {
 		this.pageOfItems = pageOfItems;  // update current page of items
 		window.scroll(0, 0);
-	}
-
-	public sideBarToggel(): void {
-		this.isSideBarEnabled = !this.isSideBarEnabled;
 	}
 
 	// tslint:disable-next-line: no-empty

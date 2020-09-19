@@ -8,19 +8,19 @@
         <div class="favourite__search">
           <mat-form-field>
             <mat-label>Search</mat-label>
-            <input matInput [disabled]="recipeDataService.favouriteRecipesList.length === 0"
+            <input matInput [disabled]="((recipesService.recipesResults$) | async).recipes.length === 0"
               [(ngModel)]="recipesService.searchFavouriteStr" (ngModelChange)="recipesService.searchFavourite()">
           </mat-form-field>
         </div>
         <div class="favourite__sort">
-          <button mat-mini-fab class="favourite__btn" [disabled]="!(recipeDataService.favouriteRecipesList.length > 1)"
+          <button mat-mini-fab class="favourite__btn" [disabled]="!(((recipesService.recipesResults$) | async).recipes.length > 1)"
             (click)="recipesService.sortFavouriteByName()">
             <i class="fas fa-sort-alpha-down" *ngIf="!recipesService.isRecipesSortedByName"></i>
             <i class="fas fa-sort-alpha-down-alt" *ngIf="recipesService.isRecipesSortedByName"></i>
           </button>
         </div>
         <div class="favourite__clear">
-          <button mat-mini-fab class="favourite__btn" [disabled]="recipeDataService.favouriteRecipesList.length === 0"
+          <button mat-mini-fab class="favourite__btn" [disabled]="((recipesService.recipesResults$) | async).recipes.length === 0"
             (click)="recipeDataService.clearFavouriteList()">
             <i class="fas fa-trash"></i>
           </button>
@@ -30,8 +30,8 @@
     </div>
 
     <div class="favourite__message"
-      *ngIf="recipeDataService.favouriteRecipesList.length === 0 || recipesService.isNothingFoundFavourite">
-      <p *ngIf="recipeDataService.favouriteRecipesList.length === 0">
+      *ngIf="((recipesService.recipesResults$) | async).recipes.length === 0 || recipesService.isNothingFoundFavourite">
+      <p *ngIf="((recipesService.recipesResults$) | async).recipes.length === 0">
         favourite is
         <span>
           empty

@@ -13,9 +13,9 @@
         <h2>{{ recipe.title }}</h2>
       </div>
 
-      <div class="recipe-card__inf">
-        <div class="recipe-card__inf-element" *ngFor="let nutritionEl of recipe.nutrition">
-          <p class="recipe-card__inf-title">{{nutritionEl.title}}</p>
+      <div class="recipe-card__inf" *ngIf="recipe.nutrition">
+        <div class="recipe-card__inf-element" *ngFor="let nutritionEl of recipe.nutrition.nutrients">
+          <p class="recipe-card__inf-title">{{nutritionEl.title }}</p>
           <p class="recipe-card__inf-amount">{{ nutritionEl.amount | number : '3.1-3' }}</p>
           <p class="recipe-card__inf-unit">{{ nutritionEl.unit }}</p>
         </div>

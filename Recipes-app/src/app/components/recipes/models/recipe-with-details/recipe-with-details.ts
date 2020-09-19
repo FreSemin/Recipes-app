@@ -21,7 +21,7 @@ interface AnalyzedInstruction {
 	steps: Step[];
 }
 
-interface IRecipeWithDetails {
+export interface IRecipeWithDetails {
 	id: number;
 	image: string;
 	imageType: string;

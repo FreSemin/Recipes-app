@@ -8,10 +8,11 @@ import { RecipesService } from 'src/app/services/recipes/recipes.service';
 })
 export class SideBarComponent implements OnInit {
 
-	constructor(public recipesService: RecipesService) { }
+	constructor(
+		public recipesService: RecipesService
+	) { }
 
 	// tslint:disable-next-line: no-empty
 	public ngOnInit(): void {
 	}
-
 }

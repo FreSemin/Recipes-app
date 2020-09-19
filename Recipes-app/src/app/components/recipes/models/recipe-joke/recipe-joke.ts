@@ -1,4 +1,4 @@
-interface IRecipeJoke {
+export interface IRecipeJoke {
 	text: string;
 }
 

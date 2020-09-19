@@ -10,7 +10,7 @@
       </div>
       <div class="search-box__joke">
         <p>
-          {{ recipesService.jokeStr }}
+          {{ (recipesService.recipeJoke$ | async).text }}
         </p>
       </div>
     </div>
@@ -29,7 +29,7 @@
           <mat-label>Enter recipe</mat-label>
           <input matInput id="search" [(ngModel)]="recipesService.searchString">
         </mat-form-field>
-        <button mat-raised-button (click)="recipesService.searchRecipes(recipesService.searchString)">
+        <button mat-raised-button (click)="recipesService.initSearchRecipes()">
           <i class="fas fa-search"></i>
         </button>
       </div>

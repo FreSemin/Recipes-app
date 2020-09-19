@@ -10,12 +10,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 	constructor(private _recipesService: RecipesService) { }
 
 	public ngOnInit(): void {
-		this._recipesService.getRandomJoke();
-		this._recipesService.getRandomRecipe();
+		this._recipesService.clearRecipesResults();
+		this._recipesService.initRecipesRandom();
 	}
 
 	public ngOnDestroy(): void {
-		this._recipesService.recipeResults = [];
-		this._recipesService.isRadomResipeExists = false;
+		this._recipesService.clearRecipesResults();
 	}
 }

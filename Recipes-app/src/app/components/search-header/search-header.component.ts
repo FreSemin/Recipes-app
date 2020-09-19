@@ -12,7 +12,7 @@ export class SearchHeaderComponent implements OnInit {
 	constructor(public recipesService: RecipesService, public recipesDataService: RecipesDataService) { }
 
 	public ngOnInit(): void {
-		this.recipesService.getRandomJoke();
+		this.recipesService.initRecipeJoke();
 		this.recipesDataService.initFilters();
 	}
 
