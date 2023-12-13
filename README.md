@@ -1,5 +1,7 @@
 # Recipes App, Cook It
 
+[App Demo](https://fresemin.github.io/Recipes-app/).
+
 # Pages
 
   - Home
